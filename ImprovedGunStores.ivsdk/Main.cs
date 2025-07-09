@@ -1871,11 +1871,11 @@ namespace ImprovedGunStores
                 DELETE_OBJECT(ref weapInAir);
 
             GET_WEAPONTYPE_MODEL(weapID, out uint wModel);
-            REQUEST_MODEL(Convert.ToInt32(wModel));
-            if (!HAS_MODEL_LOADED(Convert.ToInt32(wModel)))
+            REQUEST_MODEL((int)wModel);
+            if (!HAS_MODEL_LOADED((int)wModel))
                 return;
 
-            weapInAir = CreateObject_DontRequestModel(Convert.ToInt32(wModel), backroomPos.X, backroomPos.Y, backroomPos.Z, backroomHdg);
+            weapInAir = CreateObject_DontRequestModel((int)wModel, backroomPos.X, backroomPos.Y, backroomPos.Z, backroomHdg);
 
             GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS(weapInAir, new Vector3(-0.2f, 1.75f, 0.2f), out Vector3 objOff);
             SET_OBJECT_COORDINATES(weapInAir, objOff);
