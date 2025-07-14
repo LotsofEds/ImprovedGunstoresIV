@@ -74,6 +74,8 @@ namespace ImprovedGunStores
         private static bool unlockDYHP;
         private static bool buyAmmoEarly;
         private static bool keepAmmo;
+        private static int grenLaunPrice;
+        private static int grenPrice;
 
         // Lists,Arrays
         private static string[] locConfFiles;
@@ -82,6 +84,7 @@ namespace ImprovedGunStores
         private static int[] GuardPeds;
         private static uint[] attackTimers;
         private static bool[] weapUnlocks;
+        private static bool[] attachmentUnlocks;
 
         private static List<Vector3> locations = new List<Vector3>();
         private static List<SettingsFile> gunStores = new List<SettingsFile>();
@@ -110,10 +113,15 @@ namespace ImprovedGunStores
         private static bool extraWeap = false;
         private static bool spawnWeaponInAir = false;
         private static bool canBuyStock = false;
+        private static bool hasAttachments = false;
+        private static bool attachmentMenu = false;
+        private static bool ownsAttachment = false;
 
         // GameStuff
         private static uint currEp;
         private static SettingsFile configFile;
+        private static SettingsFile attachmentsConfig;
+        private static SettingsFile weapFuncsConfig;
         private static string locPath;
         private static SettingsFile statConfFile;
         private static SettingsFile msgConfFile;
@@ -123,6 +131,7 @@ namespace ImprovedGunStores
         private static int backroomCount = 0;
         private static int backroomSelectedWeap = 0;
         private static int weapInAir = 0;
+        private static int grenAmmo = 0;
 
         private static uint gTimer;
         private static uint fTimer;
@@ -276,6 +285,59 @@ namespace ImprovedGunStores
         {
             for (int i = 0; i < locations.Count(); i++)
                 storeHostile[i] = false;
+
+            LoadSettings(Settings);
+
+            GameProg = GET_FLOAT_STAT(0);
+
+            RomanProg = GET_FLOAT_STAT(3);
+            VladProg = GET_FLOAT_STAT(4);
+            JacobProg = GET_FLOAT_STAT(7);
+            FaustProg = GET_FLOAT_STAT(8);
+            MannyProg = GET_FLOAT_STAT(9);
+            ElizProg = GET_FLOAT_STAT(10);
+            DwayneProg = GET_FLOAT_STAT(13);
+            BrucieProg = GET_FLOAT_STAT(16);
+            PBoyXProg = GET_FLOAT_STAT(17);
+            FrncsProg = GET_FLOAT_STAT(18);
+            ULPProg = GET_FLOAT_STAT(19);
+            PackieProg = GET_FLOAT_STAT(22);
+            RayBoProg = GET_FLOAT_STAT(23);
+            GerryProg = GET_FLOAT_STAT(24);
+            DerrickProg = GET_FLOAT_STAT(25);
+            BernieProg = GET_FLOAT_STAT(26);
+            BellProg = GET_FLOAT_STAT(27);
+            GambtiProg = GET_FLOAT_STAT(28);
+            JimmyProg = GET_FLOAT_STAT(29);
+
+            BillyProg = GET_FLOAT_STAT(121);
+            JimProg = GET_FLOAT_STAT(122);
+            StubbsProg = GET_FLOAT_STAT(125);
+            AshleyProg = GET_FLOAT_STAT(126);
+            LizTProg = GET_FLOAT_STAT(127);
+            RayBProg = GET_FLOAT_STAT(128);
+
+            TonyProg = GET_FLOAT_STAT(188);
+            YusufProg = GET_FLOAT_STAT(191);
+            MoriProg = GET_FLOAT_STAT(192);
+            ArmandoProg = GET_FLOAT_STAT(198);
+            BulgarinProg = GET_FLOAT_STAT(200);
+            RoccoProg = GET_FLOAT_STAT(201);
+
+            mostWantedProg = GET_INT_STAT(360);
+            pigeonsKilled = GET_INT_STAT(361);
+            jacDrugProg = GET_INT_STAT(284);
+            stuntJumpProg = GET_INT_STAT(270);
+            stevieProg = GET_INT_STAT(285);
+            impExpProg = GET_INT_STAT(469);
+
+            seagullsKilledTLAD = GET_INT_STAT(143);
+            stubbsSideProg = GET_INT_STAT(145);
+            gangWarTLAD = GET_INT_STAT(177);
+
+            seagullsKilledTBoGT = GET_INT_STAT(211);
+            nightClubProg = GET_INT_STAT(244);
+            gangWarTBoGT = GET_INT_STAT(243);
         }
         private void GetGameProgress()
         {
@@ -315,24 +377,21 @@ namespace ImprovedGunStores
                 hudTextB = settings.GetInteger("MAIN", "TBOGTStatTextB", 0);
             }
         }
-        private void WriteBooleanToINI(SettingsFile settings, string name, bool locked)
+        private void WriteBooleanToINI(SettingsFile settings, string name, bool booleShit)
         {
             if (!settings.DoesSectionExists(IVGenericGameStorage.ValidSaveName))
                 settings.AddSection(IVGenericGameStorage.ValidSaveName);
-            if (!settings.DoesKeyExists(IVGenericGameStorage.ValidSaveName, name + "Unlocked"))
-                settings.AddKeyToSection(IVGenericGameStorage.ValidSaveName, name + "Unlocked");
-            settings.SetBoolean(IVGenericGameStorage.ValidSaveName, name + "Unlocked", locked);
+            if (!settings.DoesKeyExists(IVGenericGameStorage.ValidSaveName, name))
+                settings.AddKeyToSection(IVGenericGameStorage.ValidSaveName, name);
+            settings.SetBoolean(IVGenericGameStorage.ValidSaveName, name, booleShit);
         }
-        private void SaveINI(SettingsFile settings)
+        private void WriteIntToINI(SettingsFile settings, string name, int integerShit)
         {
-            for (int i = 0; i < numOfWeaponIDs; i++)
-            {
-                if (settings.DoesSectionExists(i.ToString()))
-                {
-                    WriteBooleanToINI(Settings, i.ToString(), weapUnlocks[i]);
-                    settings.Save();
-                }
-            }
+            if (!settings.DoesSectionExists(IVGenericGameStorage.ValidSaveName))
+                settings.AddSection(IVGenericGameStorage.ValidSaveName);
+            if (!settings.DoesKeyExists(IVGenericGameStorage.ValidSaveName, name))
+                settings.AddKeyToSection(IVGenericGameStorage.ValidSaveName, name);
+            settings.SetInteger(IVGenericGameStorage.ValidSaveName, name, integerShit);
         }
         private void Main_Uninitialize(object sender, EventArgs e)
         {
@@ -359,6 +418,14 @@ namespace ImprovedGunStores
             statConfFile.Load();
             msgConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponMessages.txt", IVGame.GameStartupPath));
             msgConfFile.Load();
+            attachmentsConfig = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\Attachments.ini", IVGame.GameStartupPath));
+            attachmentsConfig.Load();
+            if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
+                weapFuncsConfig = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath));
+            else
+                weapFuncsConfig = attachmentsConfig;
+
+            weapFuncsConfig.Load();
 
             foreach (string fileName in locConfFiles)
                 gunStores.Add(new SettingsFile(fileName));
@@ -424,6 +491,7 @@ namespace ImprovedGunStores
             cooldown = settings.GetInteger("MAIN", "HostileCooldown", 0);
             gSpawnDelay = settings.GetInteger("MAIN", "GuardSpawnDelay", 0);
             weapUnlocks = new bool[numOfWeaponIDs];
+            attachmentUnlocks = new bool[numOfWeaponIDs];
             unlockDYHP = settings.GetBoolean("MAIN", "UnlockAfterDYHP", false);
             buyAmmoEarly = settings.GetBoolean("MAIN", "BuyAmmoBeforeUnlock", false);
             keepAmmo = settings.GetBoolean("MAIN", "KeepAmmo", false);
@@ -441,6 +509,8 @@ namespace ImprovedGunStores
                     }
 
                     weapUnlocks[i] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "Unlocked"), false);
+                    if (weapFuncsConfig.DoesKeyExists(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasGLAttachment")))
+                        attachmentUnlocks[i] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasGLAttachment"), false);
                 }
             }
         }
@@ -541,6 +611,13 @@ namespace ImprovedGunStores
                 weapBarF = statConfFile.GetInteger(weapon.ToString(), "BarF", -1);
                 weapBarG = statConfFile.GetInteger(weapon.ToString(), "BarG", -1);
                 weapBarH = statConfFile.GetInteger(weapon.ToString(), "BarH", -1);
+
+                //Attachments
+                hasAttachments = attachmentsConfig.GetBoolean(weapon.ToString(), "CanBuyGLAttachment", false);
+                //ownsAttachment = attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "HasGLAttachment", false);
+                ownsAttachment = attachmentUnlocks[weapon];
+                grenLaunPrice = attachmentsConfig.GetInteger(weapon.ToString(), "GrenadeLauncherPrice", 0);
+                grenPrice = attachmentsConfig.GetInteger(weapon.ToString(), "GrenadePrice", 0);
             }
         }
         private void GetCurrWeaponData(SettingsFile settings, int weapon)
@@ -1566,10 +1643,10 @@ namespace ImprovedGunStores
                                         IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST2", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponName + " $" + weapCost.ToString());
                                     else
                                     {
-                                        if (IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot <= 1 || IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot > 7)
-                                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST2", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weapStatE.ToString() + "x " + weaponName + "s $" + ammoCost.ToString());
-                                        else
-                                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST2", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString());
+                                            if (IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot <= 1 || IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot > 7)
+                                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST2", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weapStatE.ToString() + "x " + weaponName + "s $" + ammoCost.ToString());
+                                            else
+                                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST2", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString());
                                     }
 
                                     PRINT_HELP_FOREVER("GL_PIST2");
@@ -1621,6 +1698,7 @@ namespace ImprovedGunStores
                         extraWeap = false;
                         confirmation = false;
                         canInspect = false;
+                        attachmentMenu = false;
                     }
                 }
             }
@@ -1632,7 +1710,16 @@ namespace ImprovedGunStores
                 extraWeap = false;
                 confirmation = false;
                 canInspect = false;
+                attachmentMenu = false;
             }
+        }
+        private void ProcessAttachments()
+        {
+            if (!attachmentMenu)
+                return;
+
+            //IVGame.ShowSubtitleMessage(attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "HasGLAttachment", false).ToString() + "  " + weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0).ToString());
+            //IVGame.ShowSubtitleMessage(attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "HasGLAttachment", false).ToString());
         }
         private void ProcessInspection()
         {
@@ -1844,8 +1931,8 @@ namespace ImprovedGunStores
                         CLEAR_CHAR_TASKS_IMMEDIATELY(Main.PlayerHandle);
                         SET_CHAR_COORDINATES(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z - 1.0f);
                         SET_CHAR_HEADING(Main.PlayerHandle, weapBuyHdg);
-                        GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
-                        GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
+                            GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
+                            GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
                         camActivate = true;
                         goInspect = false;
                         isInspecting = true;
@@ -1870,15 +1957,23 @@ namespace ImprovedGunStores
             if (DOES_OBJECT_EXIST(weapInAir))
                 DELETE_OBJECT(ref weapInAir);
 
-            GET_WEAPONTYPE_MODEL(weapID, out uint wModel);
-            REQUEST_MODEL((int)wModel);
-            if (!HAS_MODEL_LOADED((int)wModel))
+            if (currEp == 0)
+                weaponModel = Settings.GetValue(weapID.ToString(), "IVWeaponModel", "");
+            else if (currEp == 1)
+                weaponModel = Settings.GetValue(weapID.ToString(), "TLADWeaponModel", "");
+            else if (currEp == 2)
+                weaponModel = Settings.GetValue(weapID.ToString(), "TBOGTWeaponModel", "");
+
+            REQUEST_MODEL(GET_HASH_KEY(weaponModel));
+            if (!HAS_MODEL_LOADED(GET_HASH_KEY(weaponModel)))
                 return;
 
-            weapInAir = CreateObject_DontRequestModel((int)wModel, backroomPos.X, backroomPos.Y, backroomPos.Z, backroomHdg);
+            weapInAir = CreateObject_DontRequestModel(GET_HASH_KEY(weaponModel), backroomPos.X, backroomPos.Y, backroomPos.Z, backroomHdg);
 
-            GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS(weapInAir, new Vector3(-0.2f, 1.75f, 0.2f), out Vector3 objOff);
+            Vector3 wOffset = Settings.GetVector3(weapID.ToString(), "BackroomOffset", Vector3.Zero);
+            GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS(weapInAir, wOffset, out Vector3 objOff);
             SET_OBJECT_COORDINATES(weapInAir, objOff);
+            MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(weaponModel));
 
             ADD_OBJECT_TO_INTERIOR_ROOM_BY_NAME(weapInAir, roomName);
 
@@ -2261,19 +2356,33 @@ namespace ImprovedGunStores
                     }
                 }
 
-                if (!bInspectMsg || (extraWeap && !confirmation && !bFailMsg))
+                if (!bInspectMsg || (extraWeap && !confirmation && !bFailMsg) || (attachmentMenu && !confirmation && !bFailMsg))
                 {
                     if (!extraWeap)
                     {
-                        if (weapInSlot <= 0 || weapInSlot == weapID)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
+                        if (!attachmentMenu)
+                        {
+                            if (hasAttachments && weapID == weapInSlot)
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");
+                            else if (weapInSlot <= 0 || weapInSlot == weapID)
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
+                            else
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in the same slot.");
+                        }
                         else
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in the same slot.");
+                        {
+                            weapFuncsConfig.Load();
+                            grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
+                            if (!ownsAttachment)
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy grenade launcher attachment." + " $" + grenLaunPrice.ToString());
+                            else
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo." + " $" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
+                        }
                     }
                     else
                     {
-                        GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
-                        GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
+                            GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
+                            GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
                         /*GET_WEAPONTYPE_MODEL(weapID, out uint wModel);
                         string wString = GET_STRING_FROM_HASH_KEY(wModel);
 
@@ -2289,14 +2398,28 @@ namespace ImprovedGunStores
                         DRAW_SPRITE((uint)tex, 0.1f, 0.3f, 0.15f, 0.15f, 0, 255, 255, 255, 255);
 
                         IVGame.ShowSubtitleMessage(wString + "  " +txd.ToString() + "  " + tex.ToString());*/
-                        SpawnBackroomWeapon();
+                        if (!attachmentMenu)
+                        {
+                            SpawnBackroomWeapon();
 
-                        if (weapInSlot <= 0)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
-                        else if (weapInSlot == weapID)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~"+ clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
+                            if (weapInSlot <= 0)
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
+                            else if (hasAttachments && weapID == weapInSlot)
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~PAD_UP~ to browse attachments. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
+                            else if (weapInSlot == weapID)
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
+                            else
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
+                        }
                         else
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
+                        {
+                            weapFuncsConfig.Load();
+                            grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
+                            if (!ownsAttachment)
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy grenade launcher attachment." + " $" + grenLaunPrice.ToString());
+                            else
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo." + " $" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
+                        }
                     }
                     if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
                         PRINT_HELP_FOREVER("GL_RKL3");
@@ -2404,6 +2527,42 @@ namespace ImprovedGunStores
                 bFailMsg = true;
             }
         }
+        private void BuyAttachment()
+        {
+            if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
+            {
+                weapFuncsConfig.Load();
+                grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
+                if (!ownsAttachment)
+                {
+                    if (pMoney >= grenLaunPrice)
+                    {
+                        PLAY_SOUND(soundID, buySound);
+                        //WriteBooleanToINI(attachmentsConfig, weapID.ToString() + "HasGLAttachment", true);
+                        attachmentUnlocks[weapID] = true;
+                        WriteBooleanToINI(weapFuncsConfig, weapID.ToString() + "HasGLAttachment", true);
+                        ADD_SCORE(Main.PlayerIndex, -grenLaunPrice);
+                        if (grenAmmo < attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
+                            WriteIntToINI(weapFuncsConfig, weapID.ToString() + "GrenadeAmmo", grenAmmo + 1);
+                        weapFuncsConfig.Save();
+                    }
+                }
+                else if (pMoney >= grenPrice && grenAmmo < attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
+                {
+                    ADD_SCORE(Main.PlayerIndex, -grenPrice);
+                    WriteIntToINI(weapFuncsConfig, weapID.ToString() + "GrenadeAmmo", grenAmmo + 1);
+                    weapFuncsConfig.Save();
+                }
+                else if (grenAmmo >= attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
+                {
+                    IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
+                    PRINT_HELP("AMMO_FULL");
+                    GET_GAME_TIMER(out fTimer);
+                    bFailMsg = true;
+                }
+
+            }
+        }
         private void ProcessPurchase()
         {
             if (!HasSpawned)
@@ -2424,12 +2583,16 @@ namespace ImprovedGunStores
 
             if (!bFailMsg)
             {
-                if ((IS_CONTROL_JUST_PRESSED(0, 23) || IS_CONTROL_JUST_PRESSED(2, 23)) && !IS_CONTROL_JUST_PRESSED(0, 77)
-                    && weapID != 48 && !IS_CONTROL_JUST_PRESSED(2, 77))
+                if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.Action) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.Action)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
                 {
                     if (confirmation)
                         confirmation = false;
-                    else if (!extraWeap)
+                    else if (attachmentMenu)
+                    {
+                        attachmentMenu = false;
+                        bInspectMsg = false;
+                    }
+                    else if (!extraWeap && weapID != 48)
                         ProcessInspection();
                     else
                     {
@@ -2441,29 +2604,50 @@ namespace ImprovedGunStores
                     }
                 }
 
-                else if ((IS_CONTROL_JUST_PRESSED(0, 77) || IS_CONTROL_JUST_PRESSED(2, 77)) && !IS_CONTROL_JUST_PRESSED(0, 23) && !IS_CONTROL_JUST_PRESSED(2, 23))
+                else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.Action) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.Action))
                 {
                     if (!extraWeap)
                     {
-                        if (!isInspecting && !menuActive)
+                        if (!isInspecting && !menuActive && !attachmentMenu)
                             BuyTheWeapon();
+
+                        else if (attachmentMenu)
+                            BuyAttachment();
 
                         else if (weapInSlot > 0 && weapInSlot != weapID)
                             bComparing = !bComparing;
                     }
-                    else if (extraWeap && isInspecting && canBuyStock)
-                        BuyTheWeapon();
+                    else
+                    {
+                        if (attachmentMenu)
+                            BuyAttachment();
+                        else if (extraWeap && isInspecting && canBuyStock)
+                            BuyTheWeapon();
+                    }
                 }
 
-                else if ((IS_CONTROL_JUST_PRESSED(0, 2) || IS_CONTROL_JUST_PRESSED(2, 2)) && !IS_CONTROL_JUST_PRESSED(0, 77) && !IS_CONTROL_JUST_PRESSED(2, 77))
+                else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.Jump) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.Jump)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
                 {
+                    //IVGame.ShowSubtitleMessage(isInspecting.ToString() + weapID.ToString() + weapInSlot.ToString());
                     if (extraWeap && isInspecting && weapInSlot > 0 && weapInSlot != weapID)
                         bComparing = !bComparing;
+                    else if (isInspecting && weapInSlot == weapID)
+                    {
+                        attachmentMenu = !attachmentMenu;
+                        bInspectMsg = false;
+                    }
                 }
 
-                else if ((IS_CONTROL_JUST_PRESSED(0, 67) || IS_CONTROL_JUST_PRESSED(2, 67)) && !IS_CONTROL_JUST_PRESSED(0, 77) && !IS_CONTROL_JUST_PRESSED(2, 77))
+                else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavUp) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavUp)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
                 {
-                    if (extraWeap && isInspecting)
+                    if (extraWeap && isInspecting && weapInSlot == weapID)
+                        attachmentMenu = !attachmentMenu;
+                }
+
+                else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavRight) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavRight)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
+                {
+                    if (attachmentMenu) { }
+                    else if (extraWeap && isInspecting)
                     {
                         bComparing = false;
                         spawnWeaponInAir = false;
@@ -2475,9 +2659,10 @@ namespace ImprovedGunStores
                     }
                 }
 
-                else if ((IS_CONTROL_JUST_PRESSED(0, 66) || IS_CONTROL_JUST_PRESSED(2, 66)) && !IS_CONTROL_JUST_PRESSED(0, 77) && !IS_CONTROL_JUST_PRESSED(2, 77))
+                else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavLeft) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavLeft)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
                 {
-                    if (extraWeap && isInspecting)
+                    if (attachmentMenu) { }
+                    else if (extraWeap && isInspecting)
                     {
                         bComparing = false;
                         spawnWeaponInAir = false;
@@ -2703,6 +2888,7 @@ namespace ImprovedGunStores
                 StopText();
                 AnimCheck();
                 ProcessGuards();
+                ProcessAttachments();
                 if (goInspect)
                     ProcessInspectAnims();
                 if (camActivate)
@@ -2713,7 +2899,21 @@ namespace ImprovedGunStores
                     SpawnGuards();
 
                 if (DID_SAVE_COMPLETE_SUCCESSFULLY() && GET_IS_DISPLAYINGSAVEMESSAGE())
-                    SaveINI(Settings);
+                {
+                    for (int i = 0; i < numOfWeaponIDs; i++)
+                    {
+                        if (Settings.DoesSectionExists(i.ToString()))
+                            WriteBooleanToINI(Settings, i.ToString() + "Unlocked", weapUnlocks[i]);
+
+                        /*if (weapFuncsConfig.DoesSectionExists(i.ToString()))
+                        {
+                            WriteBooleanToINI(attachmentsConfig, i + "HasGLAttachment", attachmentUnlocks[i]);
+                            //WriteIntToINI(attachmentsConfig, i + "HasGLAttachment", 0);
+                        }*/
+                    }
+                    Settings.Save();
+                    attachmentsConfig.Save();
+                }
                 //ObjectLocator.Tick();
             }
         }
