@@ -28,6 +28,9 @@ namespace ImprovedGunStores
 {
     public class Main : Script
     {
+        // Consts
+        private int numOfAttachmts = 3;
+
         // PlayerShit
         public static IVPed PlayerPed { get; set; }
         public static int PlayerIndex { get; set; }
@@ -74,8 +77,12 @@ namespace ImprovedGunStores
         private static bool unlockDYHP;
         private static bool buyAmmoEarly;
         private static bool keepAmmo;
-        private static int grenLaunPrice;
+
+        // Attachment
+        private static int attachmentPrice;
+        //private static int grenLaunPrice;
         private static int grenPrice;
+        //private static int scopePrice;
 
         // Lists,Arrays
         private static string[] locConfFiles;
@@ -84,7 +91,12 @@ namespace ImprovedGunStores
         private static int[] GuardPeds;
         private static uint[] attackTimers;
         private static bool[] weapUnlocks;
-        private static bool[] attachmentUnlocks;
+
+        // Attachment arrays
+        private static bool[][] attachmentUnlocks;
+        private static bool[] canBuyAttachment;
+        private static bool[] ownsAttachment;
+        private static bool[] hasAttachment;
 
         private static List<Vector3> locations = new List<Vector3>();
         private static List<SettingsFile> gunStores = new List<SettingsFile>();
@@ -113,9 +125,13 @@ namespace ImprovedGunStores
         private static bool extraWeap = false;
         private static bool spawnWeaponInAir = false;
         private static bool canBuyStock = false;
-        private static bool hasAttachments = false;
+
+        // AttachmentBools
+        //private static bool hasScopeAttachment = false;
+        //private static bool hasGLAttachment = false;
+        //private static bool hasThisAttachment = false;
         private static bool attachmentMenu = false;
-        private static bool ownsAttachment = false;
+        //private static bool ownsGLAttachment = false;
 
         // GameStuff
         private static uint currEp;
@@ -132,6 +148,7 @@ namespace ImprovedGunStores
         private static int backroomSelectedWeap = 0;
         private static int weapInAir = 0;
         private static int grenAmmo = 0;
+        private static int currAttachmt = 0;
 
         private static uint gTimer;
         private static uint fTimer;
@@ -377,6 +394,18 @@ namespace ImprovedGunStores
                 hudTextB = settings.GetInteger("MAIN", "TBOGTStatTextB", 0);
             }
         }
+        public static string GetAttachmentName(int attachID)
+        {
+            switch (attachID)
+            {
+                case 0:
+                    return "GrenadeLauncher";
+                case 1:
+                    return "Scope";
+                default:
+                    return "";
+            }
+        }
         private void WriteBooleanToINI(SettingsFile settings, string name, bool booleShit)
         {
             if (!settings.DoesSectionExists(IVGenericGameStorage.ValidSaveName))
@@ -491,7 +520,16 @@ namespace ImprovedGunStores
             cooldown = settings.GetInteger("MAIN", "HostileCooldown", 0);
             gSpawnDelay = settings.GetInteger("MAIN", "GuardSpawnDelay", 0);
             weapUnlocks = new bool[numOfWeaponIDs];
-            attachmentUnlocks = new bool[numOfWeaponIDs];
+            attachmentUnlocks = new bool[numOfWeaponIDs][];
+
+            for (int i = 0; i < numOfWeaponIDs; i++)
+            {
+                attachmentUnlocks[i] = new bool[numOfAttachmts];
+            }
+            hasAttachment = new bool[numOfAttachmts];
+            ownsAttachment = new bool[numOfAttachmts];
+
+            canBuyAttachment = new bool[numOfAttachmts + 1];
             unlockDYHP = settings.GetBoolean("MAIN", "UnlockAfterDYHP", false);
             buyAmmoEarly = settings.GetBoolean("MAIN", "BuyAmmoBeforeUnlock", false);
             keepAmmo = settings.GetBoolean("MAIN", "KeepAmmo", false);
@@ -509,8 +547,9 @@ namespace ImprovedGunStores
                     }
 
                     weapUnlocks[i] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "Unlocked"), false);
-                    if (weapFuncsConfig.DoesKeyExists(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasGLAttachment")))
-                        attachmentUnlocks[i] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasGLAttachment"), false);
+
+                    attachmentUnlocks[i][0] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasGrenadeLauncherAttachment"), false);
+                    attachmentUnlocks[i][1] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasScopeAttachment"), false);
                 }
             }
         }
@@ -613,10 +652,29 @@ namespace ImprovedGunStores
                 weapBarH = statConfFile.GetInteger(weapon.ToString(), "BarH", -1);
 
                 //Attachments
-                hasAttachments = attachmentsConfig.GetBoolean(weapon.ToString(), "CanBuyGLAttachment", false);
-                //ownsAttachment = attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "HasGLAttachment", false);
-                ownsAttachment = attachmentUnlocks[weapon];
-                grenLaunPrice = attachmentsConfig.GetInteger(weapon.ToString(), "GrenadeLauncherPrice", 0);
+                for (int a = 0; a < numOfAttachmts; a++) {
+                    hasAttachment[a] = attachmentsConfig.GetBoolean(weapon.ToString(), "CanBuy" + GetAttachmentName(a) + "Attachment", false);
+                    if (hasAttachment[a])
+                        canBuyAttachment[a] = true;
+                    else
+                        canBuyAttachment[a] = false;
+                }
+                /*hasGLAttachment = attachmentsConfig.GetBoolean(weapon.ToString(), "CanBuyGLAttachment", false);
+                if (hasGLAttachment)
+                    canBuyAttachment[0] = true;
+                else
+                    canBuyAttachment[0] = false;
+
+                hasScopeAttachment = attachmentsConfig.GetBoolean(weapon.ToString(), "CanBuyScopeAttachment", false);
+                if (hasScopeAttachment)
+                    canBuyAttachment[1] = true;
+                else
+                    canBuyAttachment[1] = false;*/
+
+                ownsAttachment[currAttachmt] = attachmentUnlocks[weapon][currAttachmt];
+                //ownsAttachment[1] = attachmentUnlocks[weapon][1];
+
+                attachmentPrice = attachmentsConfig.GetInteger(weapon.ToString(), GetAttachmentName(currAttachmt) + "Price", 0);
                 grenPrice = attachmentsConfig.GetInteger(weapon.ToString(), "GrenadePrice", 0);
             }
         }
@@ -1718,6 +1776,7 @@ namespace ImprovedGunStores
             if (!attachmentMenu)
                 return;
 
+            //IVGame.ShowSubtitleMessage(currAttachmt.ToString());
             //IVGame.ShowSubtitleMessage(attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "HasGLAttachment", false).ToString() + "  " + weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0).ToString());
             //IVGame.ShowSubtitleMessage(attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "HasGLAttachment", false).ToString());
         }
@@ -1984,6 +2043,104 @@ namespace ImprovedGunStores
         {
             if (DOES_OBJECT_EXIST(weapInAir))
                 DELETE_OBJECT(ref weapInAir);
+        }
+        private void HelpDisplay()
+        {
+            if (!bInspectMsg || (extraWeap && !confirmation && !bFailMsg) || (attachmentMenu && !confirmation && !bFailMsg))
+            {
+                if (!extraWeap)
+                {
+                    if (!attachmentMenu)
+                    {
+                        /*if (hasGLAttachment && weapID == weapInSlot)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");*/
+                        if (weapInSlot <= 0 || weapInSlot == weapID)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
+                        else
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in the same slot.");
+                        for (int i = 0; i < numOfAttachmts; i++)
+                        {
+                            if (hasAttachment[i] && weapID == weapInSlot)
+                            {
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        weapFuncsConfig.Load();
+                        grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
+                        switch (currAttachmt)
+                        {
+                            case 0:
+                                if (!ownsAttachment[0])
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment $" + attachmentPrice.ToString());
+                                else
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~g~$" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
+                                break;
+                            case 1:
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + attachmentPrice.ToString());
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
+                    GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
+                    /*GET_WEAPONTYPE_MODEL(weapID, out uint wModel);
+                    string wString = GET_STRING_FROM_HASH_KEY(wModel);
+
+                    int txd = 0;
+                    txd = GET_TXD(wString);
+
+                    if (!HAS_STREAMED_TXD_LOADED(wString))
+                        LOAD_TXD(wString);
+
+                    int tex = 0;
+                    tex = GET_TEXTURE(txd, wString);
+
+                    DRAW_SPRITE((uint)tex, 0.1f, 0.3f, 0.15f, 0.15f, 0, 255, 255, 255, 255);
+
+                    IVGame.ShowSubtitleMessage(wString + "  " +txd.ToString() + "  " + tex.ToString());*/
+                    if (!attachmentMenu)
+                    {
+                        SpawnBackroomWeapon();
+
+                        if (weapInSlot <= 0)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
+                        /*else if (hasGLAttachment && weapID == weapInSlot)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~PAD_UP~ to browse attachments. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");*/
+                        else if (weapInSlot == weapID)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
+                        else
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
+
+                        for (int i = 0; i < numOfAttachmts; i++)
+                        {
+                            if (hasAttachment[i] && weapID == weapInSlot)
+                            {
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~PAD_UP~ to browse attachments. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        weapFuncsConfig.Load();
+                        grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
+                        if (!ownsAttachment[0])
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy grenade launcher attachment." + " $" + attachmentPrice.ToString());
+                        else
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo." + " $" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
+                    }
+                }
+                if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
+                    PRINT_HELP_FOREVER("GL_RKL3");
+
+                bInspectMsg = true;
+            }
         }
         private void ProcessStatDisplay()
         {
@@ -2355,77 +2512,7 @@ namespace ImprovedGunStores
                         }
                     }
                 }
-
-                if (!bInspectMsg || (extraWeap && !confirmation && !bFailMsg) || (attachmentMenu && !confirmation && !bFailMsg))
-                {
-                    if (!extraWeap)
-                    {
-                        if (!attachmentMenu)
-                        {
-                            if (hasAttachments && weapID == weapInSlot)
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");
-                            else if (weapInSlot <= 0 || weapInSlot == weapID)
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
-                            else
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in the same slot.");
-                        }
-                        else
-                        {
-                            weapFuncsConfig.Load();
-                            grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
-                            if (!ownsAttachment)
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy grenade launcher attachment." + " $" + grenLaunPrice.ToString());
-                            else
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo." + " $" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
-                        }
-                    }
-                    else
-                    {
-                            GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
-                            GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
-                        /*GET_WEAPONTYPE_MODEL(weapID, out uint wModel);
-                        string wString = GET_STRING_FROM_HASH_KEY(wModel);
-
-                        int txd = 0;
-                        txd = GET_TXD(wString);
-
-                        if (!HAS_STREAMED_TXD_LOADED(wString))
-                            LOAD_TXD(wString);
-
-                        int tex = 0;
-                        tex = GET_TEXTURE(txd, wString);
-
-                        DRAW_SPRITE((uint)tex, 0.1f, 0.3f, 0.15f, 0.15f, 0, 255, 255, 255, 255);
-
-                        IVGame.ShowSubtitleMessage(wString + "  " +txd.ToString() + "  " + tex.ToString());*/
-                        if (!attachmentMenu)
-                        {
-                            SpawnBackroomWeapon();
-
-                            if (weapInSlot <= 0)
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
-                            else if (hasAttachments && weapID == weapInSlot)
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~PAD_UP~ to browse attachments. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
-                            else if (weapInSlot == weapID)
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
-                            else
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
-                        }
-                        else
-                        {
-                            weapFuncsConfig.Load();
-                            grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
-                            if (!ownsAttachment)
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy grenade launcher attachment." + " $" + grenLaunPrice.ToString());
-                            else
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo." + " $" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
-                        }
-                    }
-                    if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
-                        PRINT_HELP_FOREVER("GL_RKL3");
-
-                    bInspectMsg = true;
-                }
+                HelpDisplay();
 
                 if (animTime > 0.5)
                 {
@@ -2533,34 +2620,34 @@ namespace ImprovedGunStores
             {
                 weapFuncsConfig.Load();
                 grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
-                if (!ownsAttachment)
+
+                if (!ownsAttachment[currAttachmt])
                 {
-                    if (pMoney >= grenLaunPrice)
+                    if (pMoney >= attachmentPrice)
                     {
                         PLAY_SOUND(soundID, buySound);
                         //WriteBooleanToINI(attachmentsConfig, weapID.ToString() + "HasGLAttachment", true);
-                        attachmentUnlocks[weapID] = true;
-                        WriteBooleanToINI(weapFuncsConfig, weapID.ToString() + "HasGLAttachment", true);
-                        ADD_SCORE(Main.PlayerIndex, -grenLaunPrice);
-                        if (grenAmmo < attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
+                        attachmentUnlocks[weapID][currAttachmt] = true;
+                        WriteBooleanToINI(weapFuncsConfig, weapID.ToString() + "Has" + GetAttachmentName(currAttachmt) + "Attachment", true);
+                        ADD_SCORE(Main.PlayerIndex, -attachmentPrice);
+                        if (currAttachmt == 0 && grenAmmo < attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
                             WriteIntToINI(weapFuncsConfig, weapID.ToString() + "GrenadeAmmo", grenAmmo + 1);
                         weapFuncsConfig.Save();
                     }
                 }
-                else if (pMoney >= grenPrice && grenAmmo < attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
+                else if (currAttachmt == 0 && pMoney >= grenPrice && grenAmmo < attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
                 {
                     ADD_SCORE(Main.PlayerIndex, -grenPrice);
                     WriteIntToINI(weapFuncsConfig, weapID.ToString() + "GrenadeAmmo", grenAmmo + 1);
                     weapFuncsConfig.Save();
                 }
-                else if (grenAmmo >= attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
+                else if (currAttachmt == 0 && grenAmmo >= attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
                 {
                     IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
                     PRINT_HELP("AMMO_FULL");
                     GET_GAME_TIMER(out fTimer);
                     bFailMsg = true;
                 }
-
             }
         }
         private void ProcessPurchase()
@@ -2634,6 +2721,7 @@ namespace ImprovedGunStores
                     else if (isInspecting && weapInSlot == weapID)
                     {
                         attachmentMenu = !attachmentMenu;
+                        currAttachmt = 0;
                         bInspectMsg = false;
                     }
                 }
@@ -2646,7 +2734,24 @@ namespace ImprovedGunStores
 
                 else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavRight) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavRight)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
                 {
-                    if (attachmentMenu) { }
+                    if (attachmentMenu)
+                    {
+                        for (int i = currAttachmt; i < numOfAttachmts; i++)
+                        {
+                            /*if (canBuyAttachment[currAttachmt + 1])
+                            {
+                                currAttachmt++;
+                                break;
+                            }
+                            else*/
+                            currAttachmt++;
+                            if (currAttachmt >= numOfAttachmts)
+                                currAttachmt = 0;
+
+                            if (canBuyAttachment[currAttachmt])
+                                break;
+                        }
+                    }
                     else if (extraWeap && isInspecting)
                     {
                         bComparing = false;
@@ -2661,7 +2766,24 @@ namespace ImprovedGunStores
 
                 else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavLeft) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavLeft)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
                 {
-                    if (attachmentMenu) { }
+                    if (attachmentMenu)
+                    {
+                        for (int i = currAttachmt; numOfAttachmts > i; i--)
+                        {
+                            /*if ((currAttachmt) > 0 && canBuyAttachment[currAttachmt - 1])
+                            {
+                                currAttachmt--;
+                                break;
+                            }
+                            else*/
+                            currAttachmt--;
+                            if (currAttachmt < 0)
+                                currAttachmt = numOfAttachmts;
+
+                            if (canBuyAttachment[currAttachmt])
+                                break;
+                        }
+                    }
                     else if (extraWeap && isInspecting)
                     {
                         bComparing = false;
