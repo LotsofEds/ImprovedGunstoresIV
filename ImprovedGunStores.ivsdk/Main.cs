@@ -592,6 +592,7 @@ namespace ImprovedGunStores
                 backroomStock = settings.GetBoolean(weapon.ToString(), "BackroomStock", false);
                 if (weapCanSpawn >= 0)
                     SpawnTheWeapon(weapon);
+
                 if (backroomStock)
                     backroomWeaps.Add(weapon);
             }
@@ -1606,30 +1607,44 @@ namespace ImprovedGunStores
             for (i = 0; i < 4; i++)
             {
                 if (DOES_CHAR_EXIST(GuardPeds[i]))
-                    MARK_CHAR_AS_NO_LONGER_NEEDED(GuardPeds[i]);
+                {
+                    if (!IS_PED_IN_COMBAT(GuardPeds[i]))
+                        DELETE_CHAR(ref GuardPeds[i]);
+                    else
+                        MARK_CHAR_AS_NO_LONGER_NEEDED(GuardPeds[i]);
+                }
             }
         }
         private void SpawnTheWeapon(int i)
         {
+            if (DOES_OBJECT_EXIST(WeaponProps[i]))
+                return;
+
             if (!HAS_MODEL_LOADED(GET_HASH_KEY(weaponModel)))
                 REQUEST_MODEL(GET_HASH_KEY(weaponModel));
-            WeaponProps[i] = CreateObject_DontRequestModel(GET_HASH_KEY(weaponModel), 0.0f, 0.0f, 0.0f, 0.0f);
-            SET_OBJECT_COORDINATES(WeaponProps[i], weapPos);
-            SET_OBJECT_ROTATION(WeaponProps[i], weapRot);
-            MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(weaponModel));
 
-            //ADD_OBJECT_TO_INTERIOR_ROOM_BY_NAME(WeaponProps[i], "GtaMloRoom01");
-            ADD_OBJECT_TO_INTERIOR_ROOM_BY_NAME(WeaponProps[i], roomName);
+            else
+            {
+                WeaponProps[i] = CreateObject_DontRequestModel(GET_HASH_KEY(weaponModel), 0.0f, 0.0f, 0.0f, 0.0f);
+                SET_OBJECT_COORDINATES(WeaponProps[i], weapPos);
+                SET_OBJECT_ROTATION(WeaponProps[i], weapRot);
+                MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(weaponModel));
 
-            FREEZE_OBJECT_POSITION(WeaponProps[i], true);
+                ADD_OBJECT_TO_INTERIOR_ROOM_BY_NAME(WeaponProps[i], roomName);
+
+                FREEZE_OBJECT_POSITION(WeaponProps[i], true);
+            }
         }
         private void SpawnGuns()
         {
-            if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 40, 40, 40, false) && !HasSpawned && !IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
+            if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 40, 40, 40, false) && !IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
             {
                 RequestAnims();
-                SET_STATE_OF_CLOSEST_DOOR_OF_TYPE((uint)doorHash, doorPos.X, doorPos.Y, doorPos.Z, false, 0.0f);
-                HasSpawned = true;
+                if (!HasSpawned)
+                {
+                    SET_STATE_OF_CLOSEST_DOOR_OF_TYPE((uint)doorHash, doorPos.X, doorPos.Y, doorPos.Z, false, 0.0f);
+                    HasSpawned = true;
+                }
 
                 int i;
                 for (i = 0; i < numOfWeaponIDs; i++)
@@ -1637,9 +1652,6 @@ namespace ImprovedGunStores
                     if (DOES_OBJECT_EXIST(WeaponProps[i]))
                         continue;
 
-                }
-                for (i = 0; i < numOfWeaponIDs; i++)
-                {
                     if (episodicCheck)
                     {
                         if (currEp == 0 && i > 20 && i < 41)
