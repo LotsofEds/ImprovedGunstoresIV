@@ -653,7 +653,8 @@ namespace ImprovedGunStores
                 weapBarH = statConfFile.GetInteger(weapon.ToString(), "BarH", -1);
 
                 //Attachments
-                for (int a = 0; a < numOfAttachmts; a++) {
+                for (int a = 0; a < numOfAttachmts; a++)
+                {
                     hasAttachment[a] = attachmentsConfig.GetBoolean(weapon.ToString(), "CanBuy" + GetAttachmentName(a) + "Attachment", false);
                     if (hasAttachment[a])
                         canBuyAttachment[a] = true;
@@ -1601,6 +1602,7 @@ namespace ImprovedGunStores
                 if (!DOES_OBJECT_EXIST(WeaponProps[i]))
                     continue;
 
+                MARK_OBJECT_AS_NO_LONGER_NEEDED(WeaponProps[i]);
                 DELETE_OBJECT(ref WeaponProps[i]);
             }
 
@@ -1608,17 +1610,20 @@ namespace ImprovedGunStores
             {
                 if (DOES_CHAR_EXIST(GuardPeds[i]))
                 {
+                    MARK_CHAR_AS_NO_LONGER_NEEDED(GuardPeds[i]);
+
                     if (!IS_PED_IN_COMBAT(GuardPeds[i]))
                         DELETE_CHAR(ref GuardPeds[i]);
-                    else
-                        MARK_CHAR_AS_NO_LONGER_NEEDED(GuardPeds[i]);
                 }
             }
         }
         private void SpawnTheWeapon(int i)
         {
             if (DOES_OBJECT_EXIST(WeaponProps[i]))
+            {
+                MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(weaponModel));
                 return;
+            }
 
             if (!HAS_MODEL_LOADED(GET_HASH_KEY(weaponModel)))
                 REQUEST_MODEL(GET_HASH_KEY(weaponModel));
@@ -1637,7 +1642,7 @@ namespace ImprovedGunStores
         }
         private void SpawnGuns()
         {
-            if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 40, 40, 40, false) && !IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
+            if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 20, 20, 20, false) && !IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
             {
                 RequestAnims();
                 if (!HasSpawned)
@@ -1649,9 +1654,6 @@ namespace ImprovedGunStores
                 int i;
                 for (i = 0; i < numOfWeaponIDs; i++)
                 {
-                    if (DOES_OBJECT_EXIST(WeaponProps[i]))
-                        continue;
-
                     if (episodicCheck)
                     {
                         if (currEp == 0 && i > 20 && i < 41)
@@ -1670,7 +1672,7 @@ namespace ImprovedGunStores
             else if (IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
                 HasSpawned = false;
 
-            else if (!LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 40, 40, 40, false))
+            else if (!LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 20, 20, 20, false))
             {
                 DespawnShit();
                 HasSpawned = false;
@@ -1709,8 +1711,10 @@ namespace ImprovedGunStores
                             {
                                 if (!confirmation && !bInspectMsg && !bFailMsg && !menuActive)
                                 {
-                                    if (!HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, i))
+                                    if (!HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, i) && weapID != 48)
                                         IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST2", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponName + " $" + weapCost.ToString());
+                                    else if (weapID == 48)
+                                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST2", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
                                     else
                                     {
                                             if (IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot <= 1 || IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot > 7)
@@ -2065,16 +2069,16 @@ namespace ImprovedGunStores
                     if (!attachmentMenu)
                     {
                         /*if (hasGLAttachment && weapID == weapInSlot)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");*/
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");*/
                         if (weapInSlot <= 0 || weapInSlot == weapID)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
-                        else
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in the same slot.");
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
+                        else if (weapInSlot > 0)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in slot.");
                         for (int i = 0; i < numOfAttachmts; i++)
                         {
                             if (hasAttachment[i] && weapID == weapInSlot)
                             {
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");
                                 break;
                             }
                         }
@@ -2087,12 +2091,12 @@ namespace ImprovedGunStores
                         {
                             case 0:
                                 if (!ownsAttachment[0])
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment $" + attachmentPrice.ToString());
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment $" + attachmentPrice.ToString());
                                 else
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~g~$" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~g~$" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
                                 break;
                             case 1:
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + attachmentPrice.ToString());
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + attachmentPrice.ToString());
                                 break;
                         }
                     }
@@ -2119,13 +2123,13 @@ namespace ImprovedGunStores
                         SpawnBackroomWeapon();
 
                         if (weapInSlot <= 0)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
                         /*else if (hasGLAttachment && weapID == weapInSlot)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~PAD_UP~ to browse attachments. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");*/
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~PAD_UP~ to browse attachments. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");*/
                         else if (weapInSlot == weapID)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
                         else
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
                     }
                     else
                     {
@@ -2135,18 +2139,18 @@ namespace ImprovedGunStores
                         {
                             case 0:
                                 if (!ownsAttachment[0])
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment. $" + attachmentPrice.ToString());
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment. $" + attachmentPrice.ToString());
                                 else
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. $" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. $" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
                                 break;
                             case 1:
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + attachmentPrice.ToString());
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER3", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + attachmentPrice.ToString());
                                 break;
                         }
                     }
                 }
                 if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
-                    PRINT_HELP_FOREVER("GL_RKL3");
+                    PRINT_HELP_FOREVER("GL_SNIPER3");
 
                 bInspectMsg = true;
             }
@@ -2359,8 +2363,8 @@ namespace ImprovedGunStores
                     if (!bComparing)
                     {
                         USE_PREVIOUS_FONT_SETTINGS();
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL4", weapMsg);
-                        DISPLAY_TEXT(0.725f, 0.55f, "GL_RKL4");
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_SNIPER2", weapMsg);
+                        DISPLAY_TEXT(0.725f, 0.55f, "GL_SNIPER2");
                     }
                     //Comparing weapons
                     else
@@ -2690,7 +2694,7 @@ namespace ImprovedGunStores
                     }
                     else if (!extraWeap && weapID != 48)
                         ProcessInspection();
-                    else
+                    else if (weapID != 48)
                     {
                         backroomSelectedWeap = 0;
                         wCoords = backroomPos;
