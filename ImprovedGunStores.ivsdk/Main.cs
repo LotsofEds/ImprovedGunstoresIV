@@ -124,7 +124,9 @@ namespace ImprovedGunStores
         private static bool hasConfigsLoaded = false;
         private static bool extraWeap = false;
         private static bool spawnWeaponInAir = false;
+        private static bool loadWeaponInAir = false;
         private static bool canBuyStock = false;
+        private static bool replaceText = false;
 
         // AttachmentBools
         //private static bool hasScopeAttachment = false;
@@ -272,7 +274,7 @@ namespace ImprovedGunStores
         float TonyProg = GET_FLOAT_STAT(188);
         float YusufProg = GET_FLOAT_STAT(191);
         float MoriProg = GET_FLOAT_STAT(192);
-        float ArmandoProg = GET_FLOAT_STAT(198);
+        float ArmandoProg = GET_FLOAT_STAT(197);
         float BulgarinProg = GET_FLOAT_STAT(200);
         float RoccoProg = GET_FLOAT_STAT(201);
 
@@ -337,7 +339,7 @@ namespace ImprovedGunStores
             TonyProg = GET_FLOAT_STAT(188);
             YusufProg = GET_FLOAT_STAT(191);
             MoriProg = GET_FLOAT_STAT(192);
-            ArmandoProg = GET_FLOAT_STAT(198);
+            ArmandoProg = GET_FLOAT_STAT(197);
             BulgarinProg = GET_FLOAT_STAT(200);
             RoccoProg = GET_FLOAT_STAT(201);
 
@@ -443,9 +445,9 @@ namespace ImprovedGunStores
 
             locPath = string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\LocationData", IVGame.GameStartupPath);
             locConfFiles = System.IO.Directory.GetFiles(locPath);
-            statConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponStats.txt", IVGame.GameStartupPath));
+            statConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponStats.ini", IVGame.GameStartupPath));
             statConfFile.Load();
-            msgConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponMessages.txt", IVGame.GameStartupPath));
+            msgConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponMessages.ini", IVGame.GameStartupPath));
             msgConfFile.Load();
             attachmentsConfig = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\Attachments.ini", IVGame.GameStartupPath));
             attachmentsConfig.Load();
@@ -1422,12 +1424,12 @@ namespace ImprovedGunStores
             }
             else if (currEp == 2)
             {
-                float TonProg = GET_FLOAT_STAT(121);
-                float YusProg = GET_FLOAT_STAT(122);
-                float MorProg = GET_FLOAT_STAT(125);
-                float ArmProg = GET_FLOAT_STAT(126);
-                float BulProg = GET_FLOAT_STAT(127);
-                float RocProg = GET_FLOAT_STAT(128);
+                float TonProg = GET_FLOAT_STAT(188);
+                float YusProg = GET_FLOAT_STAT(191);
+                float MorProg = GET_FLOAT_STAT(192);
+                float ArmProg = GET_FLOAT_STAT(197);
+                float BulProg = GET_FLOAT_STAT(200);
+                float RocProg = GET_FLOAT_STAT(201);
 
                 if (TonProg != TonyProg)
                 {
@@ -1883,6 +1885,7 @@ namespace ImprovedGunStores
                     //CreateCamera(camera, true, 0.0f, 1.75f, 0.0f, pOff, 60);
                     CreateCamera(camera, true, 0.0f, 0.5f, 0.2f, pOff, 60);
                     spawnWeaponInAir = false;
+                    loadWeaponInAir = false;
                     menuActive = true;
                     DeleteBackroomWeapon();
                 }
@@ -1891,6 +1894,7 @@ namespace ImprovedGunStores
                     DestroyCamera();
                     SET_PLAYER_CONTROL(Main.PlayerIndex, true);
                     spawnWeaponInAir = false;
+                    loadWeaponInAir = false;
                     menuActive = false;
                     DeleteBackroomWeapon();
                 }
@@ -2029,6 +2033,7 @@ namespace ImprovedGunStores
             if (spawnWeaponInAir)
                 return;
 
+            loadWeaponInAir = true;
             if (DOES_OBJECT_EXIST(weapInAir))
                 DELETE_OBJECT(ref weapInAir);
 
@@ -2180,18 +2185,6 @@ namespace ImprovedGunStores
                     SET_TEXT_COLOUR((uint)hudTextR, (uint)hudTextG, (uint)hudTextB, 255);
                     SET_TEXT_WRAP(0.725f, 0.975f);
                     SET_TEXT_DROPSHADOW(false, 0, 0, 0, 0);
-
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE2", "Slot");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE3", "x~1~");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT2", "Melee");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN2", "Handguns");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN3", "Shotguns");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT3", "SMGs");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A12", "Assault Rifles");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A13", "Sniper Rifles");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_UZI2", "Heavy");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_M42", "Thrown");
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_M43", "Special");
 
                     IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK473", statTextA);
                     IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK474", statTextB);
@@ -2363,8 +2356,8 @@ namespace ImprovedGunStores
                     if (!bComparing)
                     {
                         USE_PREVIOUS_FONT_SETTINGS();
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_WH1", weapMsg);
-                        DISPLAY_TEXT(0.725f, 0.55f, "GLOCK_WH1");
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_H1", weapMsg);
+                        DISPLAY_TEXT(0.725f, 0.55f, "GLOCK_H1");
                     }
                     //Comparing weapons
                     else
@@ -2769,6 +2762,7 @@ namespace ImprovedGunStores
                     {
                         bComparing = false;
                         spawnWeaponInAir = false;
+                        loadWeaponInAir = false;
 
                         if (backroomSelectedWeap < backroomCount - 1)
                             backroomSelectedWeap++;
@@ -2801,6 +2795,7 @@ namespace ImprovedGunStores
                     {
                         bComparing = false;
                         spawnWeaponInAir = false;
+                        loadWeaponInAir = false;
 
                         if (backroomSelectedWeap > 0)
                             backroomSelectedWeap--;
@@ -2852,6 +2847,22 @@ namespace ImprovedGunStores
 
                 bSpawnDealer = true;
             }
+        }
+        private void ReplaceText()
+        {
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE2", "Slot");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE3", "x~1~");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT2", "Melee");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN2", "Handguns");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN3", "Shotguns");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT3", "SMGs");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A12", "Assault Rifles");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A13", "Sniper Rifles");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_UZI2", "Heavy");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M42", "Thrown");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M43", "Special");
+            
+            replaceText = true;
         }
         private void SpawnGuards()
         {
@@ -2961,7 +2972,7 @@ namespace ImprovedGunStores
         }
         public void Main_Tick(object sender, EventArgs e)
         {
-            if (enable && (currEp != 0 || FaustProg > 20 || !unlockDYHP))
+            if (enable && (currEp != 0 || GET_FLOAT_STAT(8) > 20 || !unlockDYHP))
             {
                 PlayerPed = IVPed.FromUIntPtr(IVPlayerInfo.FindThePlayerPed());
                 PlayerHandle = PlayerPed.GetHandle();
@@ -3034,6 +3045,10 @@ namespace ImprovedGunStores
                     SpawnDealer();
                 if (bSpawnGuards)
                     SpawnGuards();
+                if (loadWeaponInAir)
+                    SpawnBackroomWeapon();
+                if (!replaceText)
+                    ReplaceText();
 
                 if (DID_SAVE_COMPLETE_SUCCESSFULLY() && GET_IS_DISPLAYINGSAVEMESSAGE())
                 {
