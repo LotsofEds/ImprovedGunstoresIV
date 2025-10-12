@@ -41,6 +41,7 @@ namespace ImprovedGunStores
         private static bool enable;
         private static bool showBuyMarkers;
         private static bool episodicCheck;
+        private static bool extraStock;
         private static int numOfWeaponIDs;
         private static string weaponModel;
         private static string weaponName;
@@ -77,6 +78,8 @@ namespace ImprovedGunStores
         private static bool unlockDYHP;
         private static bool buyAmmoEarly;
         private static bool keepAmmo;
+        private static int weapStatUnlock;
+        private static float weapProgUnlock;
 
         // Attachment
         private static int attachmentPrice;
@@ -90,7 +93,6 @@ namespace ImprovedGunStores
         private static Vector3[] weapCoords;
         private static int[] GuardPeds;
         private static uint[] attackTimers;
-        private static bool[] weapUnlocks;
 
         // Attachment arrays
         private static bool[][] attachmentUnlocks;
@@ -241,58 +243,6 @@ namespace ImprovedGunStores
         private static int weapPellets = 0;
         private static int pWeapPellets = 0;
 
-        // Mission Shit
-        float GameProg = GET_FLOAT_STAT(0);
-
-        float RomanProg = GET_FLOAT_STAT(3);
-        float VladProg = GET_FLOAT_STAT(4);
-        float JacobProg = GET_FLOAT_STAT(7);
-        float FaustProg = GET_FLOAT_STAT(8);
-        float MannyProg = GET_FLOAT_STAT(9);
-        float ElizProg = GET_FLOAT_STAT(10);
-        float DwayneProg = GET_FLOAT_STAT(13);
-        float BrucieProg = GET_FLOAT_STAT(16);
-        float PBoyXProg = GET_FLOAT_STAT(17);
-        float FrncsProg = GET_FLOAT_STAT(18);
-        float ULPProg = GET_FLOAT_STAT(19);
-        float PackieProg = GET_FLOAT_STAT(22);
-        float RayBoProg = GET_FLOAT_STAT(23);
-        float GerryProg = GET_FLOAT_STAT(24);
-        float DerrickProg = GET_FLOAT_STAT(25);
-        float BernieProg = GET_FLOAT_STAT(26);
-        float BellProg = GET_FLOAT_STAT(27);
-        float GambtiProg = GET_FLOAT_STAT(28);
-        float JimmyProg = GET_FLOAT_STAT(29);
-
-        float BillyProg = GET_FLOAT_STAT(121);
-        float JimProg = GET_FLOAT_STAT(122);
-        float StubbsProg = GET_FLOAT_STAT(125);
-        float AshleyProg = GET_FLOAT_STAT(126);
-        float LizTProg = GET_FLOAT_STAT(127);
-        float RayBProg = GET_FLOAT_STAT(128);
-
-        float TonyProg = GET_FLOAT_STAT(188);
-        float YusufProg = GET_FLOAT_STAT(191);
-        float MoriProg = GET_FLOAT_STAT(192);
-        float ArmandoProg = GET_FLOAT_STAT(197);
-        float BulgarinProg = GET_FLOAT_STAT(200);
-        float RoccoProg = GET_FLOAT_STAT(201);
-
-        int mostWantedProg = GET_INT_STAT(360);
-        int pigeonsKilled = GET_INT_STAT(361);
-        int jacDrugProg = GET_INT_STAT(284);
-        int stuntJumpProg = GET_INT_STAT(270);
-        int stevieProg = GET_INT_STAT(285);
-        int impExpProg = GET_INT_STAT(469);
-
-        int seagullsKilledTLAD = GET_INT_STAT(143);
-        int stubbsSideProg = GET_INT_STAT(145);
-        int gangWarTLAD = GET_INT_STAT(177);
-
-        int seagullsKilledTBoGT = GET_INT_STAT(211);
-        int nightClubProg = GET_INT_STAT(244);
-        int gangWarTBoGT = GET_INT_STAT(243);
-
         public Main()
         {
             Uninitialize += Main_Uninitialize;
@@ -306,66 +256,6 @@ namespace ImprovedGunStores
                 storeHostile[i] = false;
 
             LoadSettings(Settings);
-
-            GameProg = GET_FLOAT_STAT(0);
-
-            RomanProg = GET_FLOAT_STAT(3);
-            VladProg = GET_FLOAT_STAT(4);
-            JacobProg = GET_FLOAT_STAT(7);
-            FaustProg = GET_FLOAT_STAT(8);
-            MannyProg = GET_FLOAT_STAT(9);
-            ElizProg = GET_FLOAT_STAT(10);
-            DwayneProg = GET_FLOAT_STAT(13);
-            BrucieProg = GET_FLOAT_STAT(16);
-            PBoyXProg = GET_FLOAT_STAT(17);
-            FrncsProg = GET_FLOAT_STAT(18);
-            ULPProg = GET_FLOAT_STAT(19);
-            PackieProg = GET_FLOAT_STAT(22);
-            RayBoProg = GET_FLOAT_STAT(23);
-            GerryProg = GET_FLOAT_STAT(24);
-            DerrickProg = GET_FLOAT_STAT(25);
-            BernieProg = GET_FLOAT_STAT(26);
-            BellProg = GET_FLOAT_STAT(27);
-            GambtiProg = GET_FLOAT_STAT(28);
-            JimmyProg = GET_FLOAT_STAT(29);
-
-            BillyProg = GET_FLOAT_STAT(121);
-            JimProg = GET_FLOAT_STAT(122);
-            StubbsProg = GET_FLOAT_STAT(125);
-            AshleyProg = GET_FLOAT_STAT(126);
-            LizTProg = GET_FLOAT_STAT(127);
-            RayBProg = GET_FLOAT_STAT(128);
-
-            TonyProg = GET_FLOAT_STAT(188);
-            YusufProg = GET_FLOAT_STAT(191);
-            MoriProg = GET_FLOAT_STAT(192);
-            ArmandoProg = GET_FLOAT_STAT(197);
-            BulgarinProg = GET_FLOAT_STAT(200);
-            RoccoProg = GET_FLOAT_STAT(201);
-
-            mostWantedProg = GET_INT_STAT(360);
-            pigeonsKilled = GET_INT_STAT(361);
-            jacDrugProg = GET_INT_STAT(284);
-            stuntJumpProg = GET_INT_STAT(270);
-            stevieProg = GET_INT_STAT(285);
-            impExpProg = GET_INT_STAT(469);
-
-            seagullsKilledTLAD = GET_INT_STAT(143);
-            stubbsSideProg = GET_INT_STAT(145);
-            gangWarTLAD = GET_INT_STAT(177);
-
-            seagullsKilledTBoGT = GET_INT_STAT(211);
-            nightClubProg = GET_INT_STAT(244);
-            gangWarTBoGT = GET_INT_STAT(243);
-        }
-        private void GetGameProgress()
-        {
-            if (currEp == 0)
-                GameProg = GET_FLOAT_STAT(0);
-            else if (currEp == 1)
-                GameProg = GET_FLOAT_STAT(133);
-            else if (currEp == 2)
-                GameProg = GET_FLOAT_STAT(187);
         }
         private void LoadColors(SettingsFile settings)
         {
@@ -521,7 +411,7 @@ namespace ImprovedGunStores
             episodicCheck = settings.GetBoolean("MAIN", "CheckEpisodicWeapons", false);
             cooldown = settings.GetInteger("MAIN", "HostileCooldown", 0);
             gSpawnDelay = settings.GetInteger("MAIN", "GuardSpawnDelay", 0);
-            weapUnlocks = new bool[numOfWeaponIDs];
+            extraStock = settings.GetBoolean("MAIN", "ExtraStock", false);
             attachmentUnlocks = new bool[numOfWeaponIDs][];
 
             for (int i = 0; i < numOfWeaponIDs; i++)
@@ -547,8 +437,6 @@ namespace ImprovedGunStores
                         settings.AddKeyToSection(IVGenericGameStorage.ValidSaveName, i.ToString() + "Unlocked");
                         settings.SetBoolean(IVGenericGameStorage.ValidSaveName, i.ToString() + "Unlocked", false);
                     }
-
-                    weapUnlocks[i] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "Unlocked"), false);
 
                     attachmentUnlocks[i][0] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasGrenadeLauncherAttachment"), false);
                     attachmentUnlocks[i][1] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasScopeAttachment"), false);
@@ -612,18 +500,32 @@ namespace ImprovedGunStores
             {
                 if (settings.DoesSectionExists(weapon.ToString()))
                 {
-                    weapUnlocks[i] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "Unlocked"), false);
                     weaponName = settings.GetValue(weapon.ToString(), "Name", "");
                     clipAmmo = settings.GetInteger(weapon.ToString(), "ClipAmmo", 0);
-                    //isWeapUnlocked = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (weapon.ToString() + "Unlocked"), false);
-                    isWeapUnlocked = weapUnlocks[weapon];
+                    weapCost = settings.GetInteger(weapon.ToString(), "WeaponPrice", 0);
+                    ammoCost = settings.GetInteger(weapon.ToString(), "AmmoPrice", 0);
+
+                    if (currEp == 0)
+                    {
+                        weapStatUnlock = settings.GetInteger(weapon.ToString(), "IVUnlockStat", 0);
+                        weapProgUnlock = settings.GetFloat(weapon.ToString(), "IVUnlockProg", 0);
+                    }
+                    else if (currEp == 1)
+                    {
+                        weapStatUnlock = settings.GetInteger(weapon.ToString(), "TLADUnlockStat", 0);
+                        weapProgUnlock = settings.GetFloat(weapon.ToString(), "TLADUnlockProg", 0);
+                    }
+                    else if (currEp == 2)
+                    {
+                        weapStatUnlock = settings.GetInteger(weapon.ToString(), "TBOGTUnlockStat", 0);
+                        weapProgUnlock = settings.GetFloat(weapon.ToString(), "TBOGTUnlockProg", 0);
+                    }
                 }
+                MissionTracker();
 
                 animStart = configFile.GetInteger(weapon.ToString(), "AnimStart", 0);
                 animLoop = configFile.GetInteger(weapon.ToString(), "AnimLoop", 0);
                 animEnd = configFile.GetInteger(weapon.ToString(), "AnimEnd", 0);
-                weapCost = configFile.GetInteger(weapon.ToString(), "WeaponPrice", 0);
-                ammoCost = configFile.GetInteger(weapon.ToString(), "AmmoPrice", 0);
                 buySound = settings.GetValue(weapon.ToString(), "WeaponBuySound", "");
                 weapMsg = msgConfFile.GetValue(weapon.ToString(), "Message", "");
 
@@ -717,794 +619,15 @@ namespace ImprovedGunStores
                 pWeapBarH = statConfFile.GetInteger(weapon.ToString(), "BarH", -1);
             }
         }
-        private void CheckWeaponUnlock(SettingsFile settings)
-        {
-            for (int i = 0; i < numOfWeaponIDs; i++)
-            {
-                if (!settings.DoesSectionExists(i.ToString()))
-                    continue;
-
-                int weapUnlock = 0;
-                if (currEp == 0)
-                    weapUnlock = settings.GetInteger(i.ToString(), "IVUnlockAfter", 0);
-
-                else if (currEp == 1)
-                    weapUnlock = settings.GetInteger(i.ToString(), "TLADUnlockAfter", 0);
-
-                else if (currEp == 2)
-                    weapUnlock = settings.GetInteger(i.ToString(), "TBOGTUnlockAfter", 0);
-
-                if (weapUnlock == MissionProgress || weapUnlock == 0)
-                    weapUnlocks[i] = true;
-                    //WriteBooleanToINI(Settings, i.ToString(), true);
-            }
-        }
-        private void CheckSideMissions()
-        {
-            if (currEp == 0)
-            {
-                int mwKill = GET_INT_STAT(360);
-                int ratKill = GET_INT_STAT(361);
-                int drugDeliver = GET_INT_STAT(284);
-                int stuntJump = GET_INT_STAT(270);
-                int stevieCar = GET_INT_STAT(285);
-                int brucieCar = GET_INT_STAT(469);
-
-                if (mwKill != mostWantedProg)
-                {
-                    if (mwKill >= 30)
-                        MissionProgress = 91;
-                    else if (mwKill >= 25)
-                        MissionProgress = 90;
-                    else if (mwKill >= 20)
-                        MissionProgress = 89;
-                    else if (mwKill >= 15)
-                        MissionProgress = 88;
-                    else if (mwKill >= 10)
-                        MissionProgress = 87;
-                    else if (mwKill >= 5)
-                        MissionProgress = 86;
-                    mostWantedProg = mwKill;
-                    CheckWeaponUnlock(Settings);
-                }
-                else if (ratKill != pigeonsKilled)
-                {
-                    if (ratKill >= 200)
-                        MissionProgress = 131;
-                    else if (ratKill >= 195)
-                        MissionProgress = 130;
-                    else if (ratKill >= 190)
-                        MissionProgress = 129;
-                    else if (ratKill >= 185)
-                        MissionProgress = 128;
-                    else if (ratKill >= 180)
-                        MissionProgress = 127;
-                    else if (ratKill >= 175)
-                        MissionProgress = 126;
-                    else if (ratKill >= 170)
-                        MissionProgress = 125;
-                    else if (ratKill >= 165)
-                        MissionProgress = 124;
-                    else if (ratKill >= 160)
-                        MissionProgress = 123;
-                    else if (ratKill >= 155)
-                        MissionProgress = 122;
-                    else if (ratKill >= 150)
-                        MissionProgress = 121;
-                    else if (ratKill >= 145)
-                        MissionProgress = 120;
-                    else if (ratKill >= 140)
-                        MissionProgress = 119;
-                    else if (ratKill >= 135)
-                        MissionProgress = 118;
-                    else if (ratKill >= 130)
-                        MissionProgress = 117;
-                    else if (ratKill >= 125)
-                        MissionProgress = 116;
-                    else if (ratKill >= 120)
-                        MissionProgress = 115;
-                    else if (ratKill >= 115)
-                        MissionProgress = 114;
-                    else if (ratKill >= 110)
-                        MissionProgress = 113;
-                    else if (ratKill >= 105)
-                        MissionProgress = 112;
-                    else if (ratKill >= 100)
-                        MissionProgress = 111;
-                    else if (ratKill >= 95)
-                        MissionProgress = 110;
-                    else if (ratKill >= 90)
-                        MissionProgress = 109;
-                    else if (ratKill >= 85)
-                        MissionProgress = 108;
-                    else if (ratKill >= 80)
-                        MissionProgress = 107;
-                    else if (ratKill >= 75)
-                        MissionProgress = 106;
-                    else if (ratKill >= 70)
-                        MissionProgress = 105;
-                    else if (ratKill >= 65)
-                        MissionProgress = 104;
-                    else if (ratKill >= 60)
-                        MissionProgress = 103;
-                    else if (ratKill >= 55)
-                        MissionProgress = 102;
-                    else if (ratKill >= 50)
-                        MissionProgress = 101;
-                    else if (ratKill >= 45)
-                        MissionProgress = 100;
-                    else if (ratKill >= 40)
-                        MissionProgress = 99;
-                    else if (ratKill >= 35)
-                        MissionProgress = 98;
-                    else if (ratKill >= 30)
-                        MissionProgress = 97;
-                    else if (ratKill >= 25)
-                        MissionProgress = 96;
-                    else if (ratKill >= 20)
-                        MissionProgress = 95;
-                    else if (ratKill >= 15)
-                        MissionProgress = 94;
-                    else if (ratKill >= 10)
-                        MissionProgress = 93;
-                    else if (ratKill >= 5)
-                        MissionProgress = 92;
-                    pigeonsKilled = ratKill;
-                    CheckWeaponUnlock(Settings);
-                }
-                else if (drugDeliver != jacDrugProg)
-                {
-                    if (drugDeliver >= 10)
-                        MissionProgress = 141;
-                    else if (drugDeliver >= 9)
-                        MissionProgress = 140;
-                    else if (drugDeliver >= 8)
-                        MissionProgress = 139;
-                    else if (drugDeliver >= 7)
-                        MissionProgress = 138;
-                    else if (drugDeliver >= 6)
-                        MissionProgress = 137;
-                    else if (drugDeliver >= 5)
-                        MissionProgress = 136;
-                    else if (drugDeliver >= 4)
-                        MissionProgress = 135;
-                    else if (drugDeliver >= 3)
-                        MissionProgress = 134;
-                    else if (drugDeliver >= 2)
-                        MissionProgress = 133;
-                    else if (drugDeliver >= 1)
-                        MissionProgress = 132;
-                    jacDrugProg = drugDeliver;
-                    CheckWeaponUnlock(Settings);
-                }
-                else if (stuntJump != stuntJumpProg)
-                {
-                    if (stuntJump >= 50)
-                        MissionProgress = 151;
-                    else if (stuntJump >= 45)
-                        MissionProgress = 150;
-                    else if (stuntJump >= 40)
-                        MissionProgress = 149;
-                    else if (stuntJump >= 35)
-                        MissionProgress = 148;
-                    else if (stuntJump >= 30)
-                        MissionProgress = 147;
-                    else if (stuntJump >= 25)
-                        MissionProgress = 146;
-                    else if (stuntJump >= 20)
-                        MissionProgress = 145;
-                    else if (stuntJump >= 15)
-                        MissionProgress = 144;
-                    else if (stuntJump >= 10)
-                        MissionProgress = 143;
-                    else if (stuntJump >= 5)
-                        MissionProgress = 142;
-                    stuntJumpProg = stuntJump;
-                    CheckWeaponUnlock(Settings);
-                }
-                else if (stevieCar != stevieProg)
-                {
-                    if (stevieCar >= 30)
-                        MissionProgress = 157;
-                    else if (stevieCar >= 25)
-                        MissionProgress = 156;
-                    else if (stevieCar >= 20)
-                        MissionProgress = 155;
-                    else if (stevieCar >= 15)
-                        MissionProgress = 154;
-                    else if (stevieCar >= 10)
-                        MissionProgress = 153;
-                    else if (stevieCar >= 5)
-                        MissionProgress = 152;
-                    stevieProg = stevieCar;
-                    CheckWeaponUnlock(Settings);
-                }
-                else if (brucieCar != impExpProg)
-                {
-                    if (brucieCar >= 10)
-                        MissionProgress = 167;
-                    else if (brucieCar >= 9)
-                        MissionProgress = 166;
-                    else if (brucieCar >= 8)
-                        MissionProgress = 165;
-                    else if (brucieCar >= 7)
-                        MissionProgress = 164;
-                    else if (brucieCar >= 6)
-                        MissionProgress = 163;
-                    else if (brucieCar >= 5)
-                        MissionProgress = 162;
-                    else if (brucieCar >= 4)
-                        MissionProgress = 161;
-                    else if (brucieCar >= 3)
-                        MissionProgress = 160;
-                    else if (brucieCar >= 2)
-                        MissionProgress = 159;
-                    else if (brucieCar >= 1)
-                        MissionProgress = 158;
-                    impExpProg = brucieCar;
-                    CheckWeaponUnlock(Settings);
-                }
-            }
-            else if (currEp == 1)
-            {
-                int seagull = GET_INT_STAT(143);
-                int stubbsShit = GET_INT_STAT(145);
-                int gangWar = GET_INT_STAT(177);
-
-                if (seagull != seagullsKilledTLAD)
-                {
-                    if (seagull >= 50)
-                        MissionProgress = 32;
-                    else if (seagull >= 45)
-                        MissionProgress = 31;
-                    else if (seagull >= 40)
-                        MissionProgress = 30;
-                    else if (seagull >= 35)
-                        MissionProgress = 29;
-                    else if (seagull >= 30)
-                        MissionProgress = 28;
-                    else if (seagull >= 25)
-                        MissionProgress = 27;
-                    else if (seagull >= 20)
-                        MissionProgress = 26;
-                    else if (seagull >= 15)
-                        MissionProgress = 25;
-                    else if (seagull >= 10)
-                        MissionProgress = 24;
-                    else if (seagull >= 5)
-                        MissionProgress = 23;
-                    seagullsKilledTLAD = seagull;
-                    CheckWeaponUnlock(Settings);
-                }
-                else if (stubbsShit != stubbsSideProg)
-                {
-                    if (stubbsShit >= 5)
-                        MissionProgress = 37;
-                    else if (stubbsShit >= 4)
-                        MissionProgress = 36;
-                    else if (stubbsShit >= 3)
-                        MissionProgress = 35;
-                    else if (stubbsShit >= 2)
-                        MissionProgress = 34;
-                    else if (stubbsShit >= 1)
-                        MissionProgress = 33;
-                    stubbsSideProg = stubbsShit;
-                    CheckWeaponUnlock(Settings);
-                }
-                else if (gangWar != gangWarTLAD)
-                {
-                    if (gangWar >= 25)
-                        MissionProgress = 42;
-                    else if (gangWar >= 20)
-                        MissionProgress = 41;
-                    else if (gangWar >= 15)
-                        MissionProgress = 40;
-                    else if (gangWar >= 10)
-                        MissionProgress = 39;
-                    else if (gangWar >= 5)
-                        MissionProgress = 38;
-                    gangWarTLAD = gangWar;
-                    CheckWeaponUnlock(Settings);
-                }
-            }
-            else if (currEp == 2)
-            {
-                int seagull = GET_INT_STAT(211);
-                int nightClub = GET_INT_STAT(244);
-                int gangWar = GET_INT_STAT(243);
-                
-                if (seagull != seagullsKilledTBoGT)
-                {
-                    if (seagull >= 50)
-                        MissionProgress = 34;
-                    else if (seagull >= 45)
-                        MissionProgress = 33;
-                    else if (seagull >= 40)
-                        MissionProgress = 32;
-                    else if (seagull >= 35)
-                        MissionProgress = 31;
-                    else if (seagull >= 30)
-                        MissionProgress = 30;
-                    else if (seagull >= 25)
-                        MissionProgress = 29;
-                    else if (seagull >= 20)
-                        MissionProgress = 28;
-                    else if (seagull >= 15)
-                        MissionProgress = 27;
-                    else if (seagull >= 10)
-                        MissionProgress = 26;
-                    else if (seagull >= 5)
-                        MissionProgress = 25;
-                    seagullsKilledTBoGT = seagull;
-                }
-                else if (nightClub != nightClubProg)
-                {
-                    if (nightClub >= 8)
-                        MissionProgress = 42;
-                    else if (nightClub >= 7)
-                        MissionProgress = 41;
-                    else if (nightClub >= 6)
-                        MissionProgress = 40;
-                    else if (nightClub >= 5)
-                        MissionProgress = 39;
-                    else if (nightClub >= 4)
-                        MissionProgress = 38;
-                    else if (nightClub >= 3)
-                        MissionProgress = 37;
-                    else if (nightClub >= 2)
-                        MissionProgress = 36;
-                    else if (nightClub >= 1)
-                        MissionProgress = 35;
-                    nightClubProg = nightClub;
-                }
-                else if (gangWar != gangWarTBoGT)
-                {
-                    if (gangWar >= 25)
-                        MissionProgress = 47;
-                    else if (gangWar >= 20)
-                        MissionProgress = 46;
-                    else if (gangWar >= 15)
-                        MissionProgress = 45;
-                    else if (gangWar >= 10)
-                        MissionProgress = 44;
-                    else if (gangWar >= 5)
-                        MissionProgress = 43;
-                    gangWarTBoGT = gangWar;
-                }
-            }
-        }
         private void MissionTracker()
         {
-            if (currEp == 0)
-            {
-                float RomProg = GET_FLOAT_STAT(3);
-                float VldProg = GET_FLOAT_STAT(4);
-                float JacProg = GET_FLOAT_STAT(7);
-                float FauProg = GET_FLOAT_STAT(8);
-                float MnyProg = GET_FLOAT_STAT(9);
-                float LizProg = GET_FLOAT_STAT(10);
-                float DwaProg = GET_FLOAT_STAT(13);
-                float BruProg = GET_FLOAT_STAT(16);
-                float PBXProg = GET_FLOAT_STAT(17);
-                float FrnProg = GET_FLOAT_STAT(18);
-                float ULProg = GET_FLOAT_STAT(19);
-                float PacProg = GET_FLOAT_STAT(22);
-                float RayProg = GET_FLOAT_STAT(23);
-                float GerProg = GET_FLOAT_STAT(24);
-                float DerProg = GET_FLOAT_STAT(25);
-                float BerProg = GET_FLOAT_STAT(26);
-                float BelProg = GET_FLOAT_STAT(27);
-                float GamProg = GET_FLOAT_STAT(28);
-                float JmyProg = GET_FLOAT_STAT(29);
+            float floatProg = GET_FLOAT_STAT(weapStatUnlock);
+            int intProg = GET_INT_STAT(weapStatUnlock);
 
-                if (RomProg != RomanProg)
-                {
-                    if (RomProg < 7)
-                        MissionProgress = 1;
-                    else if (RomProg < 14)
-                        MissionProgress = 2;
-                    else if (RomProg < 21)
-                        MissionProgress = 3;
-                    else if (RomProg < 27)
-                        MissionProgress = 4;
-                    else if (RomProg < 34)
-                        MissionProgress = 5;
-                    else if (RomProg < 41)
-                        MissionProgress = 6;
-                    else if (RomProg < 47)
-                        MissionProgress = 12;
-                    else if (RomProg < 54)
-                        MissionProgress = 18;
-                    else if (RomProg < 61)
-                        MissionProgress = 24;
-                    else if (RomProg < 67)
-                        MissionProgress = 47;
-                    else if (RomProg < 74)
-                        MissionProgress = 64;
-                    else if (RomProg < 81)
-                        MissionProgress = 82;
-                    else if (RomProg < 87)
-                        MissionProgress = 83;
-                    else if (RomProg < 94)
-                        MissionProgress = 84;
-                    else if (RomProg < 101)
-                        MissionProgress = 85;
-                    RomanProg = RomProg;
-                }
-                else if (VldProg != VladProg)
-                {
-                    if (VldProg < 30)
-                        MissionProgress = 7;
-                    else if (VldProg < 60)
-                        MissionProgress = 8;
-                    else if (VldProg < 80)
-                        MissionProgress = 9;
-                    else if (VldProg < 101)
-                        MissionProgress = 10;
-                    VladProg = VldProg;
-                }
-                else if (JacProg != JacobProg)
-                {
-                    if (JacProg < 60)
-                        MissionProgress = 11;
-                    else if (JacProg < 101)
-                        MissionProgress = 15;
-                    JacobProg = JacProg;
-                }
-                else if (FauProg != FaustProg)
-                {
-                    if (FauProg < 15)
-                        MissionProgress = 13;
-                    else if (FauProg < 30)
-                        MissionProgress = 14;
-                    else if (FauProg < 45)
-                        MissionProgress = 16;
-                    else if (FauProg < 60)
-                        MissionProgress = 17;
-                    else if (FauProg < 75)
-                        MissionProgress = 19;
-                    else if (FauProg < 90)
-                        MissionProgress = 22;
-                    else if (FauProg < 101)
-                        MissionProgress = 23;
-                    FaustProg = FauProg;
-                }
-                else if (BruProg != BrucieProg)
-                {
-                    if (BruProg < 30)
-                        MissionProgress = 20;
-                    else if (BruProg < 60)
-                        MissionProgress = 21;
-                    else if (BruProg < 80)
-                        MissionProgress = 25;
-                    else if (BruProg < 101)
-                        MissionProgress = 26;
-                    BrucieProg = BruProg;
-                }
-                else if (MnyProg != MannyProg)
-                {
-                    if (MnyProg < 40)
-                        MissionProgress = 27;
-                    else if (MnyProg < 70)
-                        MissionProgress = 28;
-                    else if (MnyProg < 101)
-                        MissionProgress = 31;
-                    MannyProg = MnyProg;
-                }
-                else if (LizProg != ElizProg)
-                {
-                    if (LizProg < 30)
-                        MissionProgress = 29;
-                    else if (LizProg < 60)
-                        MissionProgress = 30;
-                    else if (LizProg < 80)
-                        MissionProgress = 32;
-                    else if (LizProg < 101)
-                        MissionProgress = 33;
-                    ElizProg = LizProg;
-                }
-                else if (PBXProg != PBoyXProg)
-                {
-                    if (PBXProg < 40)
-                        MissionProgress = 41;
-                    else if (PBXProg < 70)
-                        MissionProgress = 42;
-                    else if (PBXProg < 101)
-                        MissionProgress = 48;
-                    PBoyXProg = PBXProg;
-                }
-                else if (DwaProg != DwayneProg)
-                {
-                    if (DwaProg < 60)
-                        MissionProgress = 43;
-                    else if (DwaProg < 101)
-                        MissionProgress = 44;
-                    DwayneProg = DwaProg;
-                }
-                else if (PacProg != PackieProg)
-                {
-                    if (PacProg < 40)
-                        MissionProgress = 35;
-                    else if (PacProg < 70)
-                        MissionProgress = 36;
-                    else if (PacProg < 101)
-                        MissionProgress = 37;
-                    PackieProg = PacProg;
-                }
-                else if (FrnProg != FrncsProg)
-                {
-                    if (FrnProg < 20)
-                        MissionProgress = 34;
-                    else if (FrnProg < 40)
-                        MissionProgress = 38;
-                    else if (FrnProg < 60)
-                        MissionProgress = 39;
-                    else if (FrnProg < 70)
-                        MissionProgress = 40;
-                    else if (FrnProg < 90)
-                        MissionProgress = 57;
-                    else if (FrnProg < 101)
-                        MissionProgress = 58;
-                    FrncsProg = FrnProg;
-                }
-                else if (ULProg != ULPProg)
-                {
-                    if (ULProg < 30)
-                        MissionProgress = 45;
-                    else if (ULProg < 60)
-                        MissionProgress = 46;
-                    else if (ULProg < 80)
-                        MissionProgress = 49;
-                    else if (ULProg < 101)
-                        MissionProgress = 50;
-                    ULPProg = ULProg;
-                }
-                else if (RayProg != RayBoProg)
-                {
-                    if (RayProg < 20)
-                        MissionProgress = 54;
-                    else if (RayProg < 40)
-                        MissionProgress = 59;
-                    else if (RayProg < 60)
-                        MissionProgress = 60;
-                    else if (RayProg < 70)
-                        MissionProgress = 61;
-                    else if (RayProg < 90)
-                        MissionProgress = 62;
-                    else if (RayProg < 101)
-                        MissionProgress = 63;
-                    RayBoProg = RayProg;
-                }
-                else if (GerProg != GerryProg)
-                {
-                    if (GerProg < 30)
-                        MissionProgress = 51;
-                    else if (GerProg < 50)
-                        MissionProgress = 52;
-                    else if (GerProg < 70)
-                        MissionProgress = 65;
-                    else if (GerProg < 90)
-                        MissionProgress = 66;
-                    else if (GerProg < 101)
-                        MissionProgress = 70;
-                    GerryProg = GerProg;
-                }
-                else if (DerProg != DerrickProg)
-                {
-                    if (DerProg < 40)
-                        MissionProgress = 53;
-                    else if (DerProg < 70)
-                        MissionProgress = 55;
-                    else if (DerProg < 101)
-                        MissionProgress = 56;
-                    DerrickProg = DerProg;
-                }
-                else if (BerProg != BernieProg)
-                {
-                    if (BerProg < 40)
-                        MissionProgress = 67;
-                    else if (BerProg < 70)
-                        MissionProgress = 68;
-                    else if (BerProg < 101)
-                        MissionProgress = 69;
-                    BernieProg = BerProg;
-                }
-                else if (BelProg != BellProg)
-                {
-                    if (BelProg < 40)
-                        MissionProgress = 71;
-                    else if (BelProg < 60)
-                        MissionProgress = 74;
-                    else if (BelProg < 80)
-                        MissionProgress = 75;
-                    else if (BelProg < 101)
-                        MissionProgress = 76;
-                    BellProg = BelProg;
-                }
-                else if (JmyProg != JimmyProg)
-                {
-                    if (JmyProg < 40)
-                        MissionProgress = 72;
-                    else if (JmyProg < 60)
-                        MissionProgress = 73;
-                    else if (JmyProg < 80)
-                        MissionProgress = 77;
-                    else if (JmyProg < 101)
-                        MissionProgress = 78;
-                    JimmyProg = JmyProg;
-                }
-                else if (GamProg != GambtiProg)
-                {
-                    if (GamProg < 40)
-                        MissionProgress = 79;
-                    else if (GamProg < 70)
-                        MissionProgress = 80;
-                    else if (GamProg < 101)
-                        MissionProgress = 81;
-                    GambtiProg = GamProg;
-                }
-            }
-            else if (currEp == 1)
-            {
-                float BilProg = GET_FLOAT_STAT(121);
-                float JmProg = GET_FLOAT_STAT(122);
-                float StuProg = GET_FLOAT_STAT(125);
-                float AshProg = GET_FLOAT_STAT(126);
-                float LizProg = GET_FLOAT_STAT(127);
-                float RayProg = GET_FLOAT_STAT(128);
-
-                if (BilProg != BillyProg)
-                {
-                    if (BilProg < 20)
-                        MissionProgress = 1;
-                    else if (BilProg < 40)
-                        MissionProgress = 2;
-                    else if (BilProg < 60)
-                        MissionProgress = 3;
-                    else if (BilProg < 70)
-                        MissionProgress = 4;
-                    else if (BilProg < 90)
-                        MissionProgress = 7;
-                    else if (BilProg < 101)
-                        MissionProgress = 11;
-                    BillyProg = BilProg;
-                }
-                else if (JmProg != JimProg)
-                {
-                    if (JmProg < 30)
-                        MissionProgress = 5;
-                    else if (JmProg < 50)
-                        MissionProgress = 6;
-                    else if (JmProg < 70)
-                        MissionProgress = 12;
-                    else if (JmProg < 90)
-                        MissionProgress = 13;
-                    else if (JmProg < 101)
-                        MissionProgress = 14;
-                    JimProg = JmProg;
-                }
-                else if (StuProg != StubbsProg)
-                {
-                    if (StuProg < 40)
-                        MissionProgress = 8;
-                    else if (StuProg < 70)
-                        MissionProgress = 10;
-                    else if (StuProg < 101)
-                        MissionProgress = 22;
-                    StubbsProg = StuProg;
-                }
-                else if (AshProg != AshleyProg)
-                {
-                    if (AshProg < 70)
-                        MissionProgress = 9;
-                    else if (AshProg < 101)
-                        MissionProgress = 18;
-                    AshleyProg = AshProg;
-                }
-                else if (LizProg != LizTProg)
-                {
-                    if (LizProg < 40)
-                        MissionProgress = 15;
-                    else if (LizProg < 70)
-                        MissionProgress = 16;
-                    else if (LizProg < 101)
-                        MissionProgress = 17;
-                    LizTProg = LizProg;
-                }
-                else if (RayProg != RayBProg)
-                {
-                    if (RayProg < 40)
-                        MissionProgress = 19;
-                    else if (RayProg < 70)
-                        MissionProgress = 20;
-                    else if (RayProg < 101)
-                        MissionProgress = 21;
-                    RayBProg = RayProg;
-                }
-            }
-            else if (currEp == 2)
-            {
-                float TonProg = GET_FLOAT_STAT(188);
-                float YusProg = GET_FLOAT_STAT(191);
-                float MorProg = GET_FLOAT_STAT(192);
-                float ArmProg = GET_FLOAT_STAT(197);
-                float BulProg = GET_FLOAT_STAT(200);
-                float RocProg = GET_FLOAT_STAT(201);
-
-                if (TonProg != TonyProg)
-                {
-                    if (TonProg < 10)
-                        MissionProgress = 1;
-                    else if (TonProg < 20)
-                        MissionProgress = 2;
-                    else if (TonProg < 30)
-                        MissionProgress = 5;
-                    else if (TonProg < 40)
-                        MissionProgress = 6;
-                    else if (TonProg < 50)
-                        MissionProgress = 7;
-                    else if (TonProg < 60)
-                        MissionProgress = 8;
-                    else if (TonProg < 70)
-                        MissionProgress = 12;
-                    else if (TonProg < 80)
-                        MissionProgress = 14;
-                    else if (TonProg < 90)
-                        MissionProgress = 16;
-                    else if (TonProg < 95)
-                        MissionProgress = 22;
-                    else if (TonProg < 101)
-                        MissionProgress = 24;
-                    TonyProg = TonProg;
-                }
-                else if (YusProg != YusufProg)
-                {
-                    if (YusProg < 30)
-                        MissionProgress = 10;
-                    else if (YusProg < 60)
-                        MissionProgress = 11;
-                    else if (YusProg < 90)
-                        MissionProgress = 17;
-                    else if (YusProg < 101)
-                        MissionProgress = 20;
-                    YusufProg = YusProg;
-                }
-                else if (MorProg != MoriProg)
-                {
-                    if (MorProg < 40)
-                        MissionProgress = 9;
-                    else if (MorProg < 70)
-                        MissionProgress = 13;
-                    else if (MorProg < 101)
-                        MissionProgress = 15;
-                    MoriProg = MorProg;
-                }
-                else if (ArmProg != ArmandoProg)
-                {
-                    if (ArmProg < 70)
-                        MissionProgress = 3;
-                    else if (ArmProg < 101)
-                        MissionProgress = 4;
-                    ArmandoProg = ArmProg;
-                }
-                else if (BulProg != BulgarinProg)
-                {
-                    if (BulProg < 40)
-                        MissionProgress = 18;
-                    else if (BulProg < 70)
-                        MissionProgress = 19;
-                    else if (BulProg < 101)
-                        MissionProgress = 21;
-                    BulgarinProg = BulProg;
-                }
-                else if (RocProg != RoccoProg)
-                {
-                    if (RocProg < 101)
-                        MissionProgress = 23;
-                    RoccoProg = RocProg;
-                }
-            }
-            CheckWeaponUnlock(Settings);
+            if (intProg >= weapProgUnlock || floatProg >= weapProgUnlock)
+                isWeapUnlocked = true;
+            else
+                isWeapUnlocked = false;
         }
         private void AnimCheck()
         {
@@ -1699,7 +822,7 @@ namespace ImprovedGunStores
 
                     GET_OBJECT_COORDINATES(WeaponProps[i], out weapCoords[i].X, out weapCoords[i].Y, out weapCoords[i].Z);
                     LoadWeaponBuyPos(Settings, i);
-                    if (LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, weapBuyPos.X, weapBuyPos.Y, weapBuyPos.Z, weapBuyRad, weapBuyRad, weapBuyRad, showBuyMarkers ? true : false) || LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, backroomPos.X, backroomPos.Y, backroomPos.Z, 1, 1, 1, true))
+                    if (LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, weapBuyPos.X, weapBuyPos.Y, weapBuyPos.Z, weapBuyRad, weapBuyRad, weapBuyRad, showBuyMarkers ? true : false) || LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, backroomPos.X, backroomPos.Y, backroomPos.Z, 1, 1, 1, extraStock ? true : false))
                     {
                         if (!LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, backroomPos.X, backroomPos.Y, backroomPos.Z, 1, 1, 1, true))
                         {
@@ -1732,7 +855,7 @@ namespace ImprovedGunStores
                             else if (!IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON"))
                                 PRINT_HELP_FOREVER("GL_SOON");
                         }
-                        else
+                        else if (extraStock)
                         {
                             if (backroomCount > 0)
                             {
@@ -2972,7 +2095,7 @@ namespace ImprovedGunStores
         }
         public void Main_Tick(object sender, EventArgs e)
         {
-            if (enable && (currEp != 0 || GET_FLOAT_STAT(8) > 20 || !unlockDYHP))
+            if (enable && (currEp != 0 || GET_FLOAT_STAT(8) > 20 || !unlockDYHP) && !NativeGame.IsScriptRunning("faustin2"))
             {
                 PlayerPed = IVPed.FromUIntPtr(IVPlayerInfo.FindThePlayerPed());
                 PlayerHandle = PlayerPed.GetHandle();
@@ -2994,21 +2117,6 @@ namespace ImprovedGunStores
 
                 GET_GAME_TIMER(out gTimer);
 
-                float gProg;
-
-                if (currEp == 0)
-                    gProg = GET_FLOAT_STAT(0);
-                else if (currEp == 1)
-                    gProg = GET_FLOAT_STAT(133);
-                else
-                    gProg = GET_FLOAT_STAT(187);
-
-                if (GameProg < gProg)
-                {
-                    MissionTracker();
-                    GameProg = gProg;
-                }
-                CheckSideMissions();
                 //IVGame.ShowSubtitleMessage(gProg.ToString() + " Game " + GameProg.ToString() + " fix?" + GET_FLOAT_STAT(48).ToString() + " er?" + GET_FLOAT_STAT(43).ToString() + " ass?" + GET_FLOAT_STAT(121).ToString());
 
                 //IVGame.ShowSubtitleMessage(gProg.ToString() + locations.IndexOf(location).ToString() + " Game " + GameProg.ToString() + isWeapUnlocked.ToString());
@@ -3016,7 +2124,6 @@ namespace ImprovedGunStores
                 {
                     if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, locations[i].X, locations[i].Y, locations[i].Z, 50, 50, 50, false) && !hasConfigsLoaded)
                     {
-                        GetGameProgress();
                         LoadColors(Settings);
                         LoadConfigs(i);
                         location = locations[i];
@@ -3052,17 +2159,6 @@ namespace ImprovedGunStores
 
                 if (DID_SAVE_COMPLETE_SUCCESSFULLY() && GET_IS_DISPLAYINGSAVEMESSAGE())
                 {
-                    for (int i = 0; i < numOfWeaponIDs; i++)
-                    {
-                        if (Settings.DoesSectionExists(i.ToString()))
-                            WriteBooleanToINI(Settings, i.ToString() + "Unlocked", weapUnlocks[i]);
-
-                        /*if (weapFuncsConfig.DoesSectionExists(i.ToString()))
-                        {
-                            WriteBooleanToINI(attachmentsConfig, i + "HasGLAttachment", attachmentUnlocks[i]);
-                            //WriteIntToINI(attachmentsConfig, i + "HasGLAttachment", 0);
-                        }*/
-                    }
                     Settings.Save();
                     attachmentsConfig.Save();
                 }
