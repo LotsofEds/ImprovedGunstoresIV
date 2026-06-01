@@ -40,208 +40,87 @@ namespace ImprovedGunStores
         // IniShit
         private static bool enable;
         private static bool showBuyMarkers;
-        private static bool episodicCheck;
+        private static bool unlockDYHP;
+        private static bool buyAmmoEarly;
+        private static bool keepAmmo;
         private static bool extraStock;
         private static int numOfWeaponIDs;
-        private static string weaponModel;
-        private static string weaponName;
-        private static Vector3 weapPos;
-        private static Vector3 weapRot;
-        private static Vector3 weapBuyPos;
-        private static float weapBuyRad;
-        private static float weapBuyHdg;
-        private static string buySound;
-        private static string dealerMdl;
-        private static int dealerWpn;
-        private static Vector3 dealerPos;
-        private static float dealerHdg;
-        private static Vector3 guardPos;
         private static int cooldown;
         private static int gSpawnDelay;
-        private static bool isWeapUnlocked;
-        private static string roomName;
-        private static string gRoomName;
-        private static int doorHash;
-        private static Vector3 doorPos;
+
+        // HUDColors
         private static int hudR;
         private static int hudG;
         private static int hudB;
         private static int hudTextR;
         private static int hudTextG;
         private static int hudTextB;
-        private static int weapCanSpawn;
-        private static int clipAmmo;
-        private static Vector3 backroomPos = Vector3.Zero;
-        private static float backroomHdg = 0;
-        private static bool backroomStock;
-        private static string weapMsg;
-        private static bool unlockDYHP;
-        private static bool buyAmmoEarly;
-        private static bool keepAmmo;
-        private static int weapStatUnlock;
-        private static float weapProgUnlock;
-
-        // Attachment
-        private static int attachmentPrice;
-        //private static int grenLaunPrice;
-        private static int grenPrice;
-        //private static int scopePrice;
-
-        // Lists,Arrays
-        private static string[] locConfFiles;
-        private static int[] WeaponProps;
-        private static Vector3[] weapCoords;
-        private static int[] GuardPeds;
-        private static uint[] attackTimers;
-
-        // Attachment arrays
-        private static bool[][] attachmentUnlocks;
-        private static bool[] canBuyAttachment;
-        private static bool[] ownsAttachment;
-        private static bool[] hasAttachment;
-
-        private static List<Vector3> locations = new List<Vector3>();
-        private static List<SettingsFile> gunStores = new List<SettingsFile>();
-        private static List<bool> storeHostile = new List<bool>();
-        private static List<string> guardMdl = new List<string>();
-        private static List<int> guardWpn = new List<int>();
-        private static List<int> backroomWeaps = new List<int>();
-
-        // BooleanTriggerStuffIDK
-        private static bool settingExists;
-        private static bool HasSpawned = false;
-        private static bool canInspect = false;
-        private static bool isInspecting = false;
-        private static bool bFailMsg = false;
-        private static bool camActivate;
-        private static bool menuActive;
-        private static bool goInspect;
-        private static bool confirmation = false;
-        private static bool enterGunShop = false;
-        private static bool bInspectMsg = false;
-        private static bool bComparing = false;
-        private static bool bSpawnDealer = false;
-        private static bool bSpawnGuards = false;
-        private static bool bIsHostile = false;
-        private static bool hasConfigsLoaded = false;
-        private static bool extraWeap = false;
-        private static bool spawnWeaponInAir = false;
-        private static bool loadWeaponInAir = false;
-        private static bool canBuyStock = false;
-        private static bool replaceText = false;
-
-        // AttachmentBools
-        //private static bool hasScopeAttachment = false;
-        //private static bool hasGLAttachment = false;
-        //private static bool hasThisAttachment = false;
-        private static bool attachmentMenu = false;
-        //private static bool ownsGLAttachment = false;
 
         // GameStuff
-        private static uint currEp;
-        private static SettingsFile configFile;
-        private static SettingsFile attachmentsConfig;
-        private static SettingsFile weapFuncsConfig;
-        private static string locPath;
-        private static SettingsFile statConfFile;
-        private static SettingsFile msgConfFile;
-        private static Vector3 location;
-        private static int MissionProgress;
-        private static int camera = 0;
-        private static int backroomCount = 0;
-        private static int backroomSelectedWeap = 0;
-        private static int weapInAir = 0;
-        private static int grenAmmo = 0;
-        private static int currAttachmt = 0;
-
         private static uint gTimer;
         private static uint fTimer;
-        private static uint rKey;
-        private static uint pKey;
-
-        private static Vector3 wCoords;
-        private static float wRad;
-        private static float animTime;
-
+        private static uint currEp;
+        private static Vector3 location;
         private static int weapID = 0;
-        private static int pAmmo = 0;
-        private static int maxAmmo = 0;
-
-        private static uint pMoney;
-        private static int animStart = 0;
-        private static int animLoop = 0;
-        private static int animEnd = 0;
+        private static Vector3 wCoords;
+        private static float wRad = 0;
+        private static int backroomSelectedWeap = 0;
+        private static float animTime;
+        private static int camera;
+        private static int weapInAir;
+        private static int weapChecked;
 
         private static int weapSlot;
         private static int weapInSlot;
         private static int ammoInSlot;
         private static int maxAmmoInSlot;
         private static int soundID = -1;
-        private static int weapChecked = 0;
 
-        // WeaponStatShit
+        // PlayerStuff
+        private static uint pMoney;
+        private static int pAmmo;
+        private static int maxAmmo;
 
-        private static string pWeaponName;
+        // BooleShit
+        private static bool isSaveTextShown = false;
+        private static bool hasLoadedSave = false;
+        private static bool hasConfigsLoaded = false;
+        private static bool hasSpawned = false;
+        private static bool isWeapUnlocked = false;
+        private static bool confirmation = false;
+        private static bool menuActive = false;
+        private static bool goInspect = false;
+        private static bool camActivate = false;
+        private static bool bInspectMsg = false;
+        private static bool bFailMsg = false;
+        private static bool canInspect = false;
+        private static bool attachmentMenu = false;
+        private static bool extraWeap = false;
+        private static bool isInspecting = false;
+        private static bool bComparing = false;
+        private static bool canBuyStock = false;
+        private static bool bSpawnGuards = false;
 
-        private static int weapCost = 0;
-        private static int ammoCost = 0;
+        private static bool spawnWeaponInAir = false;
 
-        private static string statTextA = "";
-        private static string statTextB = "";
-        private static string statTextC = "";
-        private static string statTextD = "";
-        private static string statTextE = "";
-        private static string statTextF = "";
-        private static string statTextG = "";
-        private static string statTextH = "";
+        // AttachmentShit
+        private static int currAttachmt = 0;
+        private static WeaponHelper.Attachment[][] wAttachments;
 
-        private static int weapStatA = -1;
-        private static int weapStatB = -1;
-        private static int weapStatC = -1;
-        private static int weapStatD = -1;
-        private static int weapStatE = -1;
-        private static int weapStatF = -1;
-        private static int weapStatG = -1;
-        private static int weapStatH = -1;
+        // Lists, Arrays
+        private static List<GunStore> gunstoreData = new List<GunStore>();
+        private static List<SettingsFile> gunStores = new List<SettingsFile>();
+        private static List<int> backroomWeaps = new List<int>();
+        private static WeaponHelper.Weapon[] weaponData;
+        private static WeaponHelper.WeaponStat[] weaponStat;
+        private static int[] weaponProps;
+        private static int[] guardPeds;
 
-        private static int weapBarA = -1;
-        private static int weapBarB = -1;
-        private static int weapBarC = -1;
-        private static int weapBarD = -1;
-        private static int weapBarE = -1;
-        private static int weapBarF = -1;
-        private static int weapBarG = -1;
-        private static int weapBarH = -1;
+        private static GunStore currGunStore;
 
-        private static string pStatTextA = "";
-        private static string pStatTextB = "";
-        private static string pStatTextC = "";
-        private static string pStatTextD = "";
-        private static string pStatTextE = "";
-        private static string pStatTextF = "";
-        private static string pStatTextG = "";
-        private static string pStatTextH = "";
-
-        private static int pWeapStatA = -1;
-        private static int pWeapStatB = -1;
-        private static int pWeapStatC = -1;
-        private static int pWeapStatD = -1;
-        private static int pWeapStatE = -1;
-        private static int pWeapStatF = -1;
-        private static int pWeapStatG = -1;
-        private static int pWeapStatH = -1;
-
-        private static int pWeapBarA = -1;
-        private static int pWeapBarB = -1;
-        private static int pWeapBarC = -1;
-        private static int pWeapBarD = -1;
-        private static int pWeapBarE = -1;
-        private static int pWeapBarF = -1;
-        private static int pWeapBarG = -1;
-        private static int pWeapBarH = -1;
-
-        private static int weapPellets = 0;
-        private static int pWeapPellets = 0;
+        // SettingsFiles
+        private static SettingsFile wfAttachmentsConfig;
+        private static SettingsFile attachmentsConfig;
 
         public Main()
         {
@@ -250,120 +129,51 @@ namespace ImprovedGunStores
             GameLoad += Main_GameLoad;
             Tick += Main_Tick;
         }
-        private void Main_GameLoad(object sender, EventArgs e)
-        {
-            for (int i = 0; i < locations.Count(); i++)
-                storeHostile[i] = false;
 
-            LoadSettings(Settings);
-        }
-        private void LoadColors(SettingsFile settings)
+        // HelperFunctions
+        private void RequestAnims()
         {
-            if (currEp == 0) {
-                hudR = settings.GetInteger("MAIN", "IVStatNameR", 0);
-                hudG = settings.GetInteger("MAIN", "IVStatNameG", 0);
-                hudB = settings.GetInteger("MAIN", "IVStatNameB", 0);
-                hudTextR = settings.GetInteger("MAIN", "IVStatTextR", 0);
-                hudTextG = settings.GetInteger("MAIN", "IVStatTextG", 0);
-                hudTextB = settings.GetInteger("MAIN", "IVStatTextB", 0);
-            }
-            else if (currEp == 1)
-            {
-                hudR = settings.GetInteger("MAIN", "TLADStatNameR", 0);
-                hudG = settings.GetInteger("MAIN", "TLADStatNameG", 0);
-                hudB = settings.GetInteger("MAIN", "TLADStatNameB", 0);
-                hudTextR = settings.GetInteger("MAIN", "TLADStatTextR", 0);
-                hudTextG = settings.GetInteger("MAIN", "TLADStatTextG", 0);
-                hudTextB = settings.GetInteger("MAIN", "TLADStatTextB", 0);
-            }
-            else if (currEp == 2)
-            {
-                hudR = settings.GetInteger("MAIN", "TBOGTStatNameR", 0);
-                hudG = settings.GetInteger("MAIN", "TBOGTStatNameG", 0);
-                hudB = settings.GetInteger("MAIN", "TBOGTStatNameB", 0);
-                hudTextR = settings.GetInteger("MAIN", "TBOGTStatTextR", 0);
-                hudTextG = settings.GetInteger("MAIN", "TBOGTStatTextG", 0);
-                hudTextB = settings.GetInteger("MAIN", "TBOGTStatTextB", 0);
-            }
+            if (!HAVE_ANIMS_LOADED("missgunlockup"))
+                REQUEST_ANIMS("missgunlockup");
+            if (!HAVE_ANIMS_LOADED("pickup_object"))
+                REQUEST_ANIMS("pickup_object");
         }
-        public static string GetAttachmentName(int attachID)
+        private void MissionTracker(int i)
         {
-            switch (attachID)
-            {
-                case 0:
-                    return "GrenadeLauncher";
-                case 1:
-                    return "Scope";
-                default:
-                    return "";
-            }
-        }
-        private void WriteBooleanToINI(SettingsFile settings, string name, bool booleShit)
-        {
-            if (!settings.DoesSectionExists(IVGenericGameStorage.ValidSaveName))
-                settings.AddSection(IVGenericGameStorage.ValidSaveName);
-            if (!settings.DoesKeyExists(IVGenericGameStorage.ValidSaveName, name))
-                settings.AddKeyToSection(IVGenericGameStorage.ValidSaveName, name);
-            settings.SetBoolean(IVGenericGameStorage.ValidSaveName, name, booleShit);
-        }
-        private void WriteIntToINI(SettingsFile settings, string name, int integerShit)
-        {
-            if (!settings.DoesSectionExists(IVGenericGameStorage.ValidSaveName))
-                settings.AddSection(IVGenericGameStorage.ValidSaveName);
-            if (!settings.DoesKeyExists(IVGenericGameStorage.ValidSaveName, name))
-                settings.AddKeyToSection(IVGenericGameStorage.ValidSaveName, name);
-            settings.SetInteger(IVGenericGameStorage.ValidSaveName, name, integerShit);
-        }
-        private void Main_Uninitialize(object sender, EventArgs e)
-        {
-            gunStores.Clear();
-            locations.Clear();
-            storeHostile.Clear();
-            guardMdl.Clear();
-            guardWpn.Clear();
-            backroomWeaps.Clear();
-            DespawnShit();
-        }
-        private void Main_Initialized(object sender, EventArgs e)
-        {
-            gunStores.Clear();
-            locations.Clear();
-            storeHostile.Clear();
-            guardMdl.Clear();
-            guardWpn.Clear();
-            backroomWeaps.Clear();
+            float floatProg = GET_FLOAT_STAT(weaponData[i].UnlockStat);
+            int intProg = GET_INT_STAT(weaponData[i].UnlockStat);
 
-            locPath = string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\LocationData", IVGame.GameStartupPath);
-            locConfFiles = System.IO.Directory.GetFiles(locPath);
-            statConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponStats.ini", IVGame.GameStartupPath));
-            statConfFile.Load();
-            msgConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponMessages.ini", IVGame.GameStartupPath));
-            msgConfFile.Load();
-            attachmentsConfig = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\Attachments.ini", IVGame.GameStartupPath));
-            attachmentsConfig.Load();
-            if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
-                weapFuncsConfig = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath));
+            if (intProg >= weaponData[i].UnlockProg || floatProg >= weaponData[i].UnlockProg)
+                isWeapUnlocked = true;
             else
-                weapFuncsConfig = attachmentsConfig;
+                isWeapUnlocked = false;
+        }
+        private void DestroyCamera()
+        {
+            SET_CAM_ACTIVE(camera, false);
+            SET_CAM_PROPAGATE(camera, false);
+            DESTROY_CAM(camera);
+            ACTIVATE_SCRIPTED_CAMS(false, false);
+            SET_CAM_BEHIND_PED(Main.PlayerHandle);
+            SET_GAME_CAM_PITCH(0.0f);
+            SET_GAME_CAM_HEADING(0.0f);
+            DISPLAY_HUD(true);
+            DISPLAY_RADAR(true);
+        }
+        private void CreateCamera(int cam, bool active, float x, float y, float z, Vector3 pointAt, float fov)
+        {
+            float pOffX, pOffY, pOffZ;
 
-            weapFuncsConfig.Load();
-
-            foreach (string fileName in locConfFiles)
-                gunStores.Add(new SettingsFile(fileName));
-
-            for (int i = 0; i < gunStores.Count(); i++)
-            {
-                gunStores[i].Load();
-                Vector3 loc = gunStores[i].GetVector3("MAIN", "Location", Vector3.Zero);
-                locations.Add(loc);
-                storeHostile.Add(false);
-            }
-
-            LoadSettings(Settings);
-            WeaponProps = new int[numOfWeaponIDs];
-            GuardPeds = new int[4];
-            weapCoords = new Vector3[numOfWeaponIDs];
-            attackTimers = new uint[locations.Count()];
+            CREATE_CAM(14, out cam);
+            GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS(Main.PlayerHandle, x, y, z, out pOffX, out pOffY, out pOffZ);
+            SET_CAM_POS(cam, pOffX, pOffY, pOffZ);
+            POINT_CAM_AT_COORD(cam, pointAt.X, pointAt.Y, pointAt.Z);
+            SET_CAM_FOV(cam, fov);
+            SET_CAM_ACTIVE(cam, active);
+            SET_CAM_PROPAGATE(cam, active);
+            ACTIVATE_SCRIPTED_CAMS(active, active);
+            DISPLAY_HUD(!active);
+            DISPLAY_RADAR(!active);
         }
         private int CreateObject_DontRequestModel(int hash, float x, float y, float z, float heading)
         {
@@ -381,259 +191,470 @@ namespace ImprovedGunStores
 
             return ped;
         }
-        private void CreateCamera(int cam, bool active, float x, float y, float z, Vector3 pointAt, float fov)
-        {
-            float pOffX, pOffY, pOffZ;
-
-            CREATE_CAM(14, out cam);
-            GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS(Main.PlayerHandle, x, y, z, out pOffX, out pOffY, out pOffZ);
-            SET_CAM_POS(cam, pOffX, pOffY, pOffZ);
-            POINT_CAM_AT_COORD(cam, pointAt.X, pointAt.Y, pointAt.Z);
-            SET_CAM_FOV(cam, fov);
-            SET_CAM_ACTIVE(cam, active);
-            SET_CAM_PROPAGATE(cam, active);
-            ACTIVATE_SCRIPTED_CAMS(active, active);
-            DISPLAY_HUD(!active);
-            DISPLAY_RADAR(!active);
-        }
-        private void RequestAnims()
-        {
-            if (!HAVE_ANIMS_LOADED("missgunlockup"))
-                REQUEST_ANIMS("missgunlockup");
-            if (!HAVE_ANIMS_LOADED("pickup_object"))
-                REQUEST_ANIMS("pickup_object");
-        }
-        private void LoadSettings(SettingsFile settings)
-        {
-            enable = settings.GetBoolean("MAIN", "Enable", false);
-            showBuyMarkers = settings.GetBoolean("MAIN", "ShowMarkers", false);
-            numOfWeaponIDs = settings.GetInteger("MAIN", "WeaponIDAmt", 60);
-            episodicCheck = settings.GetBoolean("MAIN", "CheckEpisodicWeapons", false);
-            cooldown = settings.GetInteger("MAIN", "HostileCooldown", 0);
-            gSpawnDelay = settings.GetInteger("MAIN", "GuardSpawnDelay", 0);
-            extraStock = settings.GetBoolean("MAIN", "ExtraStock", false);
-            attachmentUnlocks = new bool[numOfWeaponIDs][];
-
-            for (int i = 0; i < numOfWeaponIDs; i++)
-            {
-                attachmentUnlocks[i] = new bool[numOfAttachmts];
-            }
-            hasAttachment = new bool[numOfAttachmts];
-            ownsAttachment = new bool[numOfAttachmts];
-
-            canBuyAttachment = new bool[numOfAttachmts + 1];
-            unlockDYHP = settings.GetBoolean("MAIN", "UnlockAfterDYHP", false);
-            buyAmmoEarly = settings.GetBoolean("MAIN", "BuyAmmoBeforeUnlock", false);
-            keepAmmo = settings.GetBoolean("MAIN", "KeepAmmo", false);
-
-            for (int i = 0; i < numOfWeaponIDs; i++)
-            {
-                if (settings.DoesSectionExists(i.ToString()))
-                {
-                    if (!settings.DoesSectionExists(IVGenericGameStorage.ValidSaveName))
-                        settings.AddSection(IVGenericGameStorage.ValidSaveName);
-                    if (!settings.DoesKeyExists(IVGenericGameStorage.ValidSaveName, i.ToString() + "Unlocked"))
-                    {
-                        settings.AddKeyToSection(IVGenericGameStorage.ValidSaveName, i.ToString() + "Unlocked");
-                        settings.SetBoolean(IVGenericGameStorage.ValidSaveName, i.ToString() + "Unlocked", false);
-                    }
-
-                    attachmentUnlocks[i][0] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasGrenadeLauncherAttachment"), false);
-                    attachmentUnlocks[i][1] = settings.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "HasScopeAttachment"), false);
-                }
-            }
-        }
-        private void LoadConfigs(int config)
-        {
-            configFile = gunStores[config];
-            dealerPos = configFile.GetVector3("MAIN", "DealerPosition", Vector3.Zero);
-            dealerHdg = configFile.GetFloat("MAIN", "DealerHeading", 0);
-            dealerWpn = configFile.GetInteger("MAIN", "DealerWeapon", 0);
-            guardPos = configFile.GetVector3("MAIN", "GuardSpawnLoc", Vector3.Zero);
-            dealerMdl = configFile.GetValue("MAIN", "DealerModel", "");
-            roomName = configFile.GetValue("MAIN", "RoomName", "");
-            gRoomName = configFile.GetValue("MAIN", "GuardRoomName", "");
-            doorHash = configFile.GetInteger("MAIN", "DoorHash", 0);
-            doorPos = configFile.GetVector3("MAIN", "DoorLocation", Vector3.Zero);
-            backroomPos = configFile.GetVector3("MAIN", "BackroomPos", Vector3.Zero);
-            backroomHdg = configFile.GetFloat("MAIN", "BackroomHdg", 0);
-        }
-        private void LoadWeaponPosition(SettingsFile settings, int weapon)
-        {
-            if (settings.DoesSectionExists(weapon.ToString()))
-            {
-                if (currEp == 0)
-                {
-                    weaponModel = settings.GetValue(weapon.ToString(), "IVWeaponModel", "");
-                    weapCanSpawn = settings.GetInteger(weapon.ToString(), "IVUnlockAfter", 0);
-                }
-                else if (currEp == 1)
-                {
-                    weaponModel = settings.GetValue(weapon.ToString(), "TLADWeaponModel", "");
-                    weapCanSpawn = settings.GetInteger(weapon.ToString(), "TLADUnlockAfter", 0);
-                }
-                else if (currEp == 2)
-                {
-                    weaponModel = settings.GetValue(weapon.ToString(), "TBOGTWeaponModel", "");
-                    weapCanSpawn = settings.GetInteger(weapon.ToString(), "TBOGTUnlockAfter", 0);
-                }
-                weapPos = configFile.GetVector3(weapon.ToString(), "WeaponPosition", Vector3.Zero);
-                weapRot = configFile.GetVector3(weapon.ToString(), "WeaponRotation", Vector3.Zero);
-                backroomStock = settings.GetBoolean(weapon.ToString(), "BackroomStock", false);
-                if (weapCanSpawn >= 0)
-                    SpawnTheWeapon(weapon);
-
-                if (backroomStock)
-                    backroomWeaps.Add(weapon);
-            }
-        }
-        private void LoadWeaponBuyPos(SettingsFile settings, int weapon)
-        {
-            weapBuyPos = configFile.GetVector3(weapon.ToString(), "BuyPosition", Vector3.Zero);
-            weapBuyRad = configFile.GetFloat(weapon.ToString(), "BuyRadius", 0);
-            weapBuyHdg = configFile.GetFloat(weapon.ToString(), "BuyHeading", 0);
-        }
-        private void GetWeaponData(SettingsFile settings, int weapon)
+        private void DespawnShit()
         {
             int i;
             for (i = 0; i < numOfWeaponIDs; i++)
             {
-                if (settings.DoesSectionExists(weapon.ToString()))
+                if (!DOES_OBJECT_EXIST(weaponProps[i]))
+                    continue;
+
+                DELETE_OBJECT(ref weaponProps[i]);
+            }
+
+            for (i = 0; i < 4; i++)
+            {
+                if (DOES_CHAR_EXIST(guardPeds[i]))
                 {
-                    weaponName = settings.GetValue(weapon.ToString(), "Name", "");
-                    clipAmmo = settings.GetInteger(weapon.ToString(), "ClipAmmo", 0);
-                    weapCost = settings.GetInteger(weapon.ToString(), "WeaponPrice", 0);
-                    ammoCost = settings.GetInteger(weapon.ToString(), "AmmoPrice", 0);
-
-                    if (currEp == 0)
-                    {
-                        weapStatUnlock = settings.GetInteger(weapon.ToString(), "IVUnlockStat", 0);
-                        weapProgUnlock = settings.GetFloat(weapon.ToString(), "IVUnlockProg", 0);
-                    }
-                    else if (currEp == 1)
-                    {
-                        weapStatUnlock = settings.GetInteger(weapon.ToString(), "TLADUnlockStat", 0);
-                        weapProgUnlock = settings.GetFloat(weapon.ToString(), "TLADUnlockProg", 0);
-                    }
-                    else if (currEp == 2)
-                    {
-                        weapStatUnlock = settings.GetInteger(weapon.ToString(), "TBOGTUnlockStat", 0);
-                        weapProgUnlock = settings.GetFloat(weapon.ToString(), "TBOGTUnlockProg", 0);
-                    }
-                }
-                MissionTracker();
-
-                animStart = configFile.GetInteger(weapon.ToString(), "AnimStart", 0);
-                animLoop = configFile.GetInteger(weapon.ToString(), "AnimLoop", 0);
-                animEnd = configFile.GetInteger(weapon.ToString(), "AnimEnd", 0);
-                buySound = settings.GetValue(weapon.ToString(), "WeaponBuySound", "");
-                weapMsg = msgConfFile.GetValue(weapon.ToString(), "Message", "");
-
-                statTextA = statConfFile.GetValue(weapon.ToString(), "StatTextA", "");
-                statTextB = statConfFile.GetValue(weapon.ToString(), "StatTextB", "");
-                statTextC = statConfFile.GetValue(weapon.ToString(), "StatTextC", "");
-                statTextD = statConfFile.GetValue(weapon.ToString(), "StatTextD", "");
-                statTextE = statConfFile.GetValue(weapon.ToString(), "StatTextE", "");
-                statTextF = statConfFile.GetValue(weapon.ToString(), "StatTextF", "");
-                statTextG = statConfFile.GetValue(weapon.ToString(), "StatTextG", "");
-                statTextH = statConfFile.GetValue(weapon.ToString(), "StatTextH", "");
-
-                weapStatA = statConfFile.GetInteger(weapon.ToString(), "StatA", -1);
-                weapStatB = statConfFile.GetInteger(weapon.ToString(), "StatB", -1);
-                weapStatC = statConfFile.GetInteger(weapon.ToString(), "StatC", -1);
-                weapStatD = statConfFile.GetInteger(weapon.ToString(), "StatD", -1);
-                weapStatE = statConfFile.GetInteger(weapon.ToString(), "StatE", -1);
-                weapStatF = statConfFile.GetInteger(weapon.ToString(), "StatF", -1);
-                weapStatG = statConfFile.GetInteger(weapon.ToString(), "StatG", -1);
-                weapStatH = statConfFile.GetInteger(weapon.ToString(), "StatH", -1);
-
-                weapBarA = statConfFile.GetInteger(weapon.ToString(), "BarA", -1);
-                weapBarB = statConfFile.GetInteger(weapon.ToString(), "BarB", -1);
-                weapBarC = statConfFile.GetInteger(weapon.ToString(), "BarC", -1);
-                weapBarD = statConfFile.GetInteger(weapon.ToString(), "BarD", -1);
-                weapBarE = statConfFile.GetInteger(weapon.ToString(), "BarE", -1);
-                weapBarF = statConfFile.GetInteger(weapon.ToString(), "BarF", -1);
-                weapBarG = statConfFile.GetInteger(weapon.ToString(), "BarG", -1);
-                weapBarH = statConfFile.GetInteger(weapon.ToString(), "BarH", -1);
-
-                //Attachments
-                for (int a = 0; a < numOfAttachmts; a++)
-                {
-                    hasAttachment[a] = attachmentsConfig.GetBoolean(weapon.ToString(), "CanBuy" + GetAttachmentName(a) + "Attachment", false);
-                    if (hasAttachment[a])
-                        canBuyAttachment[a] = true;
+                    if (!IS_PED_IN_COMBAT(guardPeds[i]))
+                        DELETE_CHAR(ref guardPeds[i]);
                     else
-                        canBuyAttachment[a] = false;
+                        MARK_CHAR_AS_NO_LONGER_NEEDED(guardPeds[i]);
                 }
-                /*hasGLAttachment = attachmentsConfig.GetBoolean(weapon.ToString(), "CanBuyGLAttachment", false);
-                if (hasGLAttachment)
-                    canBuyAttachment[0] = true;
-                else
-                    canBuyAttachment[0] = false;
-
-                hasScopeAttachment = attachmentsConfig.GetBoolean(weapon.ToString(), "CanBuyScopeAttachment", false);
-                if (hasScopeAttachment)
-                    canBuyAttachment[1] = true;
-                else
-                    canBuyAttachment[1] = false;*/
-
-                ownsAttachment[currAttachmt] = attachmentUnlocks[weapon][currAttachmt];
-                //ownsAttachment[1] = attachmentUnlocks[weapon][1];
-
-                attachmentPrice = attachmentsConfig.GetInteger(weapon.ToString(), GetAttachmentName(currAttachmt) + "Price", 0);
-                grenPrice = attachmentsConfig.GetInteger(weapon.ToString(), "GrenadePrice", 0);
             }
         }
-        private void GetCurrWeaponData(SettingsFile settings, int weapon)
+        private void ClearShit()
         {
-            int i;
-            for (i = 0; i < numOfWeaponIDs; i++)
+            if (IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GLOCK_A1") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GLOCK_WH2"))
+                CLEAR_HELP();
+            backroomSelectedWeap = 0;
+            extraWeap = false;
+            confirmation = false;
+            canInspect = false;
+            attachmentMenu = false;
+        }
+        private void SpawnTheWeapon(int i)
+        {
+            if (IS_MODEL_IN_CDIMAGE(GET_HASH_KEY(weaponData[i].Model)))
             {
-                pWeaponName = settings.GetValue(weapon.ToString(), "Name", "");
+                if (!HAS_MODEL_LOADED(GET_HASH_KEY(weaponData[i].Model)))
+                    REQUEST_MODEL(GET_HASH_KEY(weaponData[i].Model));
 
-                pStatTextA = statConfFile.GetValue(weapon.ToString(), "StatTextA", "");
-                pStatTextB = statConfFile.GetValue(weapon.ToString(), "StatTextB", "");
-                pStatTextC = statConfFile.GetValue(weapon.ToString(), "StatTextC", "");
-                pStatTextD = statConfFile.GetValue(weapon.ToString(), "StatTextD", "");
-                pStatTextE = statConfFile.GetValue(weapon.ToString(), "StatTextE", "");
-                pStatTextF = statConfFile.GetValue(weapon.ToString(), "StatTextF", "");
-                pStatTextG = statConfFile.GetValue(weapon.ToString(), "StatTextG", "");
-                pStatTextH = statConfFile.GetValue(weapon.ToString(), "StatTextH", "");
+                else
+                {
+                    weaponProps[i] = CreateObject_DontRequestModel(GET_HASH_KEY(weaponData[i].Model), 0.0f, 0.0f, 0.0f, 0.0f);
+                    SET_OBJECT_COORDINATES(weaponProps[i], weaponData[i].Position);
+                    SET_OBJECT_ROTATION(weaponProps[i], weaponData[i].Rotation);
+                    MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(weaponData[i].Model));
+                    
+                    if (currGunStore.RoomName != "None")
+                        ADD_OBJECT_TO_INTERIOR_ROOM_BY_NAME(weaponProps[i], currGunStore.RoomName);
 
-                pWeapStatA = statConfFile.GetInteger(weapon.ToString(), "StatA", -1);
-                pWeapStatB = statConfFile.GetInteger(weapon.ToString(), "StatB", -1);
-                pWeapStatC = statConfFile.GetInteger(weapon.ToString(), "StatC", -1);
-                pWeapStatD = statConfFile.GetInteger(weapon.ToString(), "StatD", -1);
-                pWeapStatE = statConfFile.GetInteger(weapon.ToString(), "StatE", -1);
-                pWeapStatF = statConfFile.GetInteger(weapon.ToString(), "StatF", -1);
-                pWeapStatG = statConfFile.GetInteger(weapon.ToString(), "StatG", -1);
-                pWeapStatH = statConfFile.GetInteger(weapon.ToString(), "StatH", -1);
-
-                pWeapBarA = statConfFile.GetInteger(weapon.ToString(), "BarA", -1);
-                pWeapBarB = statConfFile.GetInteger(weapon.ToString(), "BarB", -1);
-                pWeapBarC = statConfFile.GetInteger(weapon.ToString(), "BarC", -1);
-                pWeapBarD = statConfFile.GetInteger(weapon.ToString(), "BarD", -1);
-                pWeapBarE = statConfFile.GetInteger(weapon.ToString(), "BarE", -1);
-                pWeapBarF = statConfFile.GetInteger(weapon.ToString(), "BarF", -1);
-                pWeapBarG = statConfFile.GetInteger(weapon.ToString(), "BarG", -1);
-                pWeapBarH = statConfFile.GetInteger(weapon.ToString(), "BarH", -1);
+                    FREEZE_OBJECT_POSITION(weaponProps[i], true);
+                }
             }
         }
-        private void MissionTracker()
+        private void ReplaceText()
         {
-            float floatProg = GET_FLOAT_STAT(weapStatUnlock);
-            int intProg = GET_INT_STAT(weapStatUnlock);
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE2", "Slot");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE3", "x~1~");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT2", "Melee");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN2", "Handguns");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN3", "Shotguns");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT3", "SMGs");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A12", "Assault Rifles");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A13", "Sniper Rifles");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_UZI2", "Heavy");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M42", "Thrown");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M43", "Special");
+        }
 
-            if (intProg >= weapProgUnlock || floatProg >= weapProgUnlock)
-                isWeapUnlocked = true;
+        // MainProcesses
+        private void SpawnGuns()
+        {
+            if (!hasConfigsLoaded)
+                return;
+
+            if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 20, 20, 20, false) && !IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
+            {
+                RequestAnims();
+                if (!hasSpawned)
+                {
+                    for (int i = 0; i < currGunStore.DoorHash.Count(); i++)
+                        SET_STATE_OF_CLOSEST_DOOR_OF_TYPE((uint)currGunStore.DoorHash[i], currGunStore.DoorPosX[i], currGunStore.DoorPosY[i], currGunStore.DoorPosZ[i], false, 0.0f);
+                    hasSpawned = true;
+                }
+                for (int i = 0; i < numOfWeaponIDs; i++)
+                {
+                    if (DOES_OBJECT_EXIST(weaponProps[i]))
+                        continue;
+
+                    if (weaponData[i] == null)
+                        continue;
+
+                    SpawnTheWeapon(i);
+                }
+            }
+            else if (IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
+                hasSpawned = false;
+
+            else if (!LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 20, 20, 20, false))
+            {
+                DespawnShit();
+                hasSpawned = false;
+            }
+        }
+        private void CheckIfChanged()
+        {
+            if (weapChecked != weapID)
+            {
+                weapChecked = weapID;
+                confirmation = false;
+            }
+        }
+        private void SpawnBackroomWeapon()
+        {
+            if (!extraWeap || !isInspecting)
+                return;
+
+            if (spawnWeaponInAir)
+                return;
+
+            if (DOES_OBJECT_EXIST(weapInAir))
+                DELETE_OBJECT(ref weapInAir);
+
+            if (IS_MODEL_IN_CDIMAGE(GET_HASH_KEY(weaponData[weapID].Model)))
+            {
+                REQUEST_MODEL(GET_HASH_KEY(weaponData[weapID].Model));
+                if (!HAS_MODEL_LOADED(GET_HASH_KEY(weaponData[weapID].Model)))
+                    return;
+
+                weapInAir = CreateObject_DontRequestModel(GET_HASH_KEY(weaponData[weapID].Model), currGunStore.BackroomPos.X, currGunStore.BackroomPos.Y, currGunStore.BackroomPos.Z, currGunStore.BackroomHdng);
+
+                GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS(weapInAir, weaponData[weapID].BackroomOffset, out Vector3 objOff);
+                SET_OBJECT_COORDINATES(weapInAir, objOff);
+                MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(weaponData[weapID].Model));
+
+                if (currGunStore.RoomName != "None")
+                    ADD_OBJECT_TO_INTERIOR_ROOM_BY_NAME(weapInAir, currGunStore.RoomName);
+
+                FREEZE_OBJECT_POSITION(weapInAir, true);
+                spawnWeaponInAir = true;
+            }
+        }
+        private void BuyGuns()
+        {
+            if (!hasSpawned)
+                return;
+
+            if (!currGunStore.Hostile)
+            {
+                for (int i = 0; i < numOfWeaponIDs; i++)
+                {
+                    if (!DOES_OBJECT_EXIST(weaponProps[i]))
+                        continue;
+
+                    if (LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, weaponData[i].BuyPos.X, weaponData[i].BuyPos.Y, weaponData[i].BuyPos.Z, weaponData[i].BuyRad, weaponData[i].BuyRad, weaponData[i].BuyRad, showBuyMarkers ? true : false))
+                    {
+                        weapID = i;
+                        CheckIfChanged();
+                        MissionTracker(i);
+                        weaponStat[i].Pellets = (int)IVWeaponInfo.GetWeaponInfo((uint)i).AimingPellets;
+                        wCoords = weaponData[i].BuyPos;
+                        wRad = weaponData[i].BuyRad;
+                        if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, i)))
+                        {
+                            if (!confirmation && !bInspectMsg && !bFailMsg && !menuActive)
+                            {
+                                if (!HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, i) && weapID != 48)
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].Name + " $" + weaponData[i].WeaponPrice.ToString());
+                                else if (weapID == 48)
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[i].Name + " $" + weaponData[i].WeaponPrice.ToString());
+                                else
+                                {
+                                    if (IVWeaponInfo.GetWeaponInfo((uint)i).ClipSize <= 0)
+                                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].Name + " $" + weaponData[i].AmmoPrice.ToString());
+                                    else if(IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot <= 1 || IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot > 7)
+                                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].ClipAmmo.ToString() + "x " + weaponData[i].Name + "s $" + weaponData[i].AmmoPrice.ToString());
+                                    else
+                                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].ClipAmmo.ToString() + "x " + weaponData[i].Name + " Ammo $" + weaponData[i].AmmoPrice.ToString());
+                                }
+
+                                PRINT_HELP_FOREVER("GLOCK_A1");
+                            }
+                            canInspect = true;
+                        }
+                        else if (!IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON"))
+                            PRINT_HELP_FOREVER("GL_SOON");
+                        break;
+                    }
+                }
+                if (extraStock && LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, currGunStore.BackroomPos.X, currGunStore.BackroomPos.Y, currGunStore.BackroomPos.Z, 1, 1, 1, extraStock ? true : false))
+                {
+                    if (backroomWeaps.Count > 0)
+                    {
+                        weapID = backroomWeaps[backroomSelectedWeap];
+                        CheckIfChanged();
+                        if (!menuActive)
+                            isWeapUnlocked = true;
+                        else
+                            MissionTracker(weapID);
+
+                        weaponStat[weapID].Pellets = (int)IVWeaponInfo.GetWeaponInfo((uint)weapID).AimingPellets;
+                        if (!confirmation && !bInspectMsg && !bFailMsg)
+                        {
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_PICKUP~ to browse extra weapons.");
+                            PRINT_HELP_FOREVER("GLOCK_A1");
+                        }
+                        if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
+                            canBuyStock = true;
+                        else if (!IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON"))
+                        {
+                            canBuyStock = false;
+                            PRINT_HELP_FOREVER("GL_SOON");
+                        }
+                        canInspect = true;
+                        extraWeap = true;
+                    }
+                    else
+                    {
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~r~There are no extra weapons in stock.");
+                        PRINT_HELP_FOREVER("GLOCK_A1");
+                    }
+                }
+                else if (!LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, wRad, wRad, wRad, false) && !LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, currGunStore.BackroomPos.X, currGunStore.BackroomPos.Y, currGunStore.BackroomPos.Z, 1, 1, 1, false))
+                    ClearShit();
+            }
             else
-                isWeapUnlocked = false;
+                ClearShit();
+        }
+        private void ProcessInspectionCam()
+        {
+            if (!camActivate)
+                return;
+
+            if (!extraWeap)
+            {
+                if (animTime > 0.5)
+                {
+                    if (isInspecting)
+                    {
+                        if (DOES_OBJECT_EXIST(weaponProps[weapID]))
+                            SET_OBJECT_VISIBLE(weaponProps[weapID], false);
+
+                        CreateCamera(camera, true, 0.9f, -0.3f, 1.1f, weaponData[weapID].Position, 60);
+
+                        if (weapInSlot != weapID)
+                        {
+                            REMOVE_WEAPON_FROM_CHAR(Main.PlayerHandle, weapInSlot);
+                            GIVE_WEAPON_TO_CHAR(Main.PlayerHandle, weapID, weaponData[weapID].ClipAmmo, true);
+                        }
+
+                        SET_CURRENT_CHAR_WEAPON(Main.PlayerHandle, weapID, true);
+                        menuActive = true;
+                    }
+
+                    else
+                    {
+                        DestroyCamera();
+                        SET_PLAYER_CONTROL(Main.PlayerIndex, true);
+
+                        if (weapInSlot > 0)
+                        {
+                            REMOVE_WEAPON_FROM_CHAR(Main.PlayerHandle, weapID);
+                            GIVE_WEAPON_TO_CHAR(Main.PlayerHandle, weapInSlot, ammoInSlot, false);
+                        }
+                        else
+                            REMOVE_WEAPON_FROM_CHAR(Main.PlayerHandle, weapID);
+
+                        for (int i = 0; i < numOfWeaponIDs; i++)
+                        {
+                            if (!DOES_OBJECT_EXIST(weaponProps[i]))
+                                continue;
+
+                            SET_OBJECT_VISIBLE(weaponProps[i], true);
+                        }
+                        menuActive = false;
+                    }
+                    camActivate = false;
+                }
+            }
+            else
+            {
+                if (isInspecting)
+                {
+                    GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS(Main.PlayerHandle, new Vector3(0, 3, 0.2f), out Vector3 pOff);
+                    CreateCamera(camera, true, 0.0f, 0.5f, 0.2f, pOff, 60);
+                    spawnWeaponInAir = false;
+                    menuActive = true;
+                    if (DOES_OBJECT_EXIST(weapInAir))
+                        DELETE_OBJECT(ref weapInAir);
+                }
+                else
+                {
+                    DestroyCamera();
+                    SET_PLAYER_CONTROL(Main.PlayerIndex, true);
+                    spawnWeaponInAir = false;
+                    menuActive = false;
+                    if (DOES_OBJECT_EXIST(weapInAir))
+                        DELETE_OBJECT(ref weapInAir);
+                }
+                camActivate = false;
+            }
+        }
+        private void ProcessInspectAnims()
+        {
+            if (!goInspect)
+                return;
+
+            if (!isInspecting)
+            {
+                if (LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, 1.5f, 1.5f, 1.5f, false))
+                {
+                    CLEAR_CHAR_TASKS_IMMEDIATELY(Main.PlayerHandle);
+                    SET_CHAR_COORDINATES(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z - 1.0f);
+                    GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
+                    GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
+
+                    if (!extraWeap)
+                    {
+                        SET_CHAR_HEADING(Main.PlayerHandle, weaponData[weapID].BuyHdng);
+                        switch (weaponData[weapID].AnimStart)
+                        {
+                            case -1:
+                                break;
+                            case 0:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "grenade_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                            case 1:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rifle_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                            case 2:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "uzi_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                            case 3:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rpg_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                            case 4:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pistol_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                            case 5:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "grenade_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                            case 6:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "shotgun_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                            case 7:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pickup_low", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                            case 8:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pickup_high", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                            case 9:
+                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pickup_med", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
+                                break;
+                        }
+                    }
+                    else
+                        SET_CHAR_HEADING(Main.PlayerHandle, currGunStore.BackroomHdng);
+                    camActivate = true;
+                    goInspect = false;
+                    isInspecting = true;
+                }
+            }
+
+            else
+            {
+                if (!extraWeap)
+                {
+                    switch (weaponData[weapID].AnimEnd)
+                    {
+                        case -1:
+                            break;
+                        case 0:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "grenade_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, 0);
+                            break;
+                        case 1:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rifle_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, 0);
+                            break;
+                        case 2:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "uzi_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                            break;
+                        case 3:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rpg_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                            break;
+                        case 4:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pistol_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                            break;
+                        case 5:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "grenade_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                            break;
+                        case 6:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "shotgun_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
+                            break;
+                        case 7:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "putdown_low", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
+                            break;
+                        case 8:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "putdown_high", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
+                            break;
+                        case 9:
+                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "putdown_med", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
+                            break;
+                    }
+                }
+                camActivate = true;
+                goInspect = false;
+                isInspecting = false;
+                bComparing = false;
+                bInspectMsg = false;
+                CLEAR_CHAR_TASKS(Main.PlayerHandle);
+            }
+        }
+        private void HelpDisplay()
+        {
+            if (!bInspectMsg || (extraWeap && !confirmation && !bFailMsg) || (attachmentMenu && !confirmation && !bFailMsg))
+            {
+                if (!extraWeap)
+                {
+                    if (!attachmentMenu)
+                    {
+                        if (weapInSlot <= 0 || weapInSlot == weapID)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
+                        else if (weapInSlot > 0)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in slot.");
+                        for (int i = 0; i < numOfAttachmts; i++)
+                        {
+                            if (wAttachments[weapID][i].Available && weapID == weapInSlot)
+                            {
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");
+                                break;
+                            }
+                        }
+                    }
+                    else
+                        ProcessAttachmentsHelp();
+                }
+                else
+                {
+                    GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
+                    GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
+                    if (!attachmentMenu)
+                    {
+                        if (weapInSlot <= 0)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[weapID].Name + " $" + weaponData[weapID].WeaponPrice.ToString());
+                        else if (weapInSlot == weapID)
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[weapID].ClipAmmo.ToString() + "x " + weaponData[weapID].Name + " Ammo $" + weaponData[weapID].AmmoPrice.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
+                        else
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[weapID].Name + " $" + weaponData[weapID].WeaponPrice.ToString());
+                    }
+                    else
+                        ProcessAttachmentsHelp();
+                }
+                if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
+                    PRINT_HELP_FOREVER("GLOCK_B1");
+
+                bInspectMsg = true;
+            }
         }
         private void AnimCheck()
         {
+            if (!canInspect)
+                return;
+
             if (isInspecting)
             {
-                switch (animStart)
+                switch (weaponData[weapID].AnimStart)
                 {
                     case -1:
                         animTime = 0.5f;
@@ -672,7 +693,7 @@ namespace ImprovedGunStores
             }
             else
             {
-                switch (animEnd)
+                switch (weaponData[weapID].AnimEnd)
                 {
                     case -1:
                         animTime = 0.5f;
@@ -710,577 +731,125 @@ namespace ImprovedGunStores
                 }
             }
         }
-        private void CheckIfChanged()
+        private void DisplayNumericalStats(WeaponHelper.WeaponStat weap, float offset)
         {
-            if (weapChecked != weapID)
+            if (weap.StatA >= 0)
             {
-                weapChecked = weapID;
-                confirmation = false;
-                canInspect = false;
-            }
-        }
-        private void DespawnShit()
-        {
-            int i;
-            for (i = 0; i < numOfWeaponIDs; i++)
-            {
-                if (!DOES_OBJECT_EXIST(WeaponProps[i]))
-                    continue;
+                USE_PREVIOUS_FONT_SETTINGS();
+                DISPLAY_TEXT_WITH_NUMBER(0.94f, offset, "NUMBER", weap.StatA);
 
-                MARK_OBJECT_AS_NO_LONGER_NEEDED(WeaponProps[i]);
-                DELETE_OBJECT(ref WeaponProps[i]);
-            }
-
-            for (i = 0; i < 4; i++)
-            {
-                if (DOES_CHAR_EXIST(GuardPeds[i]))
+                if (weapSlot == 3 && weap.Pellets != 1)
                 {
-                    MARK_CHAR_AS_NO_LONGER_NEEDED(GuardPeds[i]);
-
-                    if (!IS_PED_IN_COMBAT(GuardPeds[i]))
-                        DELETE_CHAR(ref GuardPeds[i]);
-                }
-            }
-        }
-        private void SpawnTheWeapon(int i)
-        {
-            if (DOES_OBJECT_EXIST(WeaponProps[i]))
-            {
-                MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(weaponModel));
-                return;
-            }
-
-            if (!HAS_MODEL_LOADED(GET_HASH_KEY(weaponModel)))
-                REQUEST_MODEL(GET_HASH_KEY(weaponModel));
-
-            else
-            {
-                WeaponProps[i] = CreateObject_DontRequestModel(GET_HASH_KEY(weaponModel), 0.0f, 0.0f, 0.0f, 0.0f);
-                SET_OBJECT_COORDINATES(WeaponProps[i], weapPos);
-                SET_OBJECT_ROTATION(WeaponProps[i], weapRot);
-                MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(weaponModel));
-
-                ADD_OBJECT_TO_INTERIOR_ROOM_BY_NAME(WeaponProps[i], roomName);
-
-                FREEZE_OBJECT_POSITION(WeaponProps[i], true);
-            }
-        }
-        private void SpawnGuns()
-        {
-            if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 20, 20, 20, false) && !IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
-            {
-                RequestAnims();
-                if (!HasSpawned)
-                {
-                    SET_STATE_OF_CLOSEST_DOOR_OF_TYPE((uint)doorHash, doorPos.X, doorPos.Y, doorPos.Z, false, 0.0f);
-                    HasSpawned = true;
-                }
-
-                int i;
-                for (i = 0; i < numOfWeaponIDs; i++)
-                {
-                    if (episodicCheck)
-                    {
-                        if (currEp == 0 && i > 20 && i < 41)
-                            continue;
-
-                        else if (currEp == 1 && i > 28 && i < 41)
-                            continue;
-
-                        else if (currEp == 2 && i > 21 && i < 29)
-                            continue;
-                    }
-                    LoadWeaponPosition(Settings, i);
-                }
-                backroomCount = backroomWeaps.Count();
-            }
-            else if (IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
-                HasSpawned = false;
-
-            else if (!LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 20, 20, 20, false))
-            {
-                DespawnShit();
-                HasSpawned = false;
-                bSpawnDealer = false;
-            }
-        }
-        private void BuyGuns()
-        {
-            if (!HasSpawned)
-                return;
-
-            float x, y, z;
-            GET_CHAR_COORDINATES(Main.PlayerHandle, out x, out y, out z);
-
-            int i;
-            if (!bIsHostile)
-            {
-                for (i = 0; i < numOfWeaponIDs; i++)
-                {
-                    if (!DOES_OBJECT_EXIST(WeaponProps[i]))
-                        continue;
-
-                    GET_OBJECT_COORDINATES(WeaponProps[i], out weapCoords[i].X, out weapCoords[i].Y, out weapCoords[i].Z);
-                    LoadWeaponBuyPos(Settings, i);
-                    if (LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, weapBuyPos.X, weapBuyPos.Y, weapBuyPos.Z, weapBuyRad, weapBuyRad, weapBuyRad, showBuyMarkers ? true : false) || LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, backroomPos.X, backroomPos.Y, backroomPos.Z, 1, 1, 1, extraStock ? true : false))
-                    {
-                        if (!LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, backroomPos.X, backroomPos.Y, backroomPos.Z, 1, 1, 1, true))
-                        {
-                            GetWeaponData(Settings, i);
-                            weapID = i;
-                            weapPellets = (int)IVWeaponInfo.GetWeaponInfo((uint)i).AimingPellets;
-                            CheckIfChanged();
-                            wCoords = weapBuyPos;
-                            wRad = weapBuyRad;
-                            if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, i)))
-                            {
-                                if (!confirmation && !bInspectMsg && !bFailMsg && !menuActive)
-                                {
-                                    if (!HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, i) && weapID != 48)
-                                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponName + " $" + weapCost.ToString());
-                                    else if (weapID == 48)
-                                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
-                                    else
-                                    {
-                                            if (IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot <= 1 || IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot > 7)
-                                                IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + "s $" + ammoCost.ToString());
-                                            else
-                                                IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString());
-                                    }
-
-                                    PRINT_HELP_FOREVER("GLOCK_A1");
-                                }
-                                canInspect = true;
-                            }
-                            else if (!IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON"))
-                                PRINT_HELP_FOREVER("GL_SOON");
-                        }
-                        else if (extraStock)
-                        {
-                            if (backroomCount > 0)
-                            {
-                                weapID = backroomWeaps[backroomSelectedWeap];
-                                if (!menuActive)
-                                    isWeapUnlocked = true;
-                                else
-                                    GetWeaponData(Settings, weapID);
-                                weapPellets = (int)IVWeaponInfo.GetWeaponInfo((uint)i).AimingPellets;
-                                CheckIfChanged();
-                                if (!confirmation && !bInspectMsg && !bFailMsg)
-                                {
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_PICKUP~ to browse extra weapons.");
-                                    PRINT_HELP_FOREVER("GLOCK_A1");
-                                }
-                                if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
-                                    canBuyStock = true;
-                                else if (!IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON"))
-                                {
-                                    canBuyStock = false;
-                                    PRINT_HELP_FOREVER("GL_SOON");
-                                }
-                                canInspect = true;
-                                extraWeap = true;
-                            }
-                            else
-                            {
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~r~There are no extra weapons in stock.");
-                                PRINT_HELP_FOREVER("GLOCK_A1");
-                            }
-                        }
-                        break;
-                    }
-                    else if (!LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, wRad, wRad, wRad, false) && !LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, backroomPos.X, backroomPos.Y, backroomPos.Z, 1, 1, 1, false))
-                    {
-                        if (IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GLOCK_A1") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GLOCK_WH2"))
-                            CLEAR_HELP();
-                        backroomSelectedWeap = 0;
-                        extraWeap = false;
-                        confirmation = false;
-                        canInspect = false;
-                        attachmentMenu = false;
-                    }
-                }
-            }
-            else
-            {
-                if (IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GLOCK_A1") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GLOCK_WH2"))
-                    CLEAR_HELP();
-                backroomSelectedWeap = 0;
-                extraWeap = false;
-                confirmation = false;
-                canInspect = false;
-                attachmentMenu = false;
-            }
-        }
-        private void ProcessAttachments()
-        {
-            if (!attachmentMenu)
-                return;
-
-            //IVGame.ShowSubtitleMessage(currAttachmt.ToString());
-            //IVGame.ShowSubtitleMessage(attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "HasGLAttachment", false).ToString() + "  " + weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0).ToString());
-            //IVGame.ShowSubtitleMessage(attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "HasGLAttachment", false).ToString());
-        }
-        private void ProcessInspection()
-        {
-            if (!canInspect)
-                return;
-
-            if (!isInspecting && !camActivate)
-            {
-                SET_PLAYER_CONTROL(Main.PlayerIndex, false);
-                CLEAR_CHAR_TASKS(Main.PlayerHandle);
-
-                //_TASK_CHAR_SLIDE_TO_COORD(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, plyrHeading, 1.0f);
-                //WAIT(1000);
-                _TASK_GO_STRAIGHT_TO_COORD(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, 1, 45000);
-                goInspect = true;
-            }
-            else if (!camActivate)
-                goInspect = true;
-        }
-        private void DestroyCamera()
-        {
-            SET_CAM_ACTIVE(camera, false);
-            SET_CAM_PROPAGATE(camera, false);
-            DESTROY_CAM(camera);
-            ACTIVATE_SCRIPTED_CAMS(false, false);
-            SET_CAM_BEHIND_PED(Main.PlayerHandle);
-            SET_GAME_CAM_PITCH(0.0f);
-            SET_GAME_CAM_HEADING(0.0f);
-            DISPLAY_HUD(true);
-            DISPLAY_RADAR(true);
-        }
-        private void ProcessInspectionCam()
-        {
-            if (!extraWeap)
-            {
-                if (animTime > 0.5)
-                {
-                    if (isInspecting)
-                    {
-                        if (DOES_OBJECT_EXIST(WeaponProps[weapID]))
-                            SET_OBJECT_VISIBLE(WeaponProps[weapID], false);
-
-                        CreateCamera(camera, true, 0.9f, -0.3f, 1.1f, weapCoords[weapID], 60);
-
-                        if (weapInSlot != weapID)
-                        {
-                            REMOVE_WEAPON_FROM_CHAR(Main.PlayerHandle, weapInSlot);
-                            GIVE_WEAPON_TO_CHAR(Main.PlayerHandle, weapID, clipAmmo, true);
-                        }
-
-                        SET_CURRENT_CHAR_WEAPON(Main.PlayerHandle, weapID, true);
-                        menuActive = true;
-                    }
-
+                    USE_PREVIOUS_FONT_SETTINGS();
+                    if (weap.Pellets > 1)
+                        DISPLAY_TEXT_WITH_NUMBER(0.958f, offset, "GL_DEAGLE3", weap.Pellets + 2);
                     else
-                    {
-                        int i;
-                        DestroyCamera();
-                        SET_PLAYER_CONTROL(Main.PlayerIndex, true);
-
-                        if (weapInSlot > 0)
-                        {
-                            REMOVE_WEAPON_FROM_CHAR(Main.PlayerHandle, weapID);
-                            GIVE_WEAPON_TO_CHAR(Main.PlayerHandle, weapInSlot, ammoInSlot, false);
-                        }
-                        else
-                            REMOVE_WEAPON_FROM_CHAR(Main.PlayerHandle, weapID);
-
-                        for (i = 0; i < numOfWeaponIDs; i++)
-                        {
-                            if (!DOES_OBJECT_EXIST(WeaponProps[i]))
-                                continue;
-
-                            SET_OBJECT_VISIBLE(WeaponProps[i], true);
-                        }
-                        menuActive = false;
-                    }
-                    camActivate = false;
+                        DISPLAY_TEXT_WITH_NUMBER(0.958f, offset, "GL_DEAGLE3", 18);
                 }
             }
-            else
+
+            if (weap.StatB >= 0)
             {
-                if (isInspecting)
-                {
-                    GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS(Main.PlayerHandle, new Vector3(0, 3, 0.2f), out Vector3 pOff);
-                    //CreateCamera(camera, true, 0.0f, 1.75f, 0.0f, pOff, 60);
-                    CreateCamera(camera, true, 0.0f, 0.5f, 0.2f, pOff, 60);
-                    spawnWeaponInAir = false;
-                    loadWeaponInAir = false;
-                    menuActive = true;
-                    DeleteBackroomWeapon();
-                }
-                else
-                {
-                    DestroyCamera();
-                    SET_PLAYER_CONTROL(Main.PlayerIndex, true);
-                    spawnWeaponInAir = false;
-                    loadWeaponInAir = false;
-                    menuActive = false;
-                    DeleteBackroomWeapon();
-                }
-                camActivate = false;
+                USE_PREVIOUS_FONT_SETTINGS();
+                DISPLAY_TEXT_WITH_NUMBER(0.94f, offset + 0.04f, "NUMBER", weap.StatB);
+            }
+
+            if (weap.StatC >= 0)
+            {
+                USE_PREVIOUS_FONT_SETTINGS();
+                DISPLAY_TEXT_WITH_NUMBER(0.94f, offset + 0.08f, "NUMBER", weap.StatC);
+            }
+
+            if (weap.StatD >= 0)
+            {
+                USE_PREVIOUS_FONT_SETTINGS();
+                DISPLAY_TEXT_WITH_NUMBER(0.94f, offset + 0.12f, "NUMBER", weap.StatD);
+            }
+
+            if (weap.StatE >= 0)
+            {
+                USE_PREVIOUS_FONT_SETTINGS();
+                DISPLAY_TEXT_WITH_NUMBER(0.94f, offset + 0.16f, "NUMBER", weap.StatE);
+            }
+
+            if (weap.StatF >= 0)
+            {
+                USE_PREVIOUS_FONT_SETTINGS();
+                DISPLAY_TEXT_WITH_NUMBER(0.94f, offset + 0.20f, "NUMBER", weap.StatF);
+            }
+
+            if (weap.StatG >= 0)
+            {
+                USE_PREVIOUS_FONT_SETTINGS();
+                DISPLAY_TEXT_WITH_NUMBER(0.94f, offset + 0.24f, "NUMBER", weap.StatG);
+            }
+
+            if (weap.StatH >= 0)
+            {
+                USE_PREVIOUS_FONT_SETTINGS();
+                DISPLAY_TEXT_WITH_NUMBER(0.94f, offset + 0.28f, "NUMBER", weap.StatH);
             }
         }
-        private void ProcessInspectAnims()
+        private void DrawBars(WeaponHelper.WeaponStat weap, float offset)
         {
-            if (!extraWeap)
+            //Weapon Bars
+            float damageSize = weap.BarA / 1000.0f;
+            float accuracySize = weap.BarB / 1000.0f;
+            float rangeSize = weap.BarC / 1000.0f;
+            float RoFSize = weap.BarD / 1000.0f;
+            float magSize = weap.BarE / 1000.0f;
+            float ammoSize = weap.BarF / 1000.0f;
+            float aimSize = weap.BarG / 1000.0f;
+            float forceSize = weap.BarH / 1000.0f;
+
+            float damagePos = 0.882f - (0.1f - damageSize) / 2;
+            float accuracyPos = 0.882f - (0.1f - accuracySize) / 2;
+            float rangePos = 0.882f - (0.1f - rangeSize) / 2;
+            float RoFPos = 0.882f - (0.1f - RoFSize) / 2;
+            float magPos = 0.882f - (0.1f - magSize) / 2;
+            float ammoPos = 0.882f - (0.1f - ammoSize) / 2;
+            float aimPos = 0.882f - (0.1f - aimSize) / 2;
+            float forcePos = 0.882f - (0.1f - forceSize) / 2;
+
+            if (weap.BarA >= 0)
             {
-                if (!isInspecting)
-                {
-                    if (LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, 1.5f, 1.5f, 1.5f, false))
-                    {
-                        SET_CHAR_COORDINATES(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z - 1.0f);
-                        SET_CHAR_HEADING(Main.PlayerHandle, weapBuyHdg);
-                        GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
-                        GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
-
-                        switch (animStart)
-                        {
-                            case -1:
-                                break;
-                            case 0:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "grenade_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                            case 1:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rifle_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                            case 2:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "uzi_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                            case 3:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rpg_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                            case 4:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pistol_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                            case 5:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "grenade_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                            case 6:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "shotgun_intro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                            case 7:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pickup_low", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                            case 8:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pickup_high", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                            case 9:
-                                _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pickup_med", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
-                                break;
-                        }
-                        camActivate = true;
-                        goInspect = false;
-                        isInspecting = true;
-                    }
-                }
-
-                else if (isInspecting)
-                {
-                    switch (animEnd)
-                    {
-                        case -1:
-                            break;
-                        case 0:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "grenade_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, 0);
-                            break;
-                        case 1:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rifle_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, 0);
-                            break;
-                        case 2:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "uzi_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                            break;
-                        case 3:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rpg_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                            break;
-                        case 4:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pistol_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                            break;
-                        case 5:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "grenade_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                            break;
-                        case 6:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "shotgun_outro", "missgunlockup", 4.0f, 0, 0, 0, 0, -1);
-                            break;
-                        case 7:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "putdown_low", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
-                            break;
-                        case 8:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "putdown_high", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
-                            break;
-                        case 9:
-                            _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "putdown_med", "pickup_object", 4.0f, 0, 0, 0, 0, -1);
-                            break;
-                    }
-
-                    camActivate = true;
-                    goInspect = false;
-                    isInspecting = false;
-                    bComparing = false;
-                    bInspectMsg = false;
-                    CLEAR_CHAR_TASKS(Main.PlayerHandle);
-                }
+                DRAW_RECT(0.882f, offset, 0.1f, 0.015f, 50, 50, 50, 255);
+                DRAW_RECT(damagePos, offset, damageSize, 0.015f, 255, 255, 255, 255);
             }
-            else
+            if (weap.BarB >= 0)
             {
-                if (!isInspecting)
-                {
-                    if (LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, 1.5f, 1.5f, 1.5f, false))
-                    {
-                        CLEAR_CHAR_TASKS_IMMEDIATELY(Main.PlayerHandle);
-                        SET_CHAR_COORDINATES(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z - 1.0f);
-                        SET_CHAR_HEADING(Main.PlayerHandle, weapBuyHdg);
-                            GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
-                            GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
-                        camActivate = true;
-                        goInspect = false;
-                        isInspecting = true;
-                    }
-                }
-                else if (isInspecting)
-                {
-                    camActivate = true;
-                    goInspect = false;
-                    isInspecting = false;
-                    bComparing = false;
-                    bInspectMsg = false;
-                    CLEAR_CHAR_TASKS(Main.PlayerHandle);
-                }
+                DRAW_RECT(0.882f, offset + 0.04f, 0.1f, 0.015f, 50, 50, 50, 255);
+                DRAW_RECT(accuracyPos, offset + 0.04f, accuracySize, 0.015f, 255, 255, 255, 255);
             }
-        }
-        private void SpawnBackroomWeapon()
-        {
-            if (spawnWeaponInAir)
-                return;
-
-            loadWeaponInAir = true;
-            if (DOES_OBJECT_EXIST(weapInAir))
-                DELETE_OBJECT(ref weapInAir);
-
-            if (currEp == 0)
-                weaponModel = Settings.GetValue(weapID.ToString(), "IVWeaponModel", "");
-            else if (currEp == 1)
-                weaponModel = Settings.GetValue(weapID.ToString(), "TLADWeaponModel", "");
-            else if (currEp == 2)
-                weaponModel = Settings.GetValue(weapID.ToString(), "TBOGTWeaponModel", "");
-
-            REQUEST_MODEL(GET_HASH_KEY(weaponModel));
-            if (!HAS_MODEL_LOADED(GET_HASH_KEY(weaponModel)))
-                return;
-
-            weapInAir = CreateObject_DontRequestModel(GET_HASH_KEY(weaponModel), backroomPos.X, backroomPos.Y, backroomPos.Z, backroomHdg);
-
-            Vector3 wOffset = Settings.GetVector3(weapID.ToString(), "BackroomOffset", Vector3.Zero);
-            GET_OFFSET_FROM_OBJECT_IN_WORLD_COORDS(weapInAir, wOffset, out Vector3 objOff);
-            SET_OBJECT_COORDINATES(weapInAir, objOff);
-            MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(weaponModel));
-
-            ADD_OBJECT_TO_INTERIOR_ROOM_BY_NAME(weapInAir, roomName);
-
-            FREEZE_OBJECT_POSITION(weapInAir, true);
-            spawnWeaponInAir = true;
-        }
-        private void DeleteBackroomWeapon()
-        {
-            if (DOES_OBJECT_EXIST(weapInAir))
-                DELETE_OBJECT(ref weapInAir);
-        }
-        private void HelpDisplay()
-        {
-            if (!bInspectMsg || (extraWeap && !confirmation && !bFailMsg) || (attachmentMenu && !confirmation && !bFailMsg))
+            if (weap.BarC >= 0)
             {
-                if (!extraWeap)
-                {
-                    if (!attachmentMenu)
-                    {
-                        /*if (hasGLAttachment && weapID == weapInSlot)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");*/
-                        if (weapInSlot <= 0 || weapInSlot == weapID)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
-                        else if (weapInSlot > 0)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in slot.");
-                        for (int i = 0; i < numOfAttachmts; i++)
-                        {
-                            if (hasAttachment[i] && weapID == weapInSlot)
-                            {
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        weapFuncsConfig.Load();
-                        grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
-                        switch (currAttachmt)
-                        {
-                            case 0:
-                                if (!ownsAttachment[0])
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment $" + attachmentPrice.ToString());
-                                else
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~g~$" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
-                                break;
-                            case 1:
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + attachmentPrice.ToString());
-                                break;
-                        }
-                    }
-                }
-                else
-                {
-                    GET_WEAPONTYPE_SLOT(weapID, out weapSlot);
-                    GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
-                    /*GET_WEAPONTYPE_MODEL(weapID, out uint wModel);
-                    string wString = GET_STRING_FROM_HASH_KEY(wModel);
-
-                    int txd = 0;
-                    txd = GET_TXD(wString);
-
-                    if (!HAS_STREAMED_TXD_LOADED(wString))
-                        LOAD_TXD(wString);
-
-                    int tex = 0;
-                    tex = GET_TEXTURE(txd, wString);
-
-                    DRAW_SPRITE((uint)tex, 0.1f, 0.3f, 0.15f, 0.15f, 0, 255, 255, 255, 255);*/
-                    if (!attachmentMenu)
-                    {
-                        SpawnBackroomWeapon();
-
-                        if (weapInSlot <= 0)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
-                        /*else if (hasGLAttachment && weapID == weapInSlot)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~PAD_UP~ to browse attachments. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");*/
-                        else if (weapInSlot == weapID)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + clipAmmo.ToString() + "x " + weaponName + " Ammo $" + ammoCost.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
-                        else
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponName + " $" + weapCost.ToString());
-                    }
-                    else
-                    {
-                        weapFuncsConfig.Load();
-                        grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
-                        switch (currAttachmt)
-                        {
-                            case 0:
-                                if (!ownsAttachment[0])
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment. $" + attachmentPrice.ToString());
-                                else
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. $" + grenPrice.ToString() + "~n~~s~Currently have ~g~" + grenAmmo.ToString() + "x ~s~ammo.");
-                                break;
-                            case 1:
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + attachmentPrice.ToString());
-                                break;
-                        }
-                    }
-                }
-                if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
-                    PRINT_HELP_FOREVER("GLOCK_B1");
-
-                bInspectMsg = true;
+                DRAW_RECT(0.882f, offset + 0.08f, 0.1f, 0.015f, 50, 50, 50, 255);
+                DRAW_RECT(rangePos, offset + 0.08f, rangeSize, 0.015f, 255, 255, 255, 255);
+            }
+            if (weap.BarD >= 0)
+            {
+                DRAW_RECT(0.882f, offset + 0.12f, 0.1f, 0.015f, 50, 50, 50, 255);
+                DRAW_RECT(RoFPos, offset + 0.12f, RoFSize, 0.015f, 255, 255, 255, 255);
+            }
+            if (weap.BarE >= 0)
+            {
+                DRAW_RECT(0.882f, offset + 0.16f, 0.1f, 0.015f, 50, 50, 50, 255);
+                DRAW_RECT(magPos, offset + 0.16f, magSize, 0.015f, 255, 255, 255, 255);
+            }
+            if (weap.BarF >= 0)
+            {
+                DRAW_RECT(0.882f, offset + 0.20f, 0.1f, 0.015f, 50, 50, 50, 255);
+                DRAW_RECT(ammoPos, offset + 0.20f, ammoSize, 0.015f, 255, 255, 255, 255);
+            }
+            if (weap.BarG >= 0)
+            {
+                DRAW_RECT(0.882f, offset + 0.24f, 0.1f, 0.015f, 50, 50, 50, 255);
+                DRAW_RECT(aimPos, offset + 0.24f, aimSize, 0.015f, 255, 255, 255, 255);
+            }
+            if (weap.BarH >= 0)
+            {
+                DRAW_RECT(0.882f, offset + 0.28f, 0.1f, 0.015f, 50, 50, 50, 255);
+                DRAW_RECT(forcePos, offset + 0.28f, forceSize, 0.015f, 255, 255, 255, 255);
             }
         }
         private void ProcessStatDisplay()
@@ -1297,7 +866,7 @@ namespace ImprovedGunStores
                 SET_TEXT_CENTRE(true);
 
                 //Weapon Names
-                IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST4", weaponName);
+                IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST4", weaponData[weapID].Name);
                 DISPLAY_TEXT(0.85f, 0.07f, "GL_PIST4");
 
                 //Weapon Stats Text
@@ -1309,14 +878,14 @@ namespace ImprovedGunStores
                     SET_TEXT_WRAP(0.725f, 0.975f);
                     SET_TEXT_DROPSHADOW(false, 0, 0, 0, 0);
 
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK473", statTextA);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK474", statTextB);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BARET2", statTextC);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BARET3", statTextD);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BARET4", statTextE);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BBAT2", statTextF);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BBAT3", statTextG);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BBAT4", statTextH);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK473", weaponStat[weapID].StatTextA);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK474", weaponStat[weapID].StatTextB);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BARET2", weaponStat[weapID].StatTextC);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BARET3", weaponStat[weapID].StatTextD);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BARET4", weaponStat[weapID].StatTextE);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BBAT2", weaponStat[weapID].StatTextF);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BBAT3", weaponStat[weapID].StatTextG);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BBAT4", weaponStat[weapID].StatTextH);
 
                     DISPLAY_TEXT(0.725f, 0.19f, "GL_DEAGLE2");
                     USE_PREVIOUS_FONT_SETTINGS();
@@ -1337,62 +906,7 @@ namespace ImprovedGunStores
                     DISPLAY_TEXT(0.725f, 0.51f, "GL_BBAT4");
 
                     //Weapon Slots & Numerical Info
-                    if (weapStatA >= 0)
-                    {
-                        USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.23f, "NUMBER", weapStatA);
-
-                        if (weapSlot == 3 && weapPellets != 1)
-                        {
-                            USE_PREVIOUS_FONT_SETTINGS();
-                            if (weapPellets > 1)
-                                DISPLAY_TEXT_WITH_NUMBER(0.958f, 0.23f, "GL_DEAGLE3", weapPellets + 2);
-                            else
-                                DISPLAY_TEXT_WITH_NUMBER(0.958f, 0.23f, "GL_DEAGLE3", 18);
-                        }
-                    }
-
-                    if (weapStatB >= 0)
-                    {
-                        USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.27f, "NUMBER", weapStatB);
-                    }
-
-                    if (weapStatC >= 0)
-                    {
-                        USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.31f, "NUMBER", weapStatC);
-                    }
-
-                    if (weapStatD >= 0)
-                    {
-                        USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.35f, "NUMBER", weapStatD);
-                    }
-
-                    if (weapStatE >= 0)
-                    {
-                        USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.39f, "NUMBER", weapStatE);
-                    }
-
-                    if (weapStatF >= 0)
-                    {
-                        USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.43f, "NUMBER", weapStatF);
-                    }
-
-                    if (weapStatG >= 0)
-                    {
-                        USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.47f, "NUMBER", weapStatG);
-                    }
-
-                    if (weapStatH >= 0)
-                    {
-                        USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.51f, "NUMBER", weapStatH);
-                    }
+                    DisplayNumericalStats(weaponStat[weapID], 0.23f);
 
                     USE_PREVIOUS_FONT_SETTINGS();
                     SET_TEXT_COLOUR(255, 255, 255, 255);
@@ -1416,83 +930,25 @@ namespace ImprovedGunStores
                         DISPLAY_TEXT(0.83f, 0.19f, "GL_M43");
 
                     //Weapon Bars
-                    float damageSize = weapBarA / 1000.0f;
-                    float accuracySize = weapBarB / 1000.0f;
-                    float rangeSize = weapBarC / 1000.0f;
-                    float RoFSize = weapBarD / 1000.0f;
-                    float magSize = weapBarE / 1000.0f;
-                    float ammoSize = weapBarF / 1000.0f;
-                    float aimSize = weapBarG / 1000.0f;
-                    float forceSize = weapBarH / 1000.0f;
-
-                    float damagePos = 0.882f - (0.1f - damageSize) / 2;
-                    float accuracyPos = 0.882f - (0.1f - accuracySize) / 2;
-                    float rangePos = 0.882f - (0.1f - rangeSize) / 2;
-                    float RoFPos = 0.882f - (0.1f - RoFSize) / 2;
-                    float magPos = 0.882f - (0.1f - magSize) / 2;
-                    float ammoPos = 0.882f - (0.1f - ammoSize) / 2;
-                    float aimPos = 0.882f - (0.1f - aimSize) / 2;
-                    float forcePos = 0.882f - (0.1f - forceSize) / 2;
-
-                    if (weapBarA >= 0)
-                    {
-                        DRAW_RECT(0.882f, 0.24f, 0.1f, 0.015f, 50, 50, 50, 255);
-                        DRAW_RECT(damagePos, 0.24f, damageSize, 0.015f, 255, 255, 255, 255);
-                    }
-                    if (weapBarB >= 0)
-                    {
-                        DRAW_RECT(0.882f, 0.28f, 0.1f, 0.015f, 50, 50, 50, 255);
-                        DRAW_RECT(accuracyPos, 0.28f, accuracySize, 0.015f, 255, 255, 255, 255);
-                    }
-                    if (weapBarC >= 0)
-                    {
-                        DRAW_RECT(0.882f, 0.32f, 0.1f, 0.015f, 50, 50, 50, 255);
-                        DRAW_RECT(rangePos, 0.32f, rangeSize, 0.015f, 255, 255, 255, 255);
-                    }
-                    if (weapBarD >= 0)
-                    {
-                        DRAW_RECT(0.882f, 0.36f, 0.1f, 0.015f, 50, 50, 50, 255);
-                        DRAW_RECT(RoFPos, 0.36f, RoFSize, 0.015f, 255, 255, 255, 255);
-                    }
-                    if (weapBarE >= 0)
-                    {
-                        DRAW_RECT(0.882f, 0.40f, 0.1f, 0.015f, 50, 50, 50, 255);
-                        DRAW_RECT(magPos, 0.40f, magSize, 0.015f, 255, 255, 255, 255);
-                    }
-                    if (weapBarF >= 0)
-                    {
-                        DRAW_RECT(0.882f, 0.44f, 0.1f, 0.015f, 50, 50, 50, 255);
-                        DRAW_RECT(ammoPos, 0.44f, ammoSize, 0.015f, 255, 255, 255, 255);
-                    }
-                    if (weapBarG >= 0)
-                    {
-                        DRAW_RECT(0.882f, 0.48f, 0.1f, 0.015f, 50, 50, 50, 255);
-                        DRAW_RECT(aimPos, 0.48f, aimSize, 0.015f, 255, 255, 255, 255);
-                    }
-                    if (weapBarH >= 0)
-                    {
-                        DRAW_RECT(0.882f, 0.52f, 0.1f, 0.015f, 50, 50, 50, 255);
-                        DRAW_RECT(forcePos, 0.52f, forceSize, 0.015f, 255, 255, 255, 255);
-                    }
+                    DrawBars(weaponStat[weapID], 0.24f);
 
                     //Weapon Messages
                     if (!bComparing)
                     {
                         USE_PREVIOUS_FONT_SETTINGS();
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_H1", weapMsg);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_H1", weaponStat[weapID].Message);
                         DISPLAY_TEXT(0.725f, 0.55f, "GLOCK_H1");
                     }
                     //Comparing weapons
                     else
                     {
-                        GetCurrWeaponData(Settings, weapInSlot);
                         SET_TEXT_SCALE(0.5f, 0.5f);
                         SET_TEXT_FONT(6);
                         SET_TEXT_COLOUR((uint)hudR, (uint)hudG, (uint)hudB, 255);
                         SET_TEXT_CENTRE(true);
 
                         //Weapon Names
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK472", pWeaponName);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK472", weaponData[weapInSlot].Name);
                         DISPLAY_TEXT(0.85f, 0.57f, "GL_AK472");
 
                         //Weapon Stats Text
@@ -1502,14 +958,14 @@ namespace ImprovedGunStores
                         SET_TEXT_WRAP(0.725f, 0.975f);
                         SET_TEXT_DROPSHADOW(false, 0, 0, 0, 0);
 
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", pStatTextA);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MOLOTOV2", pStatTextB);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MOLOTOV3", pStatTextC);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MOLOTOV4", pStatTextD);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MP52", pStatTextE);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MP53", pStatTextF);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MP54", pStatTextG);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL2", pStatTextH);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", weaponStat[weapInSlot].StatTextA);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MOLOTOV2", weaponStat[weapInSlot].StatTextB);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MOLOTOV3", weaponStat[weapInSlot].StatTextC);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MOLOTOV4", weaponStat[weapInSlot].StatTextD);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MP52", weaponStat[weapInSlot].StatTextE);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MP53", weaponStat[weapInSlot].StatTextF);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MP54", weaponStat[weapInSlot].StatTextG);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL2", weaponStat[weapInSlot].StatTextH);
 
                         DISPLAY_TEXT(0.725f, 0.64f, "GL_RKL3");
                         USE_PREVIOUS_FONT_SETTINGS();
@@ -1528,139 +984,62 @@ namespace ImprovedGunStores
                         DISPLAY_TEXT(0.725f, 0.92f, "GL_RKL2");
 
                         //Weapon Slots & Numerical Info
-                        if (pWeapStatA >= 0)
-                        {
-                            USE_PREVIOUS_FONT_SETTINGS();
-                            DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.64f, "NUMBER", pWeapStatA);
-
-                            pWeapPellets = (int)IVWeaponInfo.GetWeaponInfo((uint)weapInSlot).AimingPellets;
-
-                            if (weapSlot == 3 && pWeapPellets != 1)
-                            {
-                                USE_PREVIOUS_FONT_SETTINGS();
-                                if (pWeapPellets > 1)
-                                    DISPLAY_TEXT_WITH_NUMBER(0.958f, 0.64f, "GL_DEAGLE3", pWeapPellets + 2);
-                                else
-                                    DISPLAY_TEXT_WITH_NUMBER(0.958f, 0.64f, "GL_DEAGLE3", 18);
-                            }
-                        }
-                        if (pWeapStatB >= 0)
-                        {
-                            USE_PREVIOUS_FONT_SETTINGS();
-                            DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.68f, "NUMBER", pWeapStatB);
-                        }
-                        if (pWeapStatC >= 0)
-                        {
-                            USE_PREVIOUS_FONT_SETTINGS();
-                            DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.72f, "NUMBER", pWeapStatC);
-                        }
-                        if (pWeapStatD >= 0)
-                        {
-                            USE_PREVIOUS_FONT_SETTINGS();
-                            DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.76f, "NUMBER", pWeapStatD);
-                        }
-                        if (pWeapStatE >= 0)
-                        {
-                            USE_PREVIOUS_FONT_SETTINGS();
-                            DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.80f, "NUMBER", pWeapStatE);
-                        }
-                        if (pWeapStatF >= 0)
-                        {
-                            USE_PREVIOUS_FONT_SETTINGS();
-                            DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.84f, "NUMBER", pWeapStatF);
-                        }
-                        if (pWeapStatG >= 0)
-                        {
-                            USE_PREVIOUS_FONT_SETTINGS();
-                            DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.88f, "NUMBER", pWeapStatG);
-                        }
-                        if (pWeapStatH >= 0)
-                        {
-                            USE_PREVIOUS_FONT_SETTINGS();
-                            DISPLAY_TEXT_WITH_NUMBER(0.94f, 0.92f, "NUMBER", pWeapStatH);
-                        }
-
-                        float pDamageSize = pWeapBarA / 1000.0f;
-                        float pAccuracySize = pWeapBarB / 1000.0f;
-                        float pRangeSize = pWeapBarC / 1000.0f;
-                        float pRoFSize = pWeapBarD / 1000.0f;
-                        float pMagSize = pWeapBarE / 1000.0f;
-                        float pAmmoSize = pWeapBarF / 1000.0f;
-                        float pAimSize = pWeapBarG / 1000.0f;
-                        float pForceSize = pWeapBarH / 1000.0f;
-
-                        float pDamagePos = 0.882f - (0.1f - pDamageSize) / 2;
-                        float pAccuracyPos = 0.882f - (0.1f - pAccuracySize) / 2;
-                        float pRangePos = 0.882f - (0.1f - pRangeSize) / 2;
-                        float pRoFPos = 0.882f - (0.1f - pRoFSize) / 2;
-                        float pMagPos = 0.882f - (0.1f - pMagSize) / 2;
-                        float pAmmoPos = 0.882f - (0.1f - pAmmoSize) / 2;
-                        float pAimPos = 0.882f - (0.1f - pAimSize) / 2;
-                        float pForcePos = 0.882f - (0.1f - pForceSize) / 2;
+                        DisplayNumericalStats(weaponStat[weapInSlot], 0.64f);
 
                         //Weapon Bars
-                        if (pWeapBarA >= 0)
-                        {
-                            DRAW_RECT(0.882f, 0.65f, 0.1f, 0.015f, 50, 50, 50, 255);
-                            DRAW_RECT(pDamagePos, 0.65f, pDamageSize, 0.015f, 255, 255, 255, 255);
-                        }
-                        if (pWeapBarB >= 0)
-                        {
-                            DRAW_RECT(0.882f, 0.69f, 0.1f, 0.015f, 50, 50, 50, 255);
-                            DRAW_RECT(pAccuracyPos, 0.69f, pAccuracySize, 0.015f, 255, 255, 255, 255);
-                        }
-                        if (pWeapBarC >= 0)
-                        {
-                            DRAW_RECT(0.882f, 0.73f, 0.1f, 0.015f, 50, 50, 50, 255);
-                            DRAW_RECT(pRangePos, 0.73f, pRangeSize, 0.015f, 255, 255, 255, 255);
-                        }
-                        if (pWeapBarD >= 0)
-                        {
-                            DRAW_RECT(0.882f, 0.77f, 0.1f, 0.015f, 50, 50, 50, 255);
-                            DRAW_RECT(pRoFPos, 0.77f, pRoFSize, 0.015f, 255, 255, 255, 255);
-                        }
-                        if (pWeapBarE >= 0)
-                        {
-                            DRAW_RECT(0.882f, 0.81f, 0.1f, 0.015f, 50, 50, 50, 255);
-                            DRAW_RECT(pMagPos, 0.81f, pMagSize, 0.015f, 255, 255, 255, 255);
-                        }
-                        if (pWeapBarF >= 0)
-                        {
-                            DRAW_RECT(0.882f, 0.85f, 0.1f, 0.015f, 50, 50, 50, 255);
-                            DRAW_RECT(pAmmoPos, 0.85f, pAmmoSize, 0.015f, 255, 255, 255, 255);
-                        }
-                        if (pWeapBarG >= 0)
-                        {
-                            DRAW_RECT(0.882f, 0.89f, 0.1f, 0.015f, 50, 50, 50, 255);
-                            DRAW_RECT(pAimPos, 0.89f, pAimSize, 0.015f, 255, 255, 255, 255);
-                        }
-                        if (pWeapBarH >= 0)
-                        {
-                            DRAW_RECT(0.882f, 0.93f, 0.1f, 0.015f, 50, 50, 50, 255);
-                            DRAW_RECT(pForcePos, 0.93f, pForceSize, 0.015f, 255, 255, 255, 255);
-                        }
+                        DrawBars(weaponStat[weapInSlot], 0.65f);
                     }
                 }
                 HelpDisplay();
 
                 if (animTime > 0.5)
                 {
-                    if (animLoop == 0 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "over_shoulder"))
+                    if (weaponData[weapID].AnimLoop == 0 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "over_shoulder"))
                         _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "over_shoulder", "missgunlockup", 4.0f, 1, 0, 0, 0, 0);
-                    else if (animLoop == 1 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "rifle_loop"))
+                    else if (weaponData[weapID].AnimLoop == 1 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "rifle_loop"))
                         _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rifle_loop", "missgunlockup", 4.0f, 1, 0, 0, 0, 0);
-                    else if (animLoop == 2 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "uzi_loop"))
+                    else if (weaponData[weapID].AnimLoop == 2 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "uzi_loop"))
                         _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "uzi_loop", "missgunlockup", 4.0f, 1, 0, 0, 0, 0);
-                    else if (animLoop == 3 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "rpg_loop"))
+                    else if (weaponData[weapID].AnimLoop == 3 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "rpg_loop"))
                         _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "rpg_loop", "missgunlockup", 4.0f, 1, 0, 0, 0, 0);
-                    else if (animLoop == 4 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "pistol_loop"))
+                    else if (weaponData[weapID].AnimLoop == 4 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "pistol_loop"))
                         _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "pistol_loop", "missgunlockup", 4.0f, 1, 0, 0, 0, 0);
-                    else if (animLoop == 5 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "grenade_loop"))
+                    else if (weaponData[weapID].AnimLoop == 5 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "grenade_loop"))
                         _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "grenade_loop", "missgunlockup", 4.0f, 1, 0, 0, 0, 0);
-                    else if (animLoop == 6 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "shotgun_loop"))
+                    else if (weaponData[weapID].AnimLoop == 6 && !IS_CHAR_PLAYING_ANIM(Main.PlayerHandle, "missgunlockup", "shotgun_loop"))
                         _TASK_PLAY_ANIM_NON_INTERRUPTABLE(Main.PlayerHandle, "shotgun_loop", "missgunlockup", 4.0f, 1, 0, 0, 0, 0);
                 }
             }
+        }
+        private void ProcessInspection()
+        {
+            if (!canInspect)
+                return;
+
+            if (!isInspecting && !camActivate)
+            {
+                SET_PLAYER_CONTROL(Main.PlayerIndex, false);
+                CLEAR_CHAR_TASKS(Main.PlayerHandle);
+
+                //_TASK_CHAR_SLIDE_TO_COORD(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, plyrHeading, 1.0f);
+                //WAIT(1000);
+                _TASK_GO_STRAIGHT_TO_COORD(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, 1, 45000);
+                goInspect = true;
+            }
+            else if (!camActivate)
+                goInspect = true;
+        }
+        private void FullAmmo()
+        {
+            GET_MAX_AMMO_IN_CLIP(Main.PlayerHandle, weapID, out int wClipAmmo);
+            if (wClipAmmo > 0)
+                IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
+            else
+                IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You already own a " + weaponData[weapID].Name + ".");
+
+            PRINT_HELP("AMMO_FULL");
+            GET_GAME_TIMER(out fTimer);
+            bFailMsg = true;
         }
         private void BuyTheWeapon()
         {
@@ -1670,27 +1049,35 @@ namespace ImprovedGunStores
                 GET_CHAR_WEAPON_IN_SLOT(Main.PlayerHandle, weapSlot, out weapInSlot, out ammoInSlot, out maxAmmoInSlot);
             }
             GET_CHAR_ARMOUR(Main.PlayerHandle, out uint pArmr);
+            GET_MAX_AMMO_IN_CLIP(Main.PlayerHandle, weapID, out int wClipAmmo);
 
             if (pAmmo < maxAmmo)
             {
-                if (HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID) && pMoney >= ammoCost)
+                if (HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID) && pMoney >= weaponData[weapID].AmmoPrice)
                 {
                     if (weapID != 48)
                     {
-                        PLAY_SOUND(soundID, buySound);
-                        ADD_SCORE(Main.PlayerIndex, -ammoCost);
-                        SAY_AMBIENT_SPEECH(GuardPeds[0], "THANKS", false, true, 0);
-                        GIVE_WEAPON_TO_CHAR(Main.PlayerHandle, weapID, clipAmmo, true);
+                        if (wClipAmmo > 0)
+                        {
+                            PLAY_SOUND(soundID, weaponData[weapID].BuySound);
+                            ADD_SCORE(Main.PlayerIndex, -weaponData[weapID].AmmoPrice);
+                            if (DOES_CHAR_EXIST(guardPeds[0]))
+                                SAY_AMBIENT_SPEECH(guardPeds[0], "THANKS", false, true, 0);
+                            GIVE_WEAPON_TO_CHAR(Main.PlayerHandle, weapID, weaponData[weapID].ClipAmmo, true);
+                        }
+                        else
+                            FullAmmo();
                     }
                     else if (pArmr < 100)
                     {
-                        PLAY_SOUND(soundID, buySound);
-                        ADD_SCORE(Main.PlayerIndex, -ammoCost);
-                        SAY_AMBIENT_SPEECH(GuardPeds[0], "THANKS", false, true, 0);
+                        PLAY_SOUND(soundID, weaponData[weapID].BuySound);
+                        ADD_SCORE(Main.PlayerIndex, -weaponData[weapID].AmmoPrice);
+                        if (DOES_CHAR_EXIST(guardPeds[0]))
+                            SAY_AMBIENT_SPEECH(guardPeds[0], "THANKS", false, true, 0);
                         ADD_ARMOUR_TO_CHAR(Main.PlayerHandle, 100);
                     }
                 }
-                else if (pMoney >= weapCost)
+                else if (pMoney >= weaponData[weapID].WeaponPrice)
                 {
                     if (weapInSlot > 0 && weapInSlot != weapID && !confirmation)
                     {
@@ -1703,8 +1090,8 @@ namespace ImprovedGunStores
                         confirmation = false;
                         if (weapID != 48)
                         {
-                            PLAY_SOUND(soundID, buySound);
-                            ADD_SCORE(Main.PlayerIndex, -weapCost);
+                            PLAY_SOUND(soundID, weaponData[weapID].BuySound);
+                            ADD_SCORE(Main.PlayerIndex, -weaponData[weapID].WeaponPrice);
                             //PLAY_AUDIO_EVENT_FROM_PED("GS1_BUY", GuardPeds[0]);
                             //int b = GET_HASH_KEY("GUN_NUT");
                             //NEW_SCRIPTED_CONVERSATION();
@@ -1713,16 +1100,19 @@ namespace ImprovedGunStores
                             //ADD_LINE_TO_CONVERSATION(0, GET_HASH_KEY("GS1_MA"), GET_HASH_KEY("GS1_PURCH2"), 0, 0);
                             //START_SCRIPT_CONVERSATION(true, true);
                             //IVGame.ShowSubtitleMessage(b.ToString() + "   " + GET_HASH_KEY("GS1_MA") + "   " + unchecked((int)2484359393));
-                            SAY_AMBIENT_SPEECH(GuardPeds[0], "THANKS", false, true, 0);
+
+                            if (DOES_CHAR_EXIST(guardPeds[0]))
+                                SAY_AMBIENT_SPEECH(guardPeds[0], "THANKS", false, true, 0);
                             if (!keepAmmo)
                                 REMOVE_WEAPON_FROM_CHAR(Main.PlayerHandle, weapInSlot);
-                            GIVE_WEAPON_TO_CHAR(Main.PlayerHandle, weapID, clipAmmo, true);
+                            GIVE_WEAPON_TO_CHAR(Main.PlayerHandle, weapID, weaponData[weapID].ClipAmmo, true);
                         }
                         else if (pArmr < 100)
                         {
-                            PLAY_SOUND(soundID, buySound);
-                            ADD_SCORE(Main.PlayerIndex, -weapCost);
-                            SAY_AMBIENT_SPEECH(GuardPeds[0], "THANKS", false, true, 0);
+                            PLAY_SOUND(soundID, weaponData[weapID].BuySound);
+                            ADD_SCORE(Main.PlayerIndex, -weaponData[weapID].WeaponPrice);
+                            if (DOES_CHAR_EXIST(guardPeds[0]))
+                                SAY_AMBIENT_SPEECH(guardPeds[0], "THANKS", false, true, 0);
                             ADD_ARMOUR_TO_CHAR(Main.PlayerHandle, 100);
                         }
                     }
@@ -1736,62 +1126,19 @@ namespace ImprovedGunStores
                 }
             }
             else
-            {
-                IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
-                PRINT_HELP("AMMO_FULL");
-                GET_GAME_TIMER(out fTimer);
-                bFailMsg = true;
-            }
-        }
-        private void BuyAttachment()
-        {
-            if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
-            {
-                weapFuncsConfig.Load();
-                grenAmmo = weapFuncsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, weapID.ToString() + "GrenadeAmmo", 0);
-
-                if (!ownsAttachment[currAttachmt])
-                {
-                    if (pMoney >= attachmentPrice)
-                    {
-                        PLAY_SOUND(soundID, buySound);
-                        //WriteBooleanToINI(attachmentsConfig, weapID.ToString() + "HasGLAttachment", true);
-                        attachmentUnlocks[weapID][currAttachmt] = true;
-                        WriteBooleanToINI(weapFuncsConfig, weapID.ToString() + "Has" + GetAttachmentName(currAttachmt) + "Attachment", true);
-                        ADD_SCORE(Main.PlayerIndex, -attachmentPrice);
-                        if (currAttachmt == 0 && grenAmmo < attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
-                            WriteIntToINI(weapFuncsConfig, weapID.ToString() + "GrenadeAmmo", grenAmmo + 1);
-                        weapFuncsConfig.Save();
-                    }
-                }
-                else if (currAttachmt == 0 && pMoney >= grenPrice && grenAmmo < attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
-                {
-                    ADD_SCORE(Main.PlayerIndex, -grenPrice);
-                    WriteIntToINI(weapFuncsConfig, weapID.ToString() + "GrenadeAmmo", grenAmmo + 1);
-                    weapFuncsConfig.Save();
-                }
-                else if (currAttachmt == 0 && grenAmmo >= attachmentsConfig.GetInteger(weapID.ToString(), "MaxGrenadeAmmo", 0))
-                {
-                    IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
-                    PRINT_HELP("AMMO_FULL");
-                    GET_GAME_TIMER(out fTimer);
-                    bFailMsg = true;
-                }
-            }
+                FullAmmo();
         }
         private void ProcessPurchase()
         {
-            if (!HasSpawned)
+            if (!hasSpawned)
                 return;
 
             if (!canInspect)
                 return;
 
-            GetWeaponData(Settings, weapID);
             STORE_SCORE(Main.PlayerIndex, out pMoney);
             GET_AMMO_IN_CHAR_WEAPON(Main.PlayerHandle, weapID, out pAmmo);
             GET_MAX_AMMO(Main.PlayerHandle, weapID, out maxAmmo);
-            //GET_MAX_AMMO_IN_CLIP(Main.PlayerHandle, weapID, out clipAmmo);
 
             //Inspect anim loop and stats display
             if (menuActive)
@@ -1813,8 +1160,7 @@ namespace ImprovedGunStores
                     else if (weapID != 48)
                     {
                         backroomSelectedWeap = 0;
-                        wCoords = backroomPos;
-                        weapBuyHdg = backroomHdg;
+                        wCoords = currGunStore.BackroomPos;
 
                         ProcessInspection();
                     }
@@ -1844,7 +1190,6 @@ namespace ImprovedGunStores
 
                 else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.Jump) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.Jump)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
                 {
-                    //IVGame.ShowSubtitleMessage(isInspecting.ToString() + weapID.ToString() + weapInSlot.ToString());
                     if (extraWeap && isInspecting && weapInSlot > 0 && weapInSlot != weapID)
                         bComparing = !bComparing;
                     else if (isInspecting && weapInSlot == weapID)
@@ -1852,13 +1197,24 @@ namespace ImprovedGunStores
                         attachmentMenu = !attachmentMenu;
                         currAttachmt = 0;
                         bInspectMsg = false;
+
+                        if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
+                            LoadAttachmentData(weapID, currAttachmt);
+
                     }
                 }
 
                 else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavUp) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavUp)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
                 {
                     if (extraWeap && isInspecting && weapInSlot == weapID)
+                    {
                         attachmentMenu = !attachmentMenu;
+                        currAttachmt = 0;
+
+                        if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
+                            LoadAttachmentData(weapID, currAttachmt);
+
+                    }
                 }
 
                 else if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavRight) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavRight)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
@@ -1867,27 +1223,21 @@ namespace ImprovedGunStores
                     {
                         for (int i = currAttachmt; i < numOfAttachmts; i++)
                         {
-                            /*if (canBuyAttachment[currAttachmt + 1])
-                            {
-                                currAttachmt++;
-                                break;
-                            }
-                            else*/
                             currAttachmt++;
                             if (currAttachmt >= numOfAttachmts)
                                 currAttachmt = 0;
 
-                            if (canBuyAttachment[currAttachmt])
+                            if (wAttachments[weapID][currAttachmt].Available)
                                 break;
                         }
                     }
                     else if (extraWeap && isInspecting)
                     {
+                        confirmation = false;
                         bComparing = false;
                         spawnWeaponInAir = false;
-                        loadWeaponInAir = false;
 
-                        if (backroomSelectedWeap < backroomCount - 1)
+                        if (backroomSelectedWeap < backroomWeaps.Count - 1)
                             backroomSelectedWeap++;
                         else
                             backroomSelectedWeap = 0;
@@ -1910,144 +1260,134 @@ namespace ImprovedGunStores
                             if (currAttachmt < 0)
                                 currAttachmt = numOfAttachmts;
 
-                            if (canBuyAttachment[currAttachmt])
+                            if (wAttachments[weapID][currAttachmt].Available)
                                 break;
                         }
                     }
                     else if (extraWeap && isInspecting)
                     {
+                        confirmation = false;
                         bComparing = false;
                         spawnWeaponInAir = false;
-                        loadWeaponInAir = false;
 
                         if (backroomSelectedWeap > 0)
                             backroomSelectedWeap--;
                         else
-                            backroomSelectedWeap = backroomCount - 1;
+                            backroomSelectedWeap = backroomWeaps.Count - 1;
                     }
                 }
             }
         }
-        private void ProcessSpeech()
+        private void StopText()
         {
-            if (enterGunShop)
+            if (!bFailMsg)
                 return;
 
-            if (!DOES_CHAR_EXIST(GuardPeds[0]))
-                return;
-
-            enterGunShop = true;
-
-            if (DOES_CHAR_EXIST(GuardPeds[0]) && !IS_CHAR_DEAD(GuardPeds[0]) && !IS_PED_IN_COMBAT(GuardPeds[0]))
-            {
-                //2484359393 - 
-                //PLAY_AUDIO_EVENT("GS1_PURCH2");
-                //PLAY_SOUND(soundID, "GS1_MA");
-            }
+            if (gTimer >= fTimer + 2000)
+                bFailMsg = false;
         }
+
+        // GuardShit
         private void SpawnDealer()
         {
-            if (HasSpawned)
+            if (hasSpawned)
             {
-                if (!HAS_MODEL_LOADED(GET_HASH_KEY(dealerMdl)))
+                if (IS_MODEL_IN_CDIMAGE(GET_HASH_KEY(currGunStore.DealerModel)) && IS_THIS_MODEL_A_PED((uint)GET_HASH_KEY(currGunStore.DealerModel)))
                 {
-                    REQUEST_MODEL(GET_HASH_KEY(dealerMdl));
-                    return;
-                }
+                    if (!DOES_CHAR_EXIST(guardPeds[0]))
+                    {
+                        if (!HAS_MODEL_LOADED(GET_HASH_KEY(currGunStore.DealerModel)))
+                        {
+                            REQUEST_MODEL(GET_HASH_KEY(currGunStore.DealerModel));
+                            return;
+                        }
 
-                if (!DOES_CHAR_EXIST(GuardPeds[0]))
+                        guardPeds[0] = CreatePed_DontRequestModel(GET_HASH_KEY(currGunStore.DealerModel), currGunStore.DealerPos, currGunStore.DealerHdng, (int)ePedType.PED_TYPE_CIV_MALE);
+                        GIVE_WEAPON_TO_CHAR(guardPeds[0], currGunStore.DealerWpn, -1, true);
+                        ADD_ARMOUR_TO_CHAR(guardPeds[0], 100);
+                        SET_DONT_ACTIVATE_RAGDOLL_FROM_PLAYER_IMPACT(guardPeds[0], true);
+                        SET_CHAR_RELATIONSHIP(guardPeds[0], (uint)eRelationship.RELATIONSHIP_RESPECT, (int)eRelationshipGroup.RELATIONSHIP_GROUP_PLAYER);
+
+                        if (currGunStore.RoomName != "None")
+                            SET_ROOM_FOR_CHAR_BY_NAME(guardPeds[0], currGunStore.RoomName);
+                        MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(currGunStore.DealerModel));
+                    }
+                }
+                else
                 {
-                    GuardPeds[0] = CreatePed_DontRequestModel(GET_HASH_KEY(dealerMdl), dealerPos, dealerHdg, (int)ePedType.PED_TYPE_CIV_MALE);
-                    GIVE_WEAPON_TO_CHAR(GuardPeds[0], dealerWpn, -1, true);
-                    ADD_ARMOUR_TO_CHAR(GuardPeds[0], 100);
-                    SET_DONT_ACTIVATE_RAGDOLL_FROM_PLAYER_IMPACT(GuardPeds[0], true);
-                    //SET_CHAR_RELATIONSHIP_GROUP(GuardPeds[i], (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
-                    //SET_CHAR_RELATIONSHIP(GuardPeds[i], (uint)eRelationship.RELATIONSHIP_COMPANION, (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
-                    SET_CHAR_RELATIONSHIP(GuardPeds[0], (uint)eRelationship.RELATIONSHIP_RESPECT, (int)eRelationshipGroup.RELATIONSHIP_GROUP_PLAYER);
-                    SET_ROOM_FOR_CHAR_BY_NAME(GuardPeds[0], roomName);
-                    MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(dealerMdl));
+                    IVGame.Console.PrintError(currGunStore.DealerModel + " is not a valid ped model. Gun nut model will be used instead.");
+                    currGunStore.DealerModel = "M_M_GUNNUT_01";
                 }
-
-                bSpawnDealer = true;
             }
-        }
-        private void ReplaceText()
-        {
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE2", "Slot");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE3", "x~1~");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT2", "Melee");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN2", "Handguns");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN3", "Shotguns");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT3", "SMGs");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A12", "Assault Rifles");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A13", "Sniper Rifles");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_UZI2", "Heavy");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M42", "Thrown");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M43", "Special");
-            
-            replaceText = true;
         }
         private void SpawnGuards()
         {
+            if (!bSpawnGuards)
+                return;
+
             if (gTimer < fTimer + gSpawnDelay)
                 return;
 
-            string guardString = configFile.GetValue("MAIN", "GuardModels", "");
-            guardMdl = guardString.Split(',').ToList();
-
-            string guardWpns = configFile.GetValue("MAIN", "GuardWeapons", "");
-            guardWpn = guardWpns.Split(',').Select(int.Parse).ToList();
-
             int i;
-            for (i = 1; i < guardMdl.Count() + 1; i++)
+            bool notSpawned = false;
+            for (i = 1; i < 4; i++)
             {
-                if (!HAS_MODEL_LOADED(GET_HASH_KEY(guardMdl[i - 1])))
+                if (IS_MODEL_IN_CDIMAGE(GET_HASH_KEY(currGunStore.GuardModels[i - 1])) && IS_THIS_MODEL_A_PED((uint)GET_HASH_KEY(currGunStore.GuardModels[i - 1])))
                 {
-                    REQUEST_MODEL(GET_HASH_KEY(guardMdl[i - 1]));
-                    return;
+                    if (!HAS_MODEL_LOADED(GET_HASH_KEY(currGunStore.GuardModels[i - 1])))
+                    {
+                        REQUEST_MODEL(GET_HASH_KEY(currGunStore.GuardModels[i - 1]));
+                        notSpawned = true;
+                    }
+                    else if (!DOES_CHAR_EXIST(guardPeds[i]))
+                    {
+                        guardPeds[i] = CreatePed_DontRequestModel(GET_HASH_KEY(currGunStore.GuardModels[i - 1]), currGunStore.GuardPos, 0, (int)ePedType.PED_TYPE_CIV_MALE);
+                        GIVE_WEAPON_TO_CHAR(guardPeds[i], currGunStore.GuardWpns[i - 1], -1, true);
+                        ADD_ARMOUR_TO_CHAR(guardPeds[i], 100);
+
+                        if (currGunStore.GuardRoom != "None")
+                            SET_ROOM_FOR_CHAR_BY_NAME(guardPeds[i], currGunStore.GuardRoom);
+                        MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(currGunStore.GuardModels[i - 1]));
+                        _TASK_COMBAT(guardPeds[i], Main.PlayerHandle);
+                        notSpawned = true;
+                    }
                 }
-                if (!DOES_CHAR_EXIST(GuardPeds[i]))
+                else
                 {
-                    GuardPeds[i] = CreatePed_DontRequestModel(GET_HASH_KEY(guardMdl[i - 1]), guardPos, 0, (int)ePedType.PED_TYPE_CIV_MALE);
-                    GIVE_WEAPON_TO_CHAR(GuardPeds[i], guardWpn[i - 1], -1, true);
-                    ADD_ARMOUR_TO_CHAR(GuardPeds[i], 100);
-                    SET_ROOM_FOR_CHAR_BY_NAME(GuardPeds[i], gRoomName);
-                    MARK_MODEL_AS_NO_LONGER_NEEDED(GET_HASH_KEY(guardMdl[i - 1]));
-                    //SET_ROOM_FOR_CHAR_BY_NAME(GuardPeds[i], "gunstore");
-                    _TASK_COMBAT(GuardPeds[i], Main.PlayerHandle);
-                    /*SET_CHAR_RELATIONSHIP_GROUP(GuardPeds[i], (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
-                    SET_CHAR_RELATIONSHIP(GuardPeds[i], (uint)eRelationship.RELATIONSHIP_COMPANION, (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
-                    SET_CHAR_RELATIONSHIP(GuardPeds[i], (uint)eRelationship.RELATIONSHIP_HATE, (int)eRelationshipGroup.RELATIONSHIP_GROUP_PLAYER);
-                    */
+                    IVGame.Console.PrintError(currGunStore.GuardModels[i - 1] + " is not a valid ped model. Gun nut model will be used instead.");
+                    currGunStore.GuardModels[i - 1] = "M_M_GUNNUT_01";
                 }
             }
+            if (!notSpawned)
             bSpawnGuards = false;
         }
+
         private void ProcessGuards()
         {
             if (!hasConfigsLoaded)
                 return;
 
-            bIsHostile = storeHostile[locations.IndexOf(location)];
             int i;
-            if (DOES_CHAR_EXIST(GuardPeds[0]))
-            {
-                GET_KEY_FOR_CHAR_IN_ROOM(GuardPeds[0], out rKey);
-                GET_KEY_FOR_CHAR_IN_ROOM(Main.PlayerHandle, out pKey);
-                if (!bIsHostile)
-                {
-                    _TASK_LOOK_AT_CHAR(GuardPeds[0], Main.PlayerHandle, 0, 0);
+            uint rKey = 0, pKey = 0;
 
-                    if (IS_CHAR_GESTURING(GuardPeds[0]) && (IS_PLAYER_TARGETTING_CHAR(Main.PlayerIndex, GuardPeds[0]) || IS_PLAYER_FREE_AIMING_AT_CHAR(Main.PlayerIndex, GuardPeds[0])))
+            if (DOES_CHAR_EXIST(guardPeds[0]))
+            {
+                GET_KEY_FOR_CHAR_IN_ROOM(guardPeds[0], out rKey);
+                GET_KEY_FOR_CHAR_IN_ROOM(Main.PlayerHandle, out pKey);
+                if (!currGunStore.Hostile)
+                {
+                    _TASK_LOOK_AT_CHAR(guardPeds[0], Main.PlayerHandle, 0, 0);
+
+                    if (IS_CHAR_GESTURING(guardPeds[0]) && (IS_PLAYER_TARGETTING_CHAR(Main.PlayerIndex, guardPeds[0]) || IS_PLAYER_FREE_AIMING_AT_CHAR(Main.PlayerIndex, guardPeds[0])))
                     {
-                        SET_BLOCKING_OF_NON_TEMPORARY_EVENTS(GuardPeds[0], true);
-                        _TASK_AIM_GUN_AT_CHAR(GuardPeds[0], Main.PlayerHandle, 45000);
+                        SET_BLOCKING_OF_NON_TEMPORARY_EVENTS(guardPeds[0], true);
+                        _TASK_AIM_GUN_AT_CHAR(guardPeds[0], Main.PlayerHandle, 45000);
                     }
 
-                    else if (!IS_PLAYER_TARGETTING_CHAR(Main.PlayerIndex, GuardPeds[0]) && !IS_PLAYER_FREE_AIMING_AT_CHAR(Main.PlayerIndex, GuardPeds[0]))
+                    else if (!IS_PLAYER_TARGETTING_CHAR(Main.PlayerIndex, guardPeds[0]) && !IS_PLAYER_FREE_AIMING_AT_CHAR(Main.PlayerIndex, guardPeds[0]))
                     {
-                        CLEAR_CHAR_TASKS(GuardPeds[0]);
-                        SET_BLOCKING_OF_NON_TEMPORARY_EVENTS(GuardPeds[0], false);
+                        CLEAR_CHAR_TASKS(guardPeds[0]);
+                        SET_BLOCKING_OF_NON_TEMPORARY_EVENTS(guardPeds[0], false);
                     }
 
                     /*if (rKey == pKey)
@@ -2055,38 +1395,426 @@ namespace ImprovedGunStores
                 }
             }
 
-            for (i = 0; i < (1 + guardMdl.Count()); i++)
+            for (i = 0; i < 4; i++)
             {
-                if (DOES_CHAR_EXIST(GuardPeds[i]))
+                if (DOES_CHAR_EXIST(guardPeds[i]))
                 {
-                    if (bIsHostile && rKey == pKey)
+                    if (currGunStore.Hostile && rKey == pKey)
                     {
-                        SET_CHAR_RELATIONSHIP_GROUP(GuardPeds[i], (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
-                        SET_CHAR_RELATIONSHIP(GuardPeds[i], (uint)eRelationship.RELATIONSHIP_COMPANION, (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
-                        SET_CHAR_RELATIONSHIP(GuardPeds[i], (uint)eRelationship.RELATIONSHIP_HATE, (int)eRelationshipGroup.RELATIONSHIP_GROUP_PLAYER);
-                        //_TASK_COMBAT(GuardPeds[i],Main.PlayerHandle);
-                        //bIsHostile = true;
+                        SET_CHAR_RELATIONSHIP_GROUP(guardPeds[i], (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
+                        SET_CHAR_RELATIONSHIP(guardPeds[i], (uint)eRelationship.RELATIONSHIP_COMPANION, (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
+                        SET_CHAR_RELATIONSHIP(guardPeds[i], (uint)eRelationship.RELATIONSHIP_HATE, (int)eRelationshipGroup.RELATIONSHIP_GROUP_PLAYER);
                     }
-                    if (!bIsHostile && !isInspecting && (IS_CHAR_DEAD(GuardPeds[i]) || IS_PED_IN_COMBAT(GuardPeds[i]) || HAS_CHAR_BEEN_DAMAGED_BY_CHAR(GuardPeds[i], Main.PlayerHandle, true) || (IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0) && rKey == pKey)))
+                    if (!currGunStore.Hostile && !isInspecting && (IS_CHAR_DEAD(guardPeds[i]) || IS_PED_IN_COMBAT(guardPeds[i]) || HAS_CHAR_BEEN_DAMAGED_BY_CHAR(guardPeds[i], Main.PlayerHandle, true) || (IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0) && rKey == pKey)))
                     {
                         GET_GAME_TIMER(out fTimer);
-                        GET_GAME_TIMER(out attackTimers[locations.IndexOf(location)]);
-                        /*SET_CHAR_RELATIONSHIP_GROUP(GuardPeds[i], (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
-                        SET_CHAR_RELATIONSHIP(GuardPeds[i], (uint)eRelationship.RELATIONSHIP_COMPANION, (int)eRelationshipGroup.RELATIONSHIP_GROUP_MISSION_2);
-                        SET_CHAR_RELATIONSHIP(GuardPeds[i], (uint)eRelationship.RELATIONSHIP_HATE, (int)eRelationshipGroup.RELATIONSHIP_GROUP_PLAYER);
-                        _TASK_COMBAT(GuardPeds[i], Main.PlayerHandle);*/
+                        GET_GAME_TIMER(out uint currTimer);
+
+                        currGunStore.AttackTimer = currTimer;
                         bSpawnGuards = true;
-                        storeHostile[locations.IndexOf(location)] = true;
+                        currGunStore.Hostile = true;
                     }
                 }
             }
 
         }
-        private void StopText()
+
+        // AttachmentShit
+        private static string GetAttachmentName(int attachID)
         {
-            if (gTimer >= fTimer + 2000 && bFailMsg)
-                bFailMsg = false;
+            switch (attachID)
+            {
+                case 0:
+                    return "GrenadeLauncher";
+                case 1:
+                    return "Scope";
+                default:
+                    return "";
+            }
         }
+        private void ProcessAttachmentsHelp()
+        {
+            switch (currAttachmt)
+            {
+                case 0:
+                    if (!wAttachments[weapID][0].Owned)
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment $" + wAttachments[weapID][0].Price.ToString());
+                    else
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~g~$" + wAttachments[weapID][0].AmmoPrice.ToString() + "~n~~s~Currently have ~g~" + wAttachments[weapID][0].Ammo.ToString() + "x ~s~ammo.");
+                    break;
+                case 1:
+                    if (!wAttachments[weapID][1].Owned)
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + wAttachments[weapID][1].Price.ToString());
+                    else
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Already own ~n~~g~Scope attachment for this weapon.");
+
+                    break;
+            }
+        }
+        private void LoadAttachmentData(int w, int a)
+        {
+            wfAttachmentsConfig.Load();
+            wAttachments[w][a].Owned = wfAttachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, (w.ToString() + "Has" + GetAttachmentName(a) + "Attachment"), false);
+            wAttachments[w][a].Ammo = wfAttachmentsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, w.ToString() + GetAttachmentName(a) + "Ammo", 0);
+        }
+        private void BuyAttachment()
+        {
+            if (!wAttachments[weapID][currAttachmt].Owned)
+            {
+                if (pMoney >= wAttachments[weapID][currAttachmt].Price)
+                {
+                    if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
+                    {
+                        LoadAttachmentData(weapID, currAttachmt);
+
+                        PLAY_SOUND(soundID, weaponData[weapID].BuySound);
+                        wAttachments[weapID][currAttachmt].Owned = true;
+                        wAttachments[weapID][currAttachmt].Ammo = 1;
+                        WriteBooleanToINI(wfAttachmentsConfig, (weapID.ToString() + "Has" + GetAttachmentName(currAttachmt) + "Attachment"), true);
+                        WriteIntToINI(wfAttachmentsConfig, (weapID.ToString() + GetAttachmentName(currAttachmt) + "Ammo"), 1);
+                        wfAttachmentsConfig.Save();
+                        wfAttachmentsConfig.Load();
+
+                        ADD_SCORE(Main.PlayerIndex, -wAttachments[weapID][currAttachmt].Price);
+                    }
+                }
+            }
+            else if (currAttachmt == 0 && pMoney >= wAttachments[weapID][currAttachmt].AmmoPrice && wAttachments[weapID][currAttachmt].Ammo < wAttachments[weapID][currAttachmt].MaxAmmo)
+            {
+                if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
+                {
+                    LoadAttachmentData(weapID, currAttachmt);
+
+                    PLAY_SOUND(soundID, weaponData[weapID].BuySound);
+                    wAttachments[weapID][currAttachmt].Ammo++;
+                    WriteIntToINI(wfAttachmentsConfig, (weapID.ToString() + GetAttachmentName(currAttachmt) + "Ammo"), wAttachments[weapID][currAttachmt].Ammo);
+                    wfAttachmentsConfig.Save();
+                    wfAttachmentsConfig.Load();
+
+                    ADD_SCORE(Main.PlayerIndex, -wAttachments[weapID][currAttachmt].AmmoPrice);
+                }
+            }
+            else if (currAttachmt == 0 && wAttachments[weapID][currAttachmt].Ammo >= wAttachments[weapID][currAttachmt].MaxAmmo)
+            {
+                IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
+                PRINT_HELP("AMMO_FULL");
+                GET_GAME_TIMER(out fTimer);
+                bFailMsg = true;
+            }
+        }
+
+        // LoadWeaponData
+        private void LoadGeneralWeaponData(SettingsFile settings, int weapon)
+        {
+            if (settings.DoesSectionExists(weapon.ToString()))
+            {
+                string name;
+                string model;
+                int lockStat;
+                float lockProg;
+                int wPrice;
+                int aPrice;
+                int ammo;
+                string buySound;
+                bool inStock;
+                Vector3 backPos;
+
+                name = settings.GetValue(weapon.ToString(), "Name", "");
+                if (currEp == 2)
+                {
+                    model = settings.GetValue(weapon.ToString(), "TBOGTWeaponModel", "");
+                    lockStat = settings.GetInteger(weapon.ToString(), "TBOGTUnlockStat", 0);
+                    lockProg = settings.GetFloat(weapon.ToString(), "TBOGTUnlockProg", 0);
+                }
+                else if (currEp == 1)
+                {
+                    model = settings.GetValue(weapon.ToString(), "TLADWeaponModel", "");
+                    lockStat = settings.GetInteger(weapon.ToString(), "TLADUnlockStat", 0);
+                    lockProg = settings.GetFloat(weapon.ToString(), "TLADUnlockProg", 0);
+                }
+                else
+                {
+                    model = settings.GetValue(weapon.ToString(), "IVWeaponModel", "");
+                    lockStat = settings.GetInteger(weapon.ToString(), "IVUnlockStat", 0);
+                    lockProg = settings.GetFloat(weapon.ToString(), "IVUnlockProg", 0);
+                }
+                wPrice = settings.GetInteger(weapon.ToString(), "WeaponPrice", 0);
+                aPrice = settings.GetInteger(weapon.ToString(), "AmmoPrice", 0);
+                ammo = settings.GetInteger(weapon.ToString(), "ClipAmmo", 0);
+                buySound = settings.GetValue(weapon.ToString(), "WeaponBuySound", "");
+                inStock = settings.GetBoolean(weapon.ToString(), "BackroomStock", false);
+                backPos = settings.GetVector3(weapon.ToString(), "BackroomOffset", Vector3.Zero);
+
+                weaponData[weapon].Name = name;
+                weaponData[weapon].Model = model;
+                weaponData[weapon].UnlockStat = lockStat;
+                weaponData[weapon].UnlockProg = lockProg;
+                weaponData[weapon].WeaponPrice = wPrice;
+                weaponData[weapon].AmmoPrice = aPrice;
+                weaponData[weapon].ClipAmmo = ammo;
+                weaponData[weapon].BuySound = buySound;
+                weaponData[weapon].BackroomStock = inStock;
+                weaponData[weapon].BackroomOffset = backPos;
+
+                if (inStock && !backroomWeaps.Contains(weapon))
+                    backroomWeaps.Add(weapon);
+            }
+        }
+        private void LoadSpecificWeaponData(SettingsFile settings, int weapon)
+        {
+            if (settings.DoesSectionExists(weapon.ToString()))
+            {
+                Vector3 pos;
+                Vector3 rot;
+                Vector3 bPos;
+                float bHdng;
+                float bRad;
+                int animS;
+                int animL;
+                int animE;
+
+                pos = settings.GetVector3(weapon.ToString(), "WeaponPosition", Vector3.Zero);
+                rot = settings.GetVector3(weapon.ToString(), "WeaponRotation", Vector3.Zero);
+                bPos = settings.GetVector3(weapon.ToString(), "BuyPosition", Vector3.Zero);
+                bHdng = settings.GetFloat(weapon.ToString(), "BuyHeading", 0);
+                bRad = settings.GetFloat(weapon.ToString(), "BuyRadius", 0);
+                animS = settings.GetInteger(weapon.ToString(), "AnimStart", 0);
+                animL = settings.GetInteger(weapon.ToString(), "AnimLoop", 0);
+                animE = settings.GetInteger(weapon.ToString(), "AnimEnd", 0);
+
+                weaponData[weapon].Position = pos;
+                weaponData[weapon].Rotation = rot;
+                weaponData[weapon].BuyPos = bPos;
+                weaponData[weapon].BuyHdng = bHdng;
+                weaponData[weapon].BuyRad = bRad;
+                weaponData[weapon].AnimStart = animS;
+                weaponData[weapon].AnimLoop = animL;
+                weaponData[weapon].AnimEnd = animE;
+            }
+        }
+
+        // LoadINIs
+        private void WriteBooleanToINI(SettingsFile settings, string keyname, bool booleShit)
+        {
+            if (!settings.DoesSectionExists(IVGenericGameStorage.ValidSaveName))
+                settings.AddSection(IVGenericGameStorage.ValidSaveName);
+            if (!settings.DoesKeyExists(IVGenericGameStorage.ValidSaveName, keyname))
+                settings.AddKeyToSection(IVGenericGameStorage.ValidSaveName, keyname);
+            settings.SetBoolean(IVGenericGameStorage.ValidSaveName, keyname, booleShit);
+        }
+        private void WriteIntToINI(SettingsFile settings, string name, int integerShit)
+        {
+            if (!settings.DoesSectionExists(IVGenericGameStorage.ValidSaveName))
+                settings.AddSection(IVGenericGameStorage.ValidSaveName);
+            if (!settings.DoesKeyExists(IVGenericGameStorage.ValidSaveName, name))
+                settings.AddKeyToSection(IVGenericGameStorage.ValidSaveName, name);
+            settings.SetInteger(IVGenericGameStorage.ValidSaveName, name, integerShit);
+        }
+        private void LoadColors(SettingsFile settings)
+        {
+            if (currEp == 0)
+            {
+                hudR = settings.GetInteger("MAIN", "IVStatNameR", 0);
+                hudG = settings.GetInteger("MAIN", "IVStatNameG", 0);
+                hudB = settings.GetInteger("MAIN", "IVStatNameB", 0);
+                hudTextR = settings.GetInteger("MAIN", "IVStatTextR", 0);
+                hudTextG = settings.GetInteger("MAIN", "IVStatTextG", 0);
+                hudTextB = settings.GetInteger("MAIN", "IVStatTextB", 0);
+            }
+            else if (currEp == 1)
+            {
+                hudR = settings.GetInteger("MAIN", "TLADStatNameR", 0);
+                hudG = settings.GetInteger("MAIN", "TLADStatNameG", 0);
+                hudB = settings.GetInteger("MAIN", "TLADStatNameB", 0);
+                hudTextR = settings.GetInteger("MAIN", "TLADStatTextR", 0);
+                hudTextG = settings.GetInteger("MAIN", "TLADStatTextG", 0);
+                hudTextB = settings.GetInteger("MAIN", "TLADStatTextB", 0);
+            }
+            else if (currEp == 2)
+            {
+                hudR = settings.GetInteger("MAIN", "TBOGTStatNameR", 0);
+                hudG = settings.GetInteger("MAIN", "TBOGTStatNameG", 0);
+                hudB = settings.GetInteger("MAIN", "TBOGTStatNameB", 0);
+                hudTextR = settings.GetInteger("MAIN", "TBOGTStatTextR", 0);
+                hudTextG = settings.GetInteger("MAIN", "TBOGTStatTextG", 0);
+                hudTextB = settings.GetInteger("MAIN", "TBOGTStatTextB", 0);
+            }
+        }
+        private void Main_GameLoad(object sender, EventArgs e)
+        {
+            OnSaveLoad();
+            LoadSettings(Settings);
+            LoadColors(Settings);
+        }
+        private void OnSaveLoad()
+        {
+            for (int i = 0; i < gunStores.Count(); i++)
+                gunstoreData[i].Hostile = false;
+
+            for (int i = 0; i < numOfWeaponIDs; i++)
+            {
+                if (attachmentsConfig.DoesSectionExists(i.ToString()))
+                {
+                    for (int w = 0; w < numOfAttachmts; w++)
+                    {
+                        if (wAttachments[i][w].Available)
+                        {
+                            wAttachments[i][w].Owned = attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "Has" + GetAttachmentName(w) + "Attachment"), false);
+                            wAttachments[i][w].Ammo = attachmentsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, i.ToString() + GetAttachmentName(w) + "Ammo", 0);
+
+                            WriteBooleanToINI(wfAttachmentsConfig, (i.ToString() + "Has" + GetAttachmentName(w) + "Attachment"), wAttachments[i][w].Owned);
+                            WriteIntToINI(wfAttachmentsConfig, i.ToString() + GetAttachmentName(w) + "Ammo", wAttachments[i][w].Ammo);
+                            wfAttachmentsConfig.Save();
+                        }
+                    }
+                }
+            }
+        }
+        private void Main_Uninitialize(object sender, EventArgs e)
+        {
+            gunStores.Clear();
+            gunstoreData.Clear();
+            backroomWeaps.Clear();
+            DespawnShit();
+        }
+        private void Main_Initialized(object sender, EventArgs e)
+        {
+            LoadSettings(Settings);
+
+            string locPath;
+            string[] locConfFiles;
+
+            locPath = string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\LocationData", IVGame.GameStartupPath);
+            locConfFiles = System.IO.Directory.GetFiles(locPath);
+
+            foreach (string fileName in locConfFiles)
+                gunStores.Add(new SettingsFile(fileName));
+
+            for (int i = 0; i < gunStores.Count(); i++)
+            {
+                gunStores[i].Load();
+
+                Vector3 loc = gunStores[i].GetVector3("MAIN", "Location", Vector3.Zero);
+
+                string doorHashes = gunStores[i].GetValue("MAIN", "DoorHash", "");
+                uint[] doorHash = doorHashes.Split(',').Select(uint.Parse).ToArray();
+
+                string doorXStrng = gunStores[i].GetValue("MAIN", "DoorPosX", "");
+                string doorYStrng = gunStores[i].GetValue("MAIN", "DoorPosY", "");
+                string doorZStrng = gunStores[i].GetValue("MAIN", "DoorPosZ", "");
+                float[] doorPosX = doorXStrng.Split(',').Select(float.Parse).ToArray();
+                float[] doorPosY = doorYStrng.Split(',').Select(float.Parse).ToArray();
+                float[] doorPosZ = doorZStrng.Split(',').Select(float.Parse).ToArray();
+
+                string dealerMdl = gunStores[i].GetValue("MAIN", "DealerModel", "");
+                Vector3 dealerPos = gunStores[i].GetVector3("MAIN", "DealerPosition", Vector3.Zero);
+                float dealerHdg = gunStores[i].GetFloat("MAIN", "DealerHeading", 0);
+                int dealerWpn = gunStores[i].GetInteger("MAIN", "DealerWeapon", 0);
+
+                string guardString = gunStores[i].GetValue("MAIN", "GuardModels", "");
+                string[] guardMdls = guardString.Split(',').ToArray();
+
+                string guardWeaps = gunStores[i].GetValue("MAIN", "GuardWeapons", "");
+                int[] guardWpns = guardWeaps.Split(',').Select(int.Parse).ToArray();
+
+                Vector3 guardPos = gunStores[i].GetVector3("MAIN", "GuardSpawnLoc", Vector3.Zero);
+                string roomName = gunStores[i].GetValue("MAIN", "RoomName", "");
+                string gRoomName = gunStores[i].GetValue("MAIN", "GuardRoomName", "");
+
+                Vector3 backroomPos = gunStores[i].GetVector3("MAIN", "BackroomPos", Vector3.Zero);
+                float backroomHdg = gunStores[i].GetFloat("MAIN", "BackroomHdg", 0);
+
+                gunstoreData.Add(new GunStore(loc, false, 0, doorPosX, doorPosY, doorPosZ, doorHash, dealerMdl, dealerPos, dealerHdg, dealerWpn, guardMdls, guardWpns, guardPos, roomName, gRoomName, backroomPos, backroomHdg));
+            }
+
+            weaponProps = new int[numOfWeaponIDs];
+            guardPeds = new int[4];
+        }
+        private void LoadSettings(SettingsFile settings)
+        {
+            enable = settings.GetBoolean("MAIN", "Enable", false);
+            showBuyMarkers = settings.GetBoolean("MAIN", "ShowMarkers", false);
+            unlockDYHP = settings.GetBoolean("MAIN", "UnlockAfterDYHP", false);
+            buyAmmoEarly = settings.GetBoolean("MAIN", "BuyAmmoBeforeUnlock", false);
+            numOfWeaponIDs = settings.GetInteger("MAIN", "WeaponIDAmt", 60);
+            extraStock = settings.GetBoolean("MAIN", "ExtraStock", false);
+            keepAmmo = settings.GetBoolean("MAIN", "KeepAmmo", false);
+            cooldown = settings.GetInteger("MAIN", "HostileCooldown", 0);
+            gSpawnDelay = settings.GetInteger("MAIN", "GuardSpawnDelay", 0);
+
+            weaponData = new WeaponHelper.Weapon[numOfWeaponIDs];
+            weaponStat = new WeaponHelper.WeaponStat[numOfWeaponIDs];
+            wAttachments = new WeaponHelper.Attachment[numOfWeaponIDs][];
+
+            SettingsFile statConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponStats.ini", IVGame.GameStartupPath));
+            statConfFile.Load();
+            attachmentsConfig = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\Attachments.ini", IVGame.GameStartupPath));
+            attachmentsConfig.Load();
+            if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
+                wfAttachmentsConfig = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath));
+            else
+                wfAttachmentsConfig = attachmentsConfig;
+            wfAttachmentsConfig.Load();
+
+            for (int i = 0; i < numOfWeaponIDs; i++)
+            {
+                if (settings.DoesSectionExists(i.ToString()))
+                {
+                    weaponData[i] = new WeaponHelper.Weapon();
+                    weaponStat[i] = new WeaponHelper.WeaponStat();
+                    wAttachments[i] = new WeaponHelper.Attachment[numOfAttachmts];
+                    for (int w = 0; w < numOfAttachmts; w++)
+                    {
+                        wAttachments[i][w] = new WeaponHelper.Attachment();
+                        wAttachments[i][w].Available = attachmentsConfig.GetBoolean(i.ToString(), "CanBuy" + GetAttachmentName(w) + "Attachment", false);
+
+                        if (wAttachments[i][w].Available)
+                        {
+                            wAttachments[i][w].Price = attachmentsConfig.GetInteger(i.ToString(), GetAttachmentName(w) + "Price", 0);
+                            wAttachments[i][w].AmmoPrice = attachmentsConfig.GetInteger(i.ToString(), GetAttachmentName(w) + "AmmoPrice", 0);
+                            wAttachments[i][w].MaxAmmo = attachmentsConfig.GetInteger(i.ToString(), "Max" + GetAttachmentName(w) + "Ammo", 0);
+
+                            wAttachments[i][w].Owned = attachmentsConfig.GetBoolean(IVGenericGameStorage.ValidSaveName, (i.ToString() + "Has" + GetAttachmentName(w) + "Attachment"), false);
+                            wAttachments[i][w].Ammo = attachmentsConfig.GetInteger(IVGenericGameStorage.ValidSaveName, i.ToString() + GetAttachmentName(w) + "Ammo", 0);
+
+                            WriteBooleanToINI(wfAttachmentsConfig, (i.ToString() + "Has" + GetAttachmentName(w) + "Attachment"), wAttachments[i][w].Owned);
+                            WriteIntToINI(wfAttachmentsConfig, i.ToString() + GetAttachmentName(w) + "Ammo", wAttachments[i][w].Ammo);
+                            wfAttachmentsConfig.Save();
+                        }
+                    }
+                    LoadGeneralWeaponData(Settings, i);
+
+                    weaponStat[i].StatTextA = statConfFile.GetValue(i.ToString(), "StatTextA", "");
+                    weaponStat[i].StatTextB = statConfFile.GetValue(i.ToString(), "StatTextB", "");
+                    weaponStat[i].StatTextC = statConfFile.GetValue(i.ToString(), "StatTextC", "");
+                    weaponStat[i].StatTextD = statConfFile.GetValue(i.ToString(), "StatTextD", "");
+                    weaponStat[i].StatTextE = statConfFile.GetValue(i.ToString(), "StatTextE", "");
+                    weaponStat[i].StatTextF = statConfFile.GetValue(i.ToString(), "StatTextF", "");
+                    weaponStat[i].StatTextG = statConfFile.GetValue(i.ToString(), "StatTextG", "");
+                    weaponStat[i].StatTextH = statConfFile.GetValue(i.ToString(), "StatTextH", "");
+
+                    weaponStat[i].StatA = statConfFile.GetInteger(i.ToString(), "StatA", -1); ;
+                    weaponStat[i].StatB = statConfFile.GetInteger(i.ToString(), "StatB", -1); ;
+                    weaponStat[i].StatC = statConfFile.GetInteger(i.ToString(), "StatC", -1); ;
+                    weaponStat[i].StatD = statConfFile.GetInteger(i.ToString(), "StatD", -1); ;
+                    weaponStat[i].StatE = statConfFile.GetInteger(i.ToString(), "StatE", -1); ;
+                    weaponStat[i].StatF = statConfFile.GetInteger(i.ToString(), "StatF", -1); ;
+                    weaponStat[i].StatG = statConfFile.GetInteger(i.ToString(), "StatG", -1); ;
+                    weaponStat[i].StatH = statConfFile.GetInteger(i.ToString(), "StatH", -1); ;
+
+                    weaponStat[i].BarA = statConfFile.GetInteger(i.ToString(), "BarA", -1);
+                    weaponStat[i].BarB = statConfFile.GetInteger(i.ToString(), "BarB", -1);
+                    weaponStat[i].BarC = statConfFile.GetInteger(i.ToString(), "BarC", -1);
+                    weaponStat[i].BarD = statConfFile.GetInteger(i.ToString(), "BarD", -1);
+                    weaponStat[i].BarE = statConfFile.GetInteger(i.ToString(), "BarE", -1);
+                    weaponStat[i].BarF = statConfFile.GetInteger(i.ToString(), "BarF", -1);
+                    weaponStat[i].BarG = statConfFile.GetInteger(i.ToString(), "BarG", -1);
+                    weaponStat[i].BarH = statConfFile.GetInteger(i.ToString(), "BarH", -1);
+                }
+            }
+        }
+
+        // Main Tick
         private bool InitialChecks()
         {
             if (IS_SCREEN_FADED_OUT()) return false;
@@ -2113,56 +1841,139 @@ namespace ImprovedGunStores
                 if (NativeGame.IsScriptRunning("gunlockupct"))
                     TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("gunlockupct");
 
-                //ObjectHelper.GrabAllObjs();
-
                 GET_GAME_TIMER(out gTimer);
 
-                //IVGame.ShowSubtitleMessage(gProg.ToString() + " Game " + GameProg.ToString() + " fix?" + GET_FLOAT_STAT(48).ToString() + " er?" + GET_FLOAT_STAT(43).ToString() + " ass?" + GET_FLOAT_STAT(121).ToString());
+                if (IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("SG_LOAD_SUC"))
+                {
+                    if (hasLoadedSave && !isSaveTextShown)
+                    {
+                        hasLoadedSave = false;
+                        isSaveTextShown = true;
+                    }
+                }
+                else if (isSaveTextShown)
+                    isSaveTextShown = false;
+                if (!hasLoadedSave)
+                {
+                    OnSaveLoad();
+                    hasLoadedSave = true;
+                }
 
-                //IVGame.ShowSubtitleMessage(gProg.ToString() + locations.IndexOf(location).ToString() + " Game " + GameProg.ToString() + isWeapUnlocked.ToString());
                 for (int i = 0; i < gunStores.Count(); i++)
                 {
-                    if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, locations[i].X, locations[i].Y, locations[i].Z, 50, 50, 50, false) && !hasConfigsLoaded)
+                    if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, gunstoreData[i].Location.X, gunstoreData[i].Location.Y, gunstoreData[i].Location.Z, 50, 50, 50, false))
                     {
-                        LoadColors(Settings);
-                        LoadConfigs(i);
-                        location = locations[i];
-                        if (gTimer >= (attackTimers[i] + cooldown))
-                            storeHostile[locations.IndexOf(location)] = false;
-                        if (IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
-                            SET_STATE_OF_CLOSEST_DOOR_OF_TYPE((uint)doorHash, doorPos.X, doorPos.Y, doorPos.Z, true, 0.0f);
-                        hasConfigsLoaded = true;
+                        if (!hasConfigsLoaded)
+                        {
+                            //gunstoreIndex = i;
+                            currGunStore = gunstoreData[i];
+                            location = currGunStore.Location;
+                            if (gTimer >= (currGunStore.AttackTimer + cooldown))
+                                currGunStore.Hostile = false;
+                            if (IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
+                            {
+                                for (int w = 0; w < currGunStore.DoorHash.Count(); w++)
+                                {
+                                    SET_STATE_OF_CLOSEST_DOOR_OF_TYPE((uint)currGunStore.DoorHash[w], currGunStore.DoorPosX[w], currGunStore.DoorPosY[w], currGunStore.DoorPosZ[w], true, 0.0f);
+                                }
+                            }
+
+                            for (int w = 0; w < numOfWeaponIDs; w++)
+                            {
+                                LoadSpecificWeaponData(gunStores[i], w);
+                            }
+                            ReplaceText();
+
+                            hasConfigsLoaded = true;
+                        }
                         break;
                     }
                     else if (!LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 50, 50, 50, false) && hasConfigsLoaded)
+                    {
+                        DespawnShit();
+                        hasSpawned = false;
                         hasConfigsLoaded = false;
+                    }
                 }
                 SpawnGuns();
                 BuyGuns();
+                SpawnBackroomWeapon();
                 ProcessPurchase();
                 StopText();
                 AnimCheck();
+                SpawnDealer();
+                SpawnGuards();
                 ProcessGuards();
-                ProcessAttachments();
-                if (goInspect)
-                    ProcessInspectAnims();
-                if (camActivate)
-                    ProcessInspectionCam();
-                if (!bSpawnDealer)
-                    SpawnDealer();
-                if (bSpawnGuards)
-                    SpawnGuards();
-                if (loadWeaponInAir)
-                    SpawnBackroomWeapon();
-                if (!replaceText)
-                    ReplaceText();
+                ProcessInspectAnims();
+                ProcessInspectionCam();
 
                 if (DID_SAVE_COMPLETE_SUCCESSFULLY() && GET_IS_DISPLAYINGSAVEMESSAGE())
                 {
-                    Settings.Save();
+                    for (int i = 0; i < numOfWeaponIDs; i++)
+                    {
+                        if (attachmentsConfig.DoesSectionExists(i.ToString()))
+                        {
+                            for (int w = 0; w < numOfAttachmts; w++)
+                            {
+                                if (wAttachments[i][w].Available)
+                                {
+                                    WriteBooleanToINI(attachmentsConfig, (i.ToString() + "Has" + GetAttachmentName(w) + "Attachment"), wAttachments[i][w].Owned);
+                                    WriteIntToINI(attachmentsConfig, (i.ToString() + GetAttachmentName(w) + "Ammo"), wAttachments[i][w].Ammo);
+                                }
+                            }
+                        }
+                    }
+
                     attachmentsConfig.Save();
                 }
-                //ObjectLocator.Tick();
+            }
+        }
+        private class GunStore
+        {
+            public Vector3 Location { get; set; }
+            public uint[] DoorHash { get; set; }
+            public float[] DoorPosX { get; set; }
+            public float[] DoorPosY { get; set; }
+            public float[] DoorPosZ { get; set; }
+            public bool Hostile { get; set; }
+            public uint AttackTimer { get; set; }
+
+            public string DealerModel { get; set; }
+            public Vector3 DealerPos { get; set; }
+            public float DealerHdng { get; set; }
+            public int DealerWpn { get; set; }
+
+            public string[] GuardModels { get; set; }
+            public int[] GuardWpns { get; set; }
+            public Vector3 GuardPos { get; set; }
+            public string RoomName { get; set; }
+            public string GuardRoom { get; set; }
+
+            public Vector3 BackroomPos { get; set; }
+            public float BackroomHdng { get; set; }
+            public GunStore(Vector3 position, bool hostile, uint attackTimer, float[] doorPosX, float[] doorPosY, float[] doorPosZ, uint[] doorHash, string dealerMdl, Vector3 dealerPos, float dealerHdng, int dealerWpn, string[] guardMdls, int[] guardWpns, Vector3 guardPos, string room, string guardRoom, Vector3 backroomPos, float backroomHdng)
+            {
+                Location = position;
+                Hostile = hostile;
+                AttackTimer = attackTimer;
+                DoorPosX = doorPosX;
+                DoorPosY = doorPosY;
+                DoorPosZ = doorPosZ;
+                DoorHash = doorHash;
+
+                DealerModel = dealerMdl;
+                DealerPos = dealerPos;
+                DealerHdng = dealerHdng;
+                DealerWpn = dealerWpn;
+
+                GuardModels = guardMdls;
+                GuardWpns = guardWpns;
+                GuardPos = guardPos;
+                RoomName = room;
+                GuardRoom = guardRoom;
+
+                BackroomPos = backroomPos;
+                BackroomHdng = backroomHdng;
             }
         }
     }

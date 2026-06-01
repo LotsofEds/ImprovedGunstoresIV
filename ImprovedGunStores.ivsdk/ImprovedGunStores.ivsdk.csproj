@@ -54,6 +54,7 @@
     <Compile Include="ObjectHelper.cs" />
     <Compile Include="ObjectLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeaponHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
