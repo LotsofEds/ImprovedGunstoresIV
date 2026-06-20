@@ -82,8 +82,7 @@ namespace ImprovedGunStores
         private static int maxAmmo;
 
         // BooleShit
-        private static bool isSaveTextShown = false;
-        private static bool hasLoadedSave = false;
+        private static bool hasGameLoaded = false;
         private static bool hasConfigsLoaded = false;
         private static bool hasSpawned = false;
         private static bool isWeapUnlocked = false;
@@ -126,17 +125,25 @@ namespace ImprovedGunStores
         {
             Uninitialize += Main_Uninitialize;
             Initialized += Main_Initialized;
-            GameLoad += Main_GameLoad;
+            IngameStartup += Main_IngameStartup;
             Tick += Main_Tick;
         }
 
         // HelperFunctions
-        private void RequestAnims()
+        private void RequestShit()
         {
             if (!HAVE_ANIMS_LOADED("missgunlockup"))
                 REQUEST_ANIMS("missgunlockup");
             if (!HAVE_ANIMS_LOADED("pickup_object"))
                 REQUEST_ANIMS("pickup_object");
+            if (!IS_FONT_LOADED(6))
+                LOAD_TEXT_FONT(6);
+        }
+        private void RemoveShit()
+        {
+            REMOVE_ANIMS("missgunlockup");
+            REMOVE_ANIMS("pickup_object");
+            UNLOAD_TEXT_FONT();
         }
         private void MissionTracker(int i)
         {
@@ -267,9 +274,10 @@ namespace ImprovedGunStores
 
             if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 20, 20, 20, false) && !IS_WANTED_LEVEL_GREATER(Main.PlayerIndex, 0))
             {
-                RequestAnims();
+                RequestShit();
                 if (!hasSpawned)
                 {
+                    CLEAR_AREA_OF_CARS(location.X, location.Y, location.Z, 10);
                     for (int i = 0; i < currGunStore.DoorHash.Count(); i++)
                         SET_STATE_OF_CLOSEST_DOOR_OF_TYPE((uint)currGunStore.DoorHash[i], currGunStore.DoorPosX[i], currGunStore.DoorPosY[i], currGunStore.DoorPosZ[i], false, 0.0f);
                     hasSpawned = true;
@@ -1144,7 +1152,7 @@ namespace ImprovedGunStores
             if (menuActive)
                 ProcessStatDisplay();
 
-            if (!bFailMsg)
+            if (!bFailMsg && IVPhoneInfo.ThePhoneInfo.State <= 1000)
             {
                 if ((IS_CONTROL_JUST_PRESSED(0, (int)GameKey.Action) || IS_CONTROL_JUST_PRESSED(2, (int)GameKey.Action)) && !IS_CONTROL_JUST_PRESSED(0, (int)GameKey.NavEnter) && !IS_CONTROL_JUST_PRESSED(2, (int)GameKey.NavEnter))
                 {
@@ -1361,7 +1369,6 @@ namespace ImprovedGunStores
             if (!notSpawned)
             bSpawnGuards = false;
         }
-
         private void ProcessGuards()
         {
             if (!hasConfigsLoaded)
@@ -1417,6 +1424,52 @@ namespace ImprovedGunStores
                 }
             }
 
+        }
+
+        // Blips
+        private void ClearBlips()
+        {
+            for (int i = 0; i < gunStores.Count(); i++)
+            {
+                if (DOES_BLIP_EXIST(gunstoreData[i].Blip))
+                    REMOVE_BLIP(gunstoreData[i].Blip);
+            }
+        }
+        private void AddOrRemoveBlip(int stat, int prog, int storeID)
+        {
+            if (GET_FLOAT_STAT(stat) > prog || currEp > 0)
+            {
+                if (!DOES_BLIP_EXIST(gunstoreData[storeID].Blip))
+                {
+                    ADD_BLIP_FOR_COORD(gunstoreData[storeID].Location.X, gunstoreData[storeID].Location.Y, gunstoreData[storeID].Location.Z, out int pBlip);
+                    gunstoreData[storeID].Blip = pBlip;
+                    CHANGE_BLIP_SPRITE(gunstoreData[storeID].Blip, (int)BlipIcon.Building_WeaponShop);
+                    CHANGE_BLIP_DISPLAY(gunstoreData[storeID].Blip, (uint)eBlipDisplay.BLIP_DISPLAY_ARROW_AND_MAP);
+                    SET_BLIP_AS_SHORT_RANGE(gunstoreData[storeID].Blip, true);
+                }
+            }
+            else if (DOES_BLIP_EXIST(gunstoreData[storeID].Blip))
+                REMOVE_BLIP(gunstoreData[storeID].Blip);
+        }
+        private void ProcessBlips(int gunstore)
+        {
+            switch (gunstoreData[gunstore].IconDisplay)
+            {
+                // DYHP
+                case 0:
+                    AddOrRemoveBlip(8, 25, gunstore);
+                    break;
+
+                // BlowYourCover
+                case 1:
+                    AddOrRemoveBlip(10, 40, gunstore);
+                    break;
+
+                // TLC
+                case 2:
+                    AddOrRemoveBlip(22, 90, gunstore);
+                    break;
+            }
         }
 
         // AttachmentShit
@@ -1556,7 +1609,7 @@ namespace ImprovedGunStores
                 weaponData[weapon].BackroomStock = inStock;
                 weaponData[weapon].BackroomOffset = backPos;
 
-                if (inStock && !backroomWeaps.Contains(weapon))
+                if (inStock && !backroomWeaps.Contains(weapon) && IS_MODEL_IN_CDIMAGE(GET_HASH_KEY(weaponData[weapon].Model)))
                     backroomWeaps.Add(weapon);
             }
         }
@@ -1640,11 +1693,9 @@ namespace ImprovedGunStores
                 hudTextB = settings.GetInteger("MAIN", "TBOGTStatTextB", 0);
             }
         }
-        private void Main_GameLoad(object sender, EventArgs e)
+        private void Main_IngameStartup(object sender, EventArgs e)
         {
-            OnSaveLoad();
-            LoadSettings(Settings);
-            LoadColors(Settings);
+            hasGameLoaded = false;
         }
         private void OnSaveLoad()
         {
@@ -1676,6 +1727,7 @@ namespace ImprovedGunStores
             gunstoreData.Clear();
             backroomWeaps.Clear();
             DespawnShit();
+            ClearBlips();
         }
         private void Main_Initialized(object sender, EventArgs e)
         {
@@ -1723,8 +1775,9 @@ namespace ImprovedGunStores
 
                 Vector3 backroomPos = gunStores[i].GetVector3("MAIN", "BackroomPos", Vector3.Zero);
                 float backroomHdg = gunStores[i].GetFloat("MAIN", "BackroomHdg", 0);
+                int iconDisplay = gunStores[i].GetInteger("MAIN", "IconUnlock", -1);
 
-                gunstoreData.Add(new GunStore(loc, false, 0, doorPosX, doorPosY, doorPosZ, doorHash, dealerMdl, dealerPos, dealerHdg, dealerWpn, guardMdls, guardWpns, guardPos, roomName, gRoomName, backroomPos, backroomHdg));
+                gunstoreData.Add(new GunStore(loc, false, 0, iconDisplay, 0, doorPosX, doorPosY, doorPosZ, doorHash, dealerMdl, dealerPos, dealerHdg, dealerWpn, guardMdls, guardWpns, guardPos, roomName, gRoomName, backroomPos, backroomHdg));
             }
 
             weaponProps = new int[numOfWeaponIDs];
@@ -1748,6 +1801,8 @@ namespace ImprovedGunStores
 
             SettingsFile statConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponStats.ini", IVGame.GameStartupPath));
             statConfFile.Load();
+            SettingsFile msgConfFile = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\WeaponMessages.ini", IVGame.GameStartupPath));
+            msgConfFile.Load();
             attachmentsConfig = new SettingsFile(string.Format("{0}\\IVSDKDotNet\\scripts\\ImprovedGunStores\\Attachments.ini", IVGame.GameStartupPath));
             attachmentsConfig.Load();
             if (System.IO.File.Exists(string.Format("{0}\\IVSDKDotNet\\scripts\\WeapFuncs\\Attachments.ini", IVGame.GameStartupPath)))
@@ -1810,6 +1865,8 @@ namespace ImprovedGunStores
                     weaponStat[i].BarF = statConfFile.GetInteger(i.ToString(), "BarF", -1);
                     weaponStat[i].BarG = statConfFile.GetInteger(i.ToString(), "BarG", -1);
                     weaponStat[i].BarH = statConfFile.GetInteger(i.ToString(), "BarH", -1);
+
+                    weaponStat[i].Message = msgConfFile.GetValue(i.ToString(), "Message", "");
                 }
             }
         }
@@ -1835,7 +1892,14 @@ namespace ImprovedGunStores
                 if (PlayerPed == null)
                     return;
 
-                currEp = GET_CURRENT_EPISODE();
+                if (!hasGameLoaded)
+                {
+                    currEp = GET_CURRENT_EPISODE();
+                    OnSaveLoad();
+                    LoadSettings(Settings);
+                    LoadColors(Settings);
+                    hasGameLoaded = true;
+                }
                 if (NativeGame.IsScriptRunning("gunlockup"))
                     TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME("gunlockup");
                 if (NativeGame.IsScriptRunning("gunlockupct"))
@@ -1843,24 +1907,9 @@ namespace ImprovedGunStores
 
                 GET_GAME_TIMER(out gTimer);
 
-                if (IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("SG_LOAD_SUC"))
-                {
-                    if (hasLoadedSave && !isSaveTextShown)
-                    {
-                        hasLoadedSave = false;
-                        isSaveTextShown = true;
-                    }
-                }
-                else if (isSaveTextShown)
-                    isSaveTextShown = false;
-                if (!hasLoadedSave)
-                {
-                    OnSaveLoad();
-                    hasLoadedSave = true;
-                }
-
                 for (int i = 0; i < gunStores.Count(); i++)
                 {
+                    ProcessBlips(i);
                     if (LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, gunstoreData[i].Location.X, gunstoreData[i].Location.Y, gunstoreData[i].Location.Z, 50, 50, 50, false))
                     {
                         if (!hasConfigsLoaded)
@@ -1891,6 +1940,7 @@ namespace ImprovedGunStores
                     else if (!LOCATE_CHAR_ANY_MEANS_3D(Main.PlayerHandle, location.X, location.Y, location.Z, 50, 50, 50, false) && hasConfigsLoaded)
                     {
                         DespawnShit();
+                        RemoveShit();
                         hasSpawned = false;
                         hasConfigsLoaded = false;
                     }
@@ -1937,6 +1987,8 @@ namespace ImprovedGunStores
             public float[] DoorPosZ { get; set; }
             public bool Hostile { get; set; }
             public uint AttackTimer { get; set; }
+            public int IconDisplay { get; set; }
+            public int Blip { get; set; }
 
             public string DealerModel { get; set; }
             public Vector3 DealerPos { get; set; }
@@ -1951,11 +2003,13 @@ namespace ImprovedGunStores
 
             public Vector3 BackroomPos { get; set; }
             public float BackroomHdng { get; set; }
-            public GunStore(Vector3 position, bool hostile, uint attackTimer, float[] doorPosX, float[] doorPosY, float[] doorPosZ, uint[] doorHash, string dealerMdl, Vector3 dealerPos, float dealerHdng, int dealerWpn, string[] guardMdls, int[] guardWpns, Vector3 guardPos, string room, string guardRoom, Vector3 backroomPos, float backroomHdng)
+            public GunStore(Vector3 position, bool hostile, uint attackTimer, int iconDisplay, int blip, float[] doorPosX, float[] doorPosY, float[] doorPosZ, uint[] doorHash, string dealerMdl, Vector3 dealerPos, float dealerHdng, int dealerWpn, string[] guardMdls, int[] guardWpns, Vector3 guardPos, string room, string guardRoom, Vector3 backroomPos, float backroomHdng)
             {
                 Location = position;
                 Hostile = hostile;
                 AttackTimer = attackTimer;
+                IconDisplay = iconDisplay;
+                Blip = blip;
                 DoorPosX = doorPosX;
                 DoorPosY = doorPosY;
                 DoorPosZ = doorPosZ;
