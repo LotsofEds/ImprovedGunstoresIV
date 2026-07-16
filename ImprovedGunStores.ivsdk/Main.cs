@@ -222,7 +222,7 @@ namespace ImprovedGunStores
         }
         private void ClearShit()
         {
-            if (IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GLOCK_A1") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GLOCK_WH2"))
+            if (IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GS1_GREET1_04") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GL_SOON") || IS_THIS_HELP_MESSAGE_BEING_DISPLAYED("GLOCK_WH2"))
                 CLEAR_HELP();
             backroomSelectedWeap = 0;
             extraWeap = false;
@@ -253,17 +253,17 @@ namespace ImprovedGunStores
         }
         private void ReplaceText()
         {
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE2", "Slot");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_DEAGLE3", "x~1~");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT2", "Melee");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN2", "Handguns");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_GREN3", "Shotguns");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_SHOT3", "SMGs");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A12", "Assault Rifles");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M40A13", "Sniper Rifles");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_UZI2", "Heavy");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M42", "Thrown");
-            IVText.TheIVText.ReplaceTextOfTextLabel("GL_M43", "Special");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_AWAY2_03", "Slot");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_BYE1_01", "x~1~");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_BYE1_02", "Melee");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_BYE1_03", "Handguns");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_BYE2_01", "Shotguns");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_BYE2_02", "SMGs");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_BYE2_03", "Assault Rifles");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY2_03", "Sniper Rifles");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_01", "Heavy");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_02", "Thrown");
+            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_03", "Special");
         }
 
         // MainProcesses
@@ -365,20 +365,20 @@ namespace ImprovedGunStores
                             if (!confirmation && !bInspectMsg && !bFailMsg && !menuActive)
                             {
                                 if (!HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, i) && weapID != 48)
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].Name + " $" + weaponData[i].WeaponPrice.ToString());
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_04", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].Name + " $" + weaponData[i].WeaponPrice.ToString());
                                 else if (weapID == 48)
-                                    IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[i].Name + " $" + weaponData[i].WeaponPrice.ToString());
+                                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_04", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[i].Name + " $" + weaponData[i].WeaponPrice.ToString());
                                 else
                                 {
                                     if (IVWeaponInfo.GetWeaponInfo((uint)i).ClipSize <= 0)
-                                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].Name + " $" + weaponData[i].AmmoPrice.ToString());
+                                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_04", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].Name + " $" + weaponData[i].AmmoPrice.ToString());
                                     else if(IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot <= 1 || IVWeaponInfo.GetWeaponInfo((uint)i).WeaponSlot > 7)
-                                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].ClipAmmo.ToString() + "x " + weaponData[i].Name + "s $" + weaponData[i].AmmoPrice.ToString());
+                                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_04", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].ClipAmmo.ToString() + "x " + weaponData[i].Name + "s $" + weaponData[i].AmmoPrice.ToString());
                                     else
-                                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].ClipAmmo.ToString() + "x " + weaponData[i].Name + " Ammo $" + weaponData[i].AmmoPrice.ToString());
+                                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_04", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~g~" + weaponData[i].ClipAmmo.ToString() + "x " + weaponData[i].Name + " Ammo $" + weaponData[i].AmmoPrice.ToString());
                                 }
 
-                                PRINT_HELP_FOREVER("GLOCK_A1");
+                                PRINT_HELP_FOREVER("GS1_GREET1_04");
                             }
                             canInspect = true;
                         }
@@ -401,8 +401,8 @@ namespace ImprovedGunStores
                         weaponStat[weapID].Pellets = (int)IVWeaponInfo.GetWeaponInfo((uint)weapID).AimingPellets;
                         if (!confirmation && !bInspectMsg && !bFailMsg)
                         {
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~s~Press ~INPUT_PICKUP~ to browse extra weapons.");
-                            PRINT_HELP_FOREVER("GLOCK_A1");
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_04", "~s~Press ~INPUT_PICKUP~ to browse extra weapons.");
+                            PRINT_HELP_FOREVER("GS1_GREET1_04");
                         }
                         if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
                             canBuyStock = true;
@@ -416,8 +416,8 @@ namespace ImprovedGunStores
                     }
                     else
                     {
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_A1", "~r~There are no extra weapons in stock.");
-                        PRINT_HELP_FOREVER("GLOCK_A1");
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_04", "~r~There are no extra weapons in stock.");
+                        PRINT_HELP_FOREVER("GS1_GREET1_04");
                     }
                 }
                 else if (!LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, wCoords.X, wCoords.Y, wCoords.Z, wRad, wRad, wRad, false) && !LOCATE_CHAR_ON_FOOT_3D(Main.PlayerHandle, currGunStore.BackroomPos.X, currGunStore.BackroomPos.Y, currGunStore.BackroomPos.Z, 1, 1, 1, false))
@@ -618,14 +618,14 @@ namespace ImprovedGunStores
                     if (!attachmentMenu)
                     {
                         if (weapInSlot <= 0 || weapInSlot == weapID)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Press ~INPUT_PICKUP~ to stop inspecting.");
                         else if (weapInSlot > 0)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in slot.");
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to compare with current weapon in slot.");
                         for (int i = 0; i < numOfAttachmts; i++)
                         {
                             if (wAttachments[weapID][i].Available && weapID == weapInSlot)
                             {
-                                IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");
+                                IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Press ~INPUT_PICKUP~ to stop inspecting. ~n~~s~Press ~INPUT_JUMP~ to browse attachments.");
                                 break;
                             }
                         }
@@ -640,17 +640,17 @@ namespace ImprovedGunStores
                     if (!attachmentMenu)
                     {
                         if (weapInSlot <= 0)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[weapID].Name + " $" + weaponData[weapID].WeaponPrice.ToString());
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[weapID].Name + " $" + weaponData[weapID].WeaponPrice.ToString());
                         else if (weapInSlot == weapID)
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[weapID].ClipAmmo.ToString() + "x " + weaponData[weapID].Name + " Ammo $" + weaponData[weapID].AmmoPrice.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[weapID].ClipAmmo.ToString() + "x " + weaponData[weapID].Name + " Ammo $" + weaponData[weapID].AmmoPrice.ToString() + "~n~~s~Currently have ~g~" + ammoInSlot.ToString() + "x ~s~ammo.");
                         else
-                            IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[weapID].Name + " $" + weaponData[weapID].WeaponPrice.ToString());
+                            IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse weapons. ~n~~s~Press ~INPUT_PICKUP~ to exit. ~n~~s~Press ~INPUT_JUMP~ to compare with current weapon in the same slot. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~" + weaponData[weapID].Name + " $" + weaponData[weapID].WeaponPrice.ToString());
                     }
                     else
                         ProcessAttachmentsHelp();
                 }
                 if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
-                    PRINT_HELP_FOREVER("GLOCK_B1");
+                    PRINT_HELP_FOREVER("GS1_ASST1_02");
 
                 bInspectMsg = true;
             }
@@ -750,9 +750,9 @@ namespace ImprovedGunStores
                 {
                     USE_PREVIOUS_FONT_SETTINGS();
                     if (weap.Pellets > 1)
-                        DISPLAY_TEXT_WITH_NUMBER(0.958f, offset, "GL_DEAGLE3", weap.Pellets + 2);
+                        DISPLAY_TEXT_WITH_NUMBER(0.958f, offset, "GS1_BYE1_01", weap.Pellets + 2);
                     else
-                        DISPLAY_TEXT_WITH_NUMBER(0.958f, offset, "GL_DEAGLE3", 18);
+                        DISPLAY_TEXT_WITH_NUMBER(0.958f, offset, "GS1_BYE1_01", 18);
                 }
             }
 
@@ -874,8 +874,8 @@ namespace ImprovedGunStores
                 SET_TEXT_CENTRE(true);
 
                 //Weapon Names
-                IVText.TheIVText.ReplaceTextOfTextLabel("GL_PIST4", weaponData[weapID].Name);
-                DISPLAY_TEXT(0.85f, 0.07f, "GL_PIST4");
+                IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_03", weaponData[weapID].Name);
+                DISPLAY_TEXT(0.85f, 0.07f, "GS1_ASST1_03");
 
                 //Weapon Stats Text
                 if (isWeapUnlocked || (buyAmmoEarly && HAS_CHAR_GOT_WEAPON(Main.PlayerHandle, weapID)))
@@ -886,32 +886,32 @@ namespace ImprovedGunStores
                     SET_TEXT_WRAP(0.725f, 0.975f);
                     SET_TEXT_DROPSHADOW(false, 0, 0, 0, 0);
 
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK473", weaponStat[weapID].StatTextA);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK474", weaponStat[weapID].StatTextB);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BARET2", weaponStat[weapID].StatTextC);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BARET3", weaponStat[weapID].StatTextD);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BARET4", weaponStat[weapID].StatTextE);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BBAT2", weaponStat[weapID].StatTextF);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BBAT3", weaponStat[weapID].StatTextG);
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GL_BBAT4", weaponStat[weapID].StatTextH);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST2_01", weaponStat[weapID].StatTextA);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST2_02", weaponStat[weapID].StatTextB);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST2_03", weaponStat[weapID].StatTextC);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_AWAY1_01", weaponStat[weapID].StatTextD);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_AWAY1_02", weaponStat[weapID].StatTextE);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_AWAY1_03", weaponStat[weapID].StatTextF);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_AWAY2_01", weaponStat[weapID].StatTextG);
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_AWAY2_02", weaponStat[weapID].StatTextH);
 
-                    DISPLAY_TEXT(0.725f, 0.19f, "GL_DEAGLE2");
+                    DISPLAY_TEXT(0.725f, 0.19f, "GS1_AWAY2_03");
                     USE_PREVIOUS_FONT_SETTINGS();
-                    DISPLAY_TEXT(0.725f, 0.23f, "GL_AK473");
+                    DISPLAY_TEXT(0.725f, 0.23f, "GS1_ASST2_01");
                     USE_PREVIOUS_FONT_SETTINGS();
-                    DISPLAY_TEXT(0.725f, 0.27f, "GL_AK474");
+                    DISPLAY_TEXT(0.725f, 0.27f, "GS1_ASST2_02");
                     USE_PREVIOUS_FONT_SETTINGS();
-                    DISPLAY_TEXT(0.725f, 0.31f, "GL_BARET2");
+                    DISPLAY_TEXT(0.725f, 0.31f, "GS1_ASST2_03");
                     USE_PREVIOUS_FONT_SETTINGS();
-                    DISPLAY_TEXT(0.725f, 0.35f, "GL_BARET3");
+                    DISPLAY_TEXT(0.725f, 0.35f, "GS1_AWAY1_01");
                     USE_PREVIOUS_FONT_SETTINGS();
-                    DISPLAY_TEXT(0.725f, 0.39f, "GL_BARET4");
+                    DISPLAY_TEXT(0.725f, 0.39f, "GS1_AWAY1_02");
                     USE_PREVIOUS_FONT_SETTINGS();
-                    DISPLAY_TEXT(0.725f, 0.43f, "GL_BBAT2");
+                    DISPLAY_TEXT(0.725f, 0.43f, "GS1_AWAY1_03");
                     USE_PREVIOUS_FONT_SETTINGS();
-                    DISPLAY_TEXT(0.725f, 0.47f, "GL_BBAT3");
+                    DISPLAY_TEXT(0.725f, 0.47f, "GS1_AWAY2_01");
                     USE_PREVIOUS_FONT_SETTINGS();
-                    DISPLAY_TEXT(0.725f, 0.51f, "GL_BBAT4");
+                    DISPLAY_TEXT(0.725f, 0.51f, "GS1_AWAY2_02");
 
                     //Weapon Slots & Numerical Info
                     DisplayNumericalStats(weaponStat[weapID], 0.23f);
@@ -919,23 +919,23 @@ namespace ImprovedGunStores
                     USE_PREVIOUS_FONT_SETTINGS();
                     SET_TEXT_COLOUR(255, 255, 255, 255);
                     if (weapSlot == 1)
-                        DISPLAY_TEXT(0.83f, 0.19f, "GL_SHOT2");
+                        DISPLAY_TEXT(0.83f, 0.19f, "GS1_BYE1_02");
                     else if (weapSlot == 2)
-                        DISPLAY_TEXT(0.83f, 0.19f, "GL_GREN2");
+                        DISPLAY_TEXT(0.83f, 0.19f, "GS1_BYE1_03");
                     else if (weapSlot == 3)
-                        DISPLAY_TEXT(0.83f, 0.19f, "GL_GREN3");
+                        DISPLAY_TEXT(0.83f, 0.19f, "GS1_BYE2_01");
                     else if (weapSlot == 4)
-                        DISPLAY_TEXT(0.83f, 0.19f, "GL_SHOT3");
+                        DISPLAY_TEXT(0.83f, 0.19f, "GS1_BYE2_02");
                     else if (weapSlot == 5)
-                        DISPLAY_TEXT(0.83f, 0.19f, "GL_M40A12");
+                        DISPLAY_TEXT(0.83f, 0.19f, "GS1_BYE2_03");
                     else if (weapSlot == 6)
-                        DISPLAY_TEXT(0.83f, 0.19f, "GL_M40A13");
+                        DISPLAY_TEXT(0.83f, 0.19f, "GS1_MONKEY2_03");
                     else if (weapSlot == 7)
-                        DISPLAY_TEXT(0.83f, 0.19f, "GL_UZI2");
+                        DISPLAY_TEXT(0.83f, 0.19f, "GS1_GREET1_01");
                     else if (weapSlot == 8)
-                        DISPLAY_TEXT(0.83f, 0.19f, "GL_M42");
+                        DISPLAY_TEXT(0.83f, 0.19f, "GS1_GREET1_02");
                     else
-                        DISPLAY_TEXT(0.83f, 0.19f, "GL_M43");
+                        DISPLAY_TEXT(0.83f, 0.19f, "GS1_GREET1_03");
 
                     //Weapon Bars
                     DrawBars(weaponStat[weapID], 0.24f);
@@ -944,8 +944,8 @@ namespace ImprovedGunStores
                     if (!bComparing)
                     {
                         USE_PREVIOUS_FONT_SETTINGS();
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_H1", weaponStat[weapID].Message);
-                        DISPLAY_TEXT(0.725f, 0.55f, "GLOCK_H1");
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET1_05", weaponStat[weapID].Message);
+                        DISPLAY_TEXT(0.725f, 0.55f, "GS1_GREET1_05");
                     }
                     //Comparing weapons
                     else
@@ -956,8 +956,8 @@ namespace ImprovedGunStores
                         SET_TEXT_CENTRE(true);
 
                         //Weapon Names
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_AK472", weaponData[weapInSlot].Name);
-                        DISPLAY_TEXT(0.85f, 0.57f, "GL_AK472");
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET2_01", weaponData[weapInSlot].Name);
+                        DISPLAY_TEXT(0.85f, 0.57f, "GS1_GREET2_01");
 
                         //Weapon Stats Text
                         SET_TEXT_SCALE(0.3f, 0.3f);
@@ -966,30 +966,30 @@ namespace ImprovedGunStores
                         SET_TEXT_WRAP(0.725f, 0.975f);
                         SET_TEXT_DROPSHADOW(false, 0, 0, 0, 0);
 
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL3", weaponStat[weapInSlot].StatTextA);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MOLOTOV2", weaponStat[weapInSlot].StatTextB);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MOLOTOV3", weaponStat[weapInSlot].StatTextC);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MOLOTOV4", weaponStat[weapInSlot].StatTextD);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MP52", weaponStat[weapInSlot].StatTextE);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MP53", weaponStat[weapInSlot].StatTextF);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_MP54", weaponStat[weapInSlot].StatTextG);
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GL_RKL2", weaponStat[weapInSlot].StatTextH);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET2_02", weaponStat[weapInSlot].StatTextA);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_GREET2_03", weaponStat[weapInSlot].StatTextB);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY1_01", weaponStat[weapInSlot].StatTextC);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY1_02", weaponStat[weapInSlot].StatTextD);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY1_03", weaponStat[weapInSlot].StatTextE);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY1_04", weaponStat[weapInSlot].StatTextF);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY1_05", weaponStat[weapInSlot].StatTextG);
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY2_01", weaponStat[weapInSlot].StatTextH);
 
-                        DISPLAY_TEXT(0.725f, 0.64f, "GL_RKL3");
+                        DISPLAY_TEXT(0.725f, 0.64f, "GS1_GREET2_02");
                         USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT(0.725f, 0.68f, "GL_MOLOTOV2");
+                        DISPLAY_TEXT(0.725f, 0.68f, "GS1_GREET2_03");
                         USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT(0.725f, 0.72f, "GL_MOLOTOV3");
+                        DISPLAY_TEXT(0.725f, 0.72f, "GS1_MONKEY1_01");
                         USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT(0.725f, 0.76f, "GL_MOLOTOV4");
+                        DISPLAY_TEXT(0.725f, 0.76f, "GS1_MONKEY1_02");
                         USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT(0.725f, 0.80f, "GL_MP52");
+                        DISPLAY_TEXT(0.725f, 0.80f, "GS1_MONKEY1_03");
                         USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT(0.725f, 0.84f, "GL_MP53");
+                        DISPLAY_TEXT(0.725f, 0.84f, "GS1_MONKEY1_04");
                         USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT(0.725f, 0.88f, "GL_MP54");
+                        DISPLAY_TEXT(0.725f, 0.88f, "GS1_MONKEY1_05");
                         USE_PREVIOUS_FONT_SETTINGS();
-                        DISPLAY_TEXT(0.725f, 0.92f, "GL_RKL2");
+                        DISPLAY_TEXT(0.725f, 0.92f, "GS1_MONKEY2_01");
 
                         //Weapon Slots & Numerical Info
                         DisplayNumericalStats(weaponStat[weapInSlot], 0.64f);
@@ -1041,11 +1041,11 @@ namespace ImprovedGunStores
         {
             GET_MAX_AMMO_IN_CLIP(Main.PlayerHandle, weapID, out int wClipAmmo);
             if (wClipAmmo > 0)
-                IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
+                IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY2_02", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
             else
-                IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You already own a " + weaponData[weapID].Name + ".");
+                IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY2_02", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You already own a " + weaponData[weapID].Name + ".");
 
-            PRINT_HELP("AMMO_FULL");
+            PRINT_HELP("GS1_MONKEY2_02");
             GET_GAME_TIMER(out fTimer);
             bFailMsg = true;
         }
@@ -1127,8 +1127,8 @@ namespace ImprovedGunStores
                 }
                 else
                 {
-                    IVText.TheIVText.ReplaceTextOfTextLabel("GUN_FAIL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~r~You don't have enough cash for that weapon.");
-                    PRINT_HELP("GUN_FAIL");
+                    IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_01", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~s~Press ~INPUT_PICKUP~ to examine. ~n~~r~You don't have enough cash for that weapon.");
+                    PRINT_HELP("GS1_ASST1_01");
                     GET_GAME_TIMER(out fTimer);
                     bFailMsg = true;
                 }
@@ -1491,15 +1491,15 @@ namespace ImprovedGunStores
             {
                 case 0:
                     if (!wAttachments[weapID][0].Owned)
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment $" + wAttachments[weapID][0].Price.ToString());
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Grenade Launcher attachment $" + wAttachments[weapID][0].Price.ToString());
                     else
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~g~$" + wAttachments[weapID][0].AmmoPrice.ToString() + "~n~~s~Currently have ~g~" + wAttachments[weapID][0].Ammo.ToString() + "x ~s~ammo.");
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~g~$" + wAttachments[weapID][0].AmmoPrice.ToString() + "~n~~s~Currently have ~g~" + wAttachments[weapID][0].Ammo.ToString() + "x ~s~ammo.");
                     break;
                 case 1:
                     if (!wAttachments[weapID][1].Owned)
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + wAttachments[weapID][1].Price.ToString());
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy. ~n~~g~Scope attachment $" + wAttachments[weapID][1].Price.ToString());
                     else
-                        IVText.TheIVText.ReplaceTextOfTextLabel("GLOCK_B1", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Already own ~n~~g~Scope attachment for this weapon.");
+                        IVText.TheIVText.ReplaceTextOfTextLabel("GS1_ASST1_02", "~s~Use ~PAD_LEFT~ and ~PAD_RIGHT~ to browse attachments. ~n~~s~Press ~INPUT_PICKUP~ to cancel. ~n~~s~Already own ~n~~g~Scope attachment for this weapon.");
 
                     break;
             }
@@ -1549,8 +1549,8 @@ namespace ImprovedGunStores
             }
             else if (currAttachmt == 0 && wAttachments[weapID][currAttachmt].Ammo >= wAttachments[weapID][currAttachmt].MaxAmmo)
             {
-                IVText.TheIVText.ReplaceTextOfTextLabel("AMMO_FULL", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
-                PRINT_HELP("AMMO_FULL");
+                IVText.TheIVText.ReplaceTextOfTextLabel("GS1_MONKEY2_02", "~s~Press ~INPUT_FRONTEND_ACCEPT~ to buy ammo. ~n~~r~You can't carry more of that type of ammo.");
+                PRINT_HELP("GS1_MONKEY2_02");
                 GET_GAME_TIMER(out fTimer);
                 bFailMsg = true;
             }
