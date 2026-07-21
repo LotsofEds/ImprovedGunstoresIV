@@ -1615,7 +1615,7 @@ namespace ImprovedGunStores
         }
         private void LoadSpecificWeaponData(SettingsFile settings, int weapon)
         {
-            if (settings.DoesSectionExists(weapon.ToString()))
+            if (Settings.DoesSectionExists(weapon.ToString()))
             {
                 Vector3 pos;
                 Vector3 rot;
